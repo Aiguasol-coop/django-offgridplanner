@@ -1,4 +1,5 @@
 import io
+import json
 import os
 
 # from jsonview.decorators import json_view
@@ -9,15 +10,18 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 from offgridplanner.optimization.models import Nodes
 from offgridplanner.projects.helpers import load_project_from_dict
 from offgridplanner.projects.helpers import prepare_data_for_export
+from offgridplanner.projects.models import MapTestSite
 from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
 from offgridplanner.steps.models import CustomDemand
@@ -35,33 +39,17 @@ def home(request):
 
 @login_required
 @require_http_methods(["GET"])
-def projects_list(request, proj_id=None):
+def projects_list(request, status="analyzing"):
     projects = (
-        Project.objects.filter(Q(user=request.user))
+        Project.objects.filter(Q(user=request.user, status=status))
         .distinct()
         .order_by("date_created")
+        .select_related("simulation")
         .reverse()
     )
-    for project in projects:
-        # TODO this should not be useful
-        # project.created_at = project.created_at.date()
-        # project.updated_at = project.updated_at.date()
-        status = "pending" if bool(os.environ.get("DOCKERIZED")) else "success"
-        if status in ["success", "failure", "revoked"]:
-            # TODO this is not useful
-            # user.task_id = ''
-            # user.project_id = None
-            if status == "success":
-                # TODO Here I am not sure we should use the status of the project rather the one of the simulation
-                project.status = "finished"
-            else:
-                project.status = status
-            project.save()
-            # TODO this is not useful
-            # user.task_id = ''
-            # user.project_id = None
-
-    return render(request, "pages/user_projects.html", {"projects": projects})
+    return render(
+        request, "pages/user_projects.html", {"projects": projects, "status": status}
+    )
 
 
 @require_http_methods(["GET", "POST"])
@@ -139,6 +127,17 @@ def export_project_results(request, proj_id):
     return response
 
 
+@require_http_methods(["POST"])
+def update_project_status(request):
+    data = json.loads(request.body)
+    project_id = int(data.get("proj_id"))
+    new_status = data.get("status")
+    project = Project.objects.get(id=project_id)
+    project.status = new_status
+    project.save()
+    return JsonResponse({"success": True})
+
+
 def export_project_report(proj_id):
     pass
 
@@ -182,3 +181,57 @@ def get_project_data(project):
         )
     proj_data = {key: qs.get() for key, qs in model_qs.items()}
     return proj_data
+
+
+def potential_map(request):
+    return render(request, "pages/map.html")
+
+
+
+def filter_locations(request):
+    """
+    Filter the locations based on the given filters and return both the table html and the geoJSON to populate the map
+    """
+    reset = request.POST.get("reset")
+    data = {}
+    if reset:
+        sites = MapTestSite.objects.all()
+    else:
+        site_filter = {}
+        for param, dtype in zip(
+            ["min_building_count", "diameter_max", "min_grid_dist"],
+            [int, int, float],
+            strict=False,
+        ):
+            val = request.POST.get(param) if request.POST.get(param) != "" else 0
+            site_filter[param] = dtype(val)
+
+        sites = MapTestSite.objects.filter(
+            building_count__gte=site_filter["min_building_count"],
+            diameter_max__lte=site_filter["diameter_max"],
+            grid_dist__gte=site_filter["min_grid_dist"],
+        )
+
+    # generate table HTML
+    context = {"sites": sites}
+    data["table"] = render_to_string("widgets/table_template.html", context, request)
+
+    # generate geoJSON for map
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [site.longitude, site.latitude],
+            },
+            "properties": {
+                "name": site.id,
+                "building_count": site.building_count,
+                "grid_dist": site.grid_dist,
+            },
+        }
+        for site in sites
+    ]
+    data["geojson"] = features
+
+    return JsonResponse(data)

@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.forms.models import model_to_dict
+from django.utils.translation import gettext_lazy as _
 
 
 def default_start_date():
@@ -23,6 +24,11 @@ class Options(models.Model):
 
 
 class Project(models.Model):
+    STATUS_CHOICES = [
+        ("monitoring", _("Monitoring")),
+        ("analyzing", _("Analyzing")),
+    ]
+
     name = models.CharField(max_length=51, blank=True, default="")
     description = models.CharField(max_length=201, blank=True, default="")
     date_created = models.DateTimeField(auto_now_add=True)
@@ -46,6 +52,9 @@ class Project(models.Model):
         on_delete=models.SET_NULL,
         null=True,
     )
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default="analyzing"
+    )
 
     def __str__(self):
         return f"Project {self.id}: {self.name}"
@@ -65,3 +74,24 @@ class Project(models.Model):
         # add nodes
         # add customdemand
         return dm
+
+
+class MapTestSite(models.Model):
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    building_count = models.PositiveSmallIntegerField()
+    grid_dist = models.FloatField()
+    diameter_max = models.FloatField()
+    distance_from_road = models.FloatField()
+    lcoe = models.FloatField()
+    capex = models.FloatField()
+    res = models.FloatField()
+    co2_savings = models.FloatField()
+    consumption_total = models.FloatField()
+
+
+    class Meta:
+        unique_together = ("latitude", "longitude")
+
+    def __str__(self):
+        return f"TestSite {self.id}"
