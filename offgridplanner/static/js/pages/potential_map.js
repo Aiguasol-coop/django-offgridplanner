@@ -10,24 +10,21 @@ const markers = L.markerClusterGroup();
 document.addEventListener('DOMContentLoaded', () => {
   const filterForm = document.getElementById("filter-form");
   const startExplorationBtn = document.getElementById("exploration-btn");
-  let shouldStop = false;
+  const stopBtn = document.getElementById('stop-btn');
+
+  markersLayer = L.markerClusterGroup().addTo(map); // Reusable marker layer
 
     document.getElementById('stop-btn').addEventListener('click', () => {
         const response = fetch(stopExplorationUrl);
         shouldStop = true;
     });
 
-  let markersLayer = L.markerClusterGroup().addTo(map); // Reusable marker layer
-
-  // Filter button click
   startExplorationBtn.addEventListener("click", async (event) => {
     event.preventDefault();
     const formData = new FormData(filterForm);
     await sendRequest(formData);
+    startExplorationBtn.disabled = true;
   });
-
-  // Trigger the filter on first load
-//  loadExplorationSitesBtn.click();
 });
 
 async function sendRequest(body) {
@@ -44,10 +41,11 @@ async function sendRequest(body) {
   const data = await response.json();
   startExplorationBtn.disabled = true;
 
-  if (data.status === "DONE") {
-    updateResults(data);
+  if (data.status === "FINISHED") {
+    updateResults(data.table, data.geojson);
   } else if (data.status === "RUNNING") {
     $("#loading_spinner").show();
+    await new Promise(resolve => setTimeout(resolve, 10000)); // wait 10s
     pollExplorationResults();
   }
 }
@@ -64,35 +62,38 @@ async function pollExplorationResults() {
     }
 
     const data = await response.json();
-    updateResults(data);
+    updateResults(data.table, data.geojson);
 
-    if (data.status === "DONE") {
+    if (data.status === "FINISHED" || data.status === "STOPPED") {
       $("#loading_spinner").hide();
       break;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 5000)); // wait 5s
+    await new Promise(resolve => setTimeout(resolve, 10000)); // wait 10s
   }
   $("#loading_spinner").hide();
 }
 
-function updateResults(data) {
-  // Update table
-  document.querySelector('#sites-table').innerHTML = data.table;
-  // Update map
-  markersLayer.clearLayers();
-  data.geojson.forEach(feature => {
-    const [lng, lat] = feature.geometry.coordinates;
-    const props = feature.properties;
-    const content = `
-      <h3>ID: ${props.id}</h3>
-      <p>Building count: ${props.building_count}</p>
-      <p>Grid distance: ${props.grid_dist}</p>
-      <a href="${projectSetupUrl}">Create project from site</a>`;
-    const marker = L.marker([lat, lng]).bindPopup(content);
-    markersLayer.addLayer(marker);
-  });
-}
+function updateResults(table_data, map_data) {
+  if (table_data !== undefined) {
+      // Update table
+      document.querySelector('#sites-table').innerHTML = table_data;
+      }
+  if (map_data !== undefined) {
+      // Update map
+      potentialSitesLayer.clearLayers();
+      map_data.forEach(feature => {
+        const [lng, lat] = feature.centroid.coordinates;
+        const content = `
+          <h3>ID: ${feature.id}</h3>
+//          <p>Building count: ${feature.pv_capacity}</p>
+//          <p>Grid distance: ${feature.status}</p>
+        `;
+        const marker = L.marker([lat, lng], { icon: newMarker }).bindPopup(content);
+        potentialSitesLayer.addLayer(marker);
+    });
+    }
+  }
 
 //const legend = L.control({ position: 'bottomright' });
 

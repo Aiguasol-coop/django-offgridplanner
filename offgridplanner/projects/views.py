@@ -200,26 +200,15 @@ def start_exploration(request):
     """
     Filter the locations based on the given filters and return both the table html and the geoJSON to populate the map
     """
-
     data = {}
     site_exploration = request.user.siteexploration
     form = SiteExplorationForm(request.POST, instance=site_exploration)
     if form.is_valid():
-        # If the exploration parameters are still the same, load the latest results instead of re-starting
-        if (
-            not form.has_changed()
-            and site_exploration.latest_exploration_results is not None
-        ):
-            sites = request.user.siteexploration.latest_exploration_results
-            data["status"] = "DONE"
-            data["geojson"], data["table"] = format_exploration_sites_data(sites)
-        # If the exploration parameters have changed, send a new request to the API
-        else:
-            exploration_id = start_site_exploration(json.dumps(form.cleaned_data))
-            print(f"Exploration ID: {exploration_id}")
-            site_exploration.exploration_id = exploration_id
-            site_exploration.save()
-            data["status"] = "RUNNING"
+        exploration_id = start_site_exploration(json.dumps(form.cleaned_data))
+        print(f"Exploration ID: {exploration_id}")
+        site_exploration.exploration_id = exploration_id
+        site_exploration.save()
+        data["status"] = "RUNNING"
 
     return JsonResponse(data)
 
@@ -228,7 +217,8 @@ def stop_exploration(request):
     site_exploration = request.user.siteexploration
     exploration_id = site_exploration.exploration_id
     res = stop_site_exploration(exploration_id)
-
+    site_exploration.exploration_id = None
+    site_exploration.save()
     return JsonResponse(res)
 
 
@@ -241,7 +231,8 @@ def load_exploration_sites(request):
     site_exploration.save()
     status = res["status"]
     data = {"status": status}
-    sites = res["minigrids"]
-    data["geojson"], data["table"] = format_exploration_sites_data(sites)
+    if res["minigrids"]:
+        sites = res["minigrids"]
+        data["geojson"], data["table"] = format_exploration_sites_data(sites)
 
     return JsonResponse(data)

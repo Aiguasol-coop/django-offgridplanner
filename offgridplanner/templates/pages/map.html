@@ -82,6 +82,9 @@
   const stopExplorationUrl = `{% url 'projects:stop_exploration' %}`;
   const loadExplorationSitesUrl = `{% url 'projects:load_exploration_sites' %}`;
   const csrfToken = `{{ csrf_token }}`;
+  const table_data = {{ table_data | default:"undefined" | safe }};
+  const map_data = {{ map_data | default:"undefined" | safe }};
+  const existing_mgs = {{ existing_mgs | safe }};
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
