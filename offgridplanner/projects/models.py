@@ -7,6 +7,8 @@ from django.db import models
 from django.forms.models import model_to_dict
 from django.utils.translation import gettext_lazy as _
 
+from offgridplanner.users.models import User
+
 
 def default_start_date():
     current_year = datetime.datetime.now(tz=datetime.UTC).year
@@ -76,22 +78,22 @@ class Project(models.Model):
         return dm
 
 
-class MapTestSite(models.Model):
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    building_count = models.PositiveSmallIntegerField()
-    grid_dist = models.FloatField()
-    diameter_max = models.FloatField()
-    distance_from_road = models.FloatField()
-    lcoe = models.FloatField()
-    capex = models.FloatField()
-    res = models.FloatField()
-    co2_savings = models.FloatField()
-    consumption_total = models.FloatField()
-
-
-    class Meta:
-        unique_together = ("latitude", "longitude")
+class SiteExploration(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    exploration_id = models.TextField(null=True)
+    consumer_count_min = models.PositiveSmallIntegerField(
+        default=100, validators=[MinValueValidator(31), MaxValueValidator(500)]
+    )
+    diameter_max = models.FloatField(
+        default=500, validators=[MinValueValidator(0.1), MaxValueValidator(10000)]
+    )
+    distance_from_grid_min = models.FloatField(
+        default=60000, validators=[MinValueValidator(20000), MaxValueValidator(120000)]
+    )
+    match_distance_max = models.FloatField(
+        default=5000, validators=[MinValueValidator(100), MaxValueValidator(20000)]
+    )
+    latest_exploration_results = models.JSONField(null=True)
 
     def __str__(self):
-        return f"TestSite {self.id}"
+        return f"{self.exploration_id}"
