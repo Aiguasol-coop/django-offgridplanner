@@ -141,8 +141,6 @@ let drawControl = new L.Control.Draw({
     }
 });
 
-map.addControl(drawControl);
-
 const CustomMarkerControl = L.Control.extend({
     options: {
         position: 'topleft'
@@ -182,8 +180,69 @@ const CustomMarkerControl = L.Control.extend({
     }
 });
 
-map.addControl(new CustomMarkerControl());
+// Add button for pole editing mode
+let isPoleEditMode = false;
+let hasUnsavedPoleMoves = false;
 
+const PoleEditControl = L.Control.extend({
+  options: { position: 'topleft' },
+  onAdd: function () {
+    const container = L.DomUtil.create('div', 'leaflet-bar');
+    const btn = L.DomUtil.create('a', '', container);
+    btn.href = '#';
+    btn.title = 'Toggle Pole Edit Mode';
+    btn.innerHTML = '🪜';
+
+    L.DomEvent.on(btn, 'click', (e) => {
+      L.DomEvent.stop(e);
+      togglePoleEditMode();
+    });
+    return container;
+  }
+});
+
+function togglePoleEditMode(saveOnExit = true) {
+  isPoleEditMode = !isPoleEditMode;
+  console.log("Entering pole editing mode")
+
+  poleMarkersById.forEach((marker, id) => {
+    marker.dragging && marker.dragging.disable();
+    marker.off('dragstart');
+    marker.off('dragend');
+
+    if (isPoleEditMode) {
+      marker.dragging.enable();
+      marker.setOpacity(0.9);
+
+      marker.on('dragstart', () => {
+        console.log("starting to drag")
+        if (marker._icon) {
+            marker._icon.classList.add('pole-dragging'); // add a CSS class
+            marker._icon.style.cursor = 'grabbing';
+        }
+          marker.setZIndexOffset(10000);
+        });
+
+        marker.on('dragend', () => {
+          console.log("queened out");
+          hasUnsavedPoleMoves = true;
+
+          if (marker._icon) {
+            marker._icon.classList.remove('pole-dragging');
+            marker._icon.style.cursor = 'grab';
+          }
+          marker.setZIndexOffset(0);
+          marker.setIcon(markerPoleHighlight)
+              });
+            } else {
+              marker.setOpacity(1);
+            }
+          });
+
+  if (!isPoleEditMode && saveOnExit && hasUnsavedPoleMoves) {
+    saveMovedPoles();
+  }
+}
 
 function add_single_consumer_to_array(latitude, longitude, how_added, node_type) {
     let consumer_type = 'household';
@@ -263,7 +322,6 @@ function customTrashBinAction() {
 }
 
 const trashbinControl = new L.Control.Trashbin();
-map.addControl(trashbinControl);
 
 
 const searchProvider = new GeoSearch.OpenStreetMapProvider();
@@ -274,7 +332,6 @@ const searchControl = new GeoSearch.GeoSearchControl({
     showMarker: false,
 });
 
-map.addControl(searchControl);
 
 const searchInput = document.getElementById('search-input');
 
@@ -344,9 +401,6 @@ var customControl = L.Control.extend({
         return container;
     }
 });
-
-// Add the control to the map
-map.addControl(new customControl());
 
 
 function unique_map_elements() {
