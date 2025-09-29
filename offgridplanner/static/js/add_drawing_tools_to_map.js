@@ -202,6 +202,11 @@ const PoleEditControl = L.Control.extend({
 
 function togglePoleEditMode(saveOnExit = true) {
   isPoleEditMode = !isPoleEditMode;
+  if (isPoleEditMode) {
+    console.log("Entering pole editing mode")
+  } else {
+    console.log("Exiting pole editing mode");
+  }
   // add/remove the dimming class on the map container
   map.getContainer().classList.toggle('pole-editing', isPoleEditMode);
 
@@ -211,7 +216,6 @@ function togglePoleEditMode(saveOnExit = true) {
     marker.off('dragend');
 
     if (isPoleEditMode) {
-      console.log("Entering pole edit mode");
       if (!marker.dragging) {
         marker.dragging = new L.Handler.MarkerDrag(marker);
       }
@@ -237,7 +241,6 @@ function togglePoleEditMode(saveOnExit = true) {
         }
       });
     } else {
-      console.log("Exiting pole editing mode");
       // exit mode
       marker.dragging && marker.dragging.disable();
       marker.setOpacity(1);

@@ -11,10 +11,12 @@ import numpy as np
 import pandas as pd
 from django.core.exceptions import PermissionDenied
 from django.forms import model_to_dict
+from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_POST
 
 from config.settings.base import DONE
 from config.settings.base import ERROR
@@ -201,6 +203,7 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
                     "custom_specification",
                     "is_connected",
                     "shs_options",
+                    "is_fixed",
                 ]
             ]
             power_house = df[df["node_type"] == "power-house"]
@@ -224,6 +227,9 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
                 {"is_load_center": is_load_center, "map_elements": nodes_list},
                 status=200,
             )
+        return JsonResponse({"msg": "No nodes data found"}, status=400)
+    else:
+        return JsonResponse({"msg": "Missing proj_id"}, status=400)
 
 
 @require_http_methods(["POST"])
@@ -273,6 +279,7 @@ def consumer_to_db(request, proj_id=None):
         df["shs_options"] = df["shs_options"].fillna(0)
         df["is_connected"] = True
         df["node_type"] = df["node_type"].astype(str)
+        df["is_fixed"] = False
 
         # Format latitude and longitude
         df["latitude"] = df["latitude"].map(lambda x: f"{x:.6f}")
@@ -300,8 +307,11 @@ def consumer_to_db(request, proj_id=None):
             response.headers["Content-Disposition"] = (
                 "attachment; filename=offgridplanner_consumers.csv"
             )
-
         return response
+    else:
+        # TODO add implementation when proj_id is not given
+        msg = "Missing project ID"
+        raise ValueError(msg)
 
 
 @require_http_methods(["POST"])
@@ -624,3 +634,28 @@ def abort_calculation(request, proj_id):
     simulation.save()
     response = {"msg": "Calculation aborted"}
     return JsonResponse(response)
+
+
+@require_POST
+def update_pole_positions(request, proj_id):
+    try:
+        data = json.loads(request.body)
+        if not isinstance(data, list):
+            return HttpResponseBadRequest("Payload must be a list.")
+        nodes = Nodes.objects.get(project__id=proj_id)
+        nodes_df = nodes.df
+        for pole in data:
+            pid = pole.get("id")
+            lat = pole.get("latitude")
+            lng = pole.get("longitude")
+            nodes_df.loc[pid, "latitude"] = lat
+            nodes_df.loc[pid, "longitude"] = lng
+            # Add is_fixed column if it doesn't yet exist in the nodes dataframe
+            if "is_fixed" not in nodes_df:
+                nodes_df["is_fixed"] = False
+            nodes_df.loc[pid, "is_fixed"] = True
+        nodes.data = pd.DataFrame(nodes_df).to_json(orient="records")
+        nodes.save()
+        return JsonResponse({"status": "Updated pole positions"})
+    except Exception as e:  # noqa: BLE001
+        return HttpResponseBadRequest(str(e))

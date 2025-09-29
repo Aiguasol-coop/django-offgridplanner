@@ -563,10 +563,12 @@
 {% block end_body_scripts %}
     <script>
       const proj_id = '{{ proj_id }}';
+      const csrfToken = '{{ csrf_token }}';
       const dbNodesToJsUrl = `{% url 'optimization:db_nodes_to_js' proj_id %}`;
       const dbLinksToJsUrl = `{% url 'optimization:db_links_to_js' proj_id %}`;
       const loadPlotDataUrl = `{% url 'optimization:load_plot_data' proj_id %}`;
       const downloadResultsUrl = `{% url 'projects:export_project_results' proj_id %}`;
+      const updatePolePositionsUrl = `{% url 'optimization:update_pole_positions' proj_id %}`;
     </script>
   <script src="{% static 'js/integrate_map.js' %}"></script>
   <script src="{% static 'js/add_drawing_tools_to_map.js' %}"></script>
