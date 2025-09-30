@@ -216,7 +216,7 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
                 else:
                     df = df[df["node_type"] == "consumer"]
             df = df.fillna("null")
-            nodes_list = df.to_dict("records")
+            nodes_list = df.reset_index().to_dict("records")
             is_load_center = True
             if (
                 len(power_house.index) > 0
