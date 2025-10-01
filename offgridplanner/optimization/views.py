@@ -197,20 +197,6 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
         nodes = get_object_or_404(Nodes, project=project)
         df = nodes.df if nodes is not None else pd.DataFrame()
         if not df.empty:
-            df = df[
-                [
-                    "latitude",
-                    "longitude",
-                    "how_added",
-                    "node_type",
-                    "consumer_type",
-                    "consumer_detail",
-                    "custom_specification",
-                    "is_connected",
-                    "shs_options",
-                    "is_fixed",
-                ]
-            ]
             power_house = df[df["node_type"] == "power-house"]
             if markers_only is True:
                 if (
