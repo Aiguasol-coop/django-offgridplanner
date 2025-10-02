@@ -11,10 +11,13 @@ import numpy as np
 import pandas as pd
 from django.core.exceptions import PermissionDenied
 from django.forms import model_to_dict
+from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_POST
+from pyproj import Transformer
 
 from config.settings.base import DONE
 from config.settings.base import ERROR
@@ -28,7 +31,9 @@ from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.helpers import validate_file_extension
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
+from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.models import Simulation
+from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import PreProcessor
 from offgridplanner.optimization.requests import optimization_check_status
 from offgridplanner.optimization.requests import optimization_server_request
@@ -36,6 +41,8 @@ from offgridplanner.optimization.supply.demand_estimation import LOAD_PROFILES
 from offgridplanner.optimization.supply.demand_estimation import get_demand_timeseries
 from offgridplanner.optimization.tasks import revoke_task
 from offgridplanner.projects.helpers import df_to_file
+from offgridplanner.projects.helpers import format_results_into_kpi_dict
+from offgridplanner.projects.helpers import sanitize_output_kpis
 from offgridplanner.projects.models import Project
 from offgridplanner.steps.models import CustomDemand
 
@@ -190,19 +197,6 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
         nodes = get_object_or_404(Nodes, project=project)
         df = nodes.df if nodes is not None else pd.DataFrame()
         if not df.empty:
-            df = df[
-                [
-                    "latitude",
-                    "longitude",
-                    "how_added",
-                    "node_type",
-                    "consumer_type",
-                    "consumer_detail",
-                    "custom_specification",
-                    "is_connected",
-                    "shs_options",
-                ]
-            ]
             power_house = df[df["node_type"] == "power-house"]
             if markers_only is True:
                 if (
@@ -213,7 +207,7 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
                 else:
                     df = df[df["node_type"] == "consumer"]
             df = df.fillna("null")
-            nodes_list = df.to_dict("records")
+            nodes_list = df.reset_index().to_dict("records")
             is_load_center = True
             if (
                 len(power_house.index) > 0
@@ -224,6 +218,9 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
                 {"is_load_center": is_load_center, "map_elements": nodes_list},
                 status=200,
             )
+        return JsonResponse({"msg": "No nodes data found"}, status=400)
+    else:
+        return JsonResponse({"msg": "Missing proj_id"}, status=400)
 
 
 @require_http_methods(["POST"])
@@ -273,6 +270,7 @@ def consumer_to_db(request, proj_id=None):
         df["shs_options"] = df["shs_options"].fillna(0)
         df["is_connected"] = True
         df["node_type"] = df["node_type"].astype(str)
+        df["is_fixed"] = False
 
         # Format latitude and longitude
         df["latitude"] = df["latitude"].map(lambda x: f"{x:.6f}")
@@ -300,8 +298,11 @@ def consumer_to_db(request, proj_id=None):
             response.headers["Content-Disposition"] = (
                 "attachment; filename=offgridplanner_consumers.csv"
             )
-
         return response
+    else:
+        # TODO add implementation when proj_id is not given
+        msg = "Missing project ID"
+        raise ValueError(msg)
 
 
 @require_http_methods(["POST"])
@@ -624,3 +625,80 @@ def abort_calculation(request, proj_id):
     simulation.save()
     response = {"msg": "Calculation aborted"}
     return JsonResponse(response)
+
+
+@require_POST
+def update_pole_positions(request, proj_id):
+    try:
+        data = json.loads(request.body)
+        if not isinstance(data, list):
+            return HttpResponseBadRequest("Payload must be a list.")
+        nodes = Nodes.objects.get(project__id=proj_id)
+        nodes_df = nodes.df
+        links = Links.objects.get(project__id=proj_id)
+        links_df = links.df
+        for pole in data:
+            # Change the coordinates in the nodes data
+            pid = pole.get("id")
+            lat = pole.get("latitude")
+            lng = pole.get("longitude")
+            nodes_df.loc[pid, "latitude"] = lat
+            nodes_df.loc[pid, "longitude"] = lng
+            # Add is_fixed column if it doesn't yet exist in the nodes dataframe
+            if "is_fixed" not in nodes_df:
+                nodes_df["is_fixed"] = False
+            nodes_df.loc[pid, "is_fixed"] = True
+            # Change the coordinates in the links data
+            links_from_pole_ix = links_df[links_df["from_node"] == pid].index
+            links_df.loc[links_from_pole_ix, "lat_from"] = lat
+            links_df.loc[links_from_pole_ix, "lon_from"] = lng
+
+            links_to_pole_ix = links_df[links_df["to_node"] == pid].index
+            links_df.loc[links_to_pole_ix, "lat_to"] = lat
+            links_df.loc[links_to_pole_ix, "lon_to"] = lng
+
+            # TODO currently simply moving the poles bypasses any constraints, alternatively re-run the pole/link optimization always
+            # Convert the coordinates back to x and y to re-calculate link length
+            transformer = Transformer.from_crs(
+                "EPSG:4326", "EPSG:32632", always_xy=True
+            )
+            x_from, y_from = transformer.transform(
+                links_df["lon_from"].values, links_df["lat_from"].values
+            )
+            x_to, y_to = transformer.transform(
+                links_df["lon_to"].values, links_df["lat_to"].values
+            )
+
+            # Recompute cable length based on the new coordinates
+            links_df["length"] = np.sqrt((x_to - x_from) ** 2 + (y_to - y_from) ** 2)
+
+        nodes.input_df_to_data_field(nodes_df)
+        nodes.save()
+        links.input_df_to_data_field(links_df)
+        links.save()
+
+        # Update KPIs in database
+        grid_dict = {
+            "nodes": nodes.df.reset_index(names=["label"]).to_dict(orient="list"),
+            "links": links.df.reset_index(names=["label"]).to_dict(orient="list"),
+        }
+        grid_processor = GridProcessor(grid_dict, proj_id)
+        grid_processor.grid_results_to_db()
+
+        res_qs = Results.objects.filter(simulation__project__id=proj_id)
+
+        if res_qs.exists():
+            res = res_qs.get()
+        else:
+            return JsonResponse(
+                {"status": "An error occurred fetching the updated results"}, status=400
+            )
+
+        # Update shared KPIs (like total costs, LCOE share etc.)
+        res.process_shared_results()
+        res.save()
+        # Return KPIs to replace in results page
+        output_kpis = sanitize_output_kpis(format_results_into_kpi_dict(res))
+        return JsonResponse({"status": "Updated pole positions", "kpis": output_kpis})
+    except Exception as e:  # noqa: BLE001
+        return HttpResponseBadRequest(str(e))
