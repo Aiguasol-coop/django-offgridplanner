@@ -95,10 +95,10 @@ var image = [
     "/static/icons/i_enterprise.svg",
     "/static/icons/i_public_service.svg",
     "/static/icons/i_pole.svg",
-    "/static/icons/i_pole_highlight.svg",
     "/static/assets/icons/i_shs.svg",
     "/static/assets/icons/i_distribution.svg",
     "/static/assets/icons/i_connection.svg",
+    "/static/icons/i_pole_highlight.svg",
 ];
 
 const drawnItems = new L.FeatureGroup();
