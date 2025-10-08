@@ -257,6 +257,26 @@ def fetch_potential_minigrid_data(exploration_id, potential_minigrid_id):
         return response.json()
 
 
+def fetch_buildings_data(bbox):
+    """
+    Fetch the buildings data for a selected bbox
+    """
+    request_url = MG_EXPLORER_API_HOST + "/features/buildings"
+
+    try:
+        response = httpx.get(
+            request_url, params={"bbox": ",".join(map(str, bbox))}, timeout=5
+        )
+        response.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.exception("HTTP error occurred")
+        msg = "An error occurred during the building data fetching."
+        raise RuntimeError(msg) from e
+    else:
+        logger.info("Obtained building data.")
+        return response.json()
+
+
 def fetch_grid_network():
     """
     Fetch the grid network for display on the map.

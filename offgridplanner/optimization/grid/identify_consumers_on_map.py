@@ -16,8 +16,10 @@ import urllib.request
 import numpy as np
 from shapely import geometry
 
+from offgridplanner.optimization.requests import fetch_buildings_data
 
-def get_consumer_within_boundaries(df):
+
+def get_consumer_within_boundaries(df, engine="overpass"):
     # min and max of latitudes and longitudes are sent to the overpass to get
     # a large rectangle including (maybe) more buildings than selected
     min_latitude, min_longitude, max_latitude, max_longitude = (
@@ -26,23 +28,32 @@ def get_consumer_within_boundaries(df):
         df["latitude"].max(),
         df["longitude"].max(),
     )
-    url = (
-        f"https://www.overpass-api.de/api/interpreter?data=[out:json][timeout:2500]"
-        f"[bbox:{min_latitude},{min_longitude},{max_latitude},{max_longitude}];"
-        f'way["building"="yes"];(._;>;);out;'
-    )
-    url_formatted = url.replace(" ", "+")
 
-    if not url_formatted.startswith(("http:", "https:")):
-        error = "URL must start with 'http:' or 'https:'"
-        raise ValueError(error)
+    if engine == "overpass":
+        url = (
+            f"https://www.overpass-api.de/api/interpreter?data=[out:json][timeout:2500]"
+            f"[bbox:{min_latitude},{min_longitude},{max_latitude},{max_longitude}];"
+            f'way["building"="yes"];(._;>;);out;'
+        )
+        url_formatted = url.replace(" ", "+")
 
-    with urllib.request.urlopen(url_formatted) as url:  # noqa: S310 (fixed with ValueError call above)
-        res = url.read().decode()
-        if len(res) > 0:
-            data = json.loads(res)
-        else:
-            return None, None
+        if not url_formatted.startswith(("http:", "https:")):
+            error = "URL must start with 'http:' or 'https:'"
+            raise ValueError(error)
+
+        with urllib.request.urlopen(url_formatted) as url:  # noqa: S310 (fixed with ValueError call above)
+            res = url.read().decode()
+            if len(res) > 0:
+                data = json.loads(res)
+            else:
+                return None, None
+    elif engine == "minigrid-explorer":
+        bbox = [min_latitude, min_longitude, max_latitude, max_longitude]
+        res = fetch_buildings_data(bbox)
+        # TODO continue from here once API actually returns data
+    else:
+        msg = 'Engine must be one of "overpass", "minigrid-explorer"'
+        raise ValueError(msg)
     # first converting the json file, which is delivered by overpass to geojson,
     # then obtaining coordinates and surface areas of all buildings inside the
     # 'big' rectangle.
