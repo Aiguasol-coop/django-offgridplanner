@@ -1,6 +1,5 @@
 import os
 
-import pandas as pd
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
@@ -13,8 +12,8 @@ from django.views.decorators.http import require_http_methods
 
 from config.settings.base import DEFAULT_COUNTRY
 from config.settings.base import PENDING
-from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.helpers import get_country_bounds
+from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.models import Simulation
 from offgridplanner.optimization.supply.demand_estimation import ENTERPRISE_LIST
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_KW_MAPPING
@@ -175,11 +174,28 @@ def demand_estimation(request, proj_id=None):
             form = CustomDemandForm(instance=custom_demand)
             calibration_initial = custom_demand.calibration_option
             calibration_active = custom_demand.calibration_option is not None
+
+            # Pass the default values to be able to switch between settlement types
+            household_default_shares = custom_demand.get_shares_dict(
+                as_percentage=True, defaults=True
+            )
+
+            # Pass the initial values for the customDemand shares to be able to use the dynamic reset button
+            household_initial_shares = custom_demand.get_shares_dict(as_percentage=True)
             context = {
                 "calibration": {
                     "active": calibration_active,
                     "initial": calibration_initial,
                 },
+                "custom_demand_shares": [
+                    "very_low",
+                    "low",
+                    "middle",
+                    "high",
+                    "very_high",
+                ],
+                "household_default_shares": household_default_shares,
+                "household_initial_shares": household_initial_shares,
                 "form": form,
                 "proj_id": proj_id,
                 "step_id": step_id,
