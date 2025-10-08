@@ -102,7 +102,7 @@ def add_buildings_inside_boundary(request, proj_id):
             },
         )
     data, building_coordinates_within_boundaries = (
-        identify_consumers_on_map.get_consumer_within_boundaries(df)
+        identify_consumers_on_map.get_consumer_within_boundaries(df, engine="overpass")
     )
     if not building_coordinates_within_boundaries:
         return JsonResponse(
