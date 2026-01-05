@@ -1,7 +1,25 @@
-const map = L.map('map').setView([-18.784571809675114, 34.49966395], 5); // Centered on Europe
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 18,
-}).addTo(map);
+const map = L.map('map').setView([-18.7845718, 34.499664], 5);
+
+const osm = L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  { maxZoom: 18 }
+);
+
+const satellite = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  { attribution: 'Tiles © Esri' }
+);
+
+// Add default base layer
+osm.addTo(map);
+
+// Layer switcher
+L.control.layers(
+  {
+    "OpenStreetMap": osm,
+    "Satellite": satellite
+  }
+).addTo(map);
 
 // Make green clusters for Existing, blue clusters for Potential
 const existingSitesLayer = L.markerClusterGroup({
