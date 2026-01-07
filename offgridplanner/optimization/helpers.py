@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from rest_framework.generics import get_object_or_404
 
+from config.settings.base import DEFAULT_COUNTRY
 from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import SupplyProcessor
@@ -19,8 +20,6 @@ from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_LIST
 from offgridplanner.optimization.supply.demand_estimation import PUBLIC_SERVICE_LIST
 from offgridplanner.projects.helpers import df_to_file
 from offgridplanner.projects.models import Project
-
-from config.settings.base import DEFAULT_COUNTRY
 
 logger = logging.getLogger(__name__)
 
