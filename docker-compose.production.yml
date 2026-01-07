@@ -51,27 +51,27 @@ services:
 #      - '0.0.0.0:443:443'
 #      - '0.0.0.0:5555:5555'
 
-  redis:
-    image: docker.io/redis:6
-
-    volumes:
-      - production_redis_data:/data
-
-
-  celeryworker:
-    <<: *django
-    image: offgridplanner_production_celeryworker
-    command: /start-celeryworker
-
-  celerybeat:
-    <<: *django
-    image: offgridplanner_production_celerybeat
-    command: /start-celerybeat
-
-  flower:
-    <<: *django
-    image: offgridplanner_production_flower
-    command: /start-flower
+#  redis:
+#    image: docker.io/redis:6
+#
+#    volumes:
+#      - production_redis_data:/data
+#
+#
+#  celeryworker:
+#    <<: *django
+#    image: offgridplanner_production_celeryworker
+#    command: /start-celeryworker
+#
+#  celerybeat:
+#    <<: *django
+#    image: offgridplanner_production_celerybeat
+#    command: /start-celerybeat
+#
+#  flower:
+#    <<: *django
+#    image: offgridplanner_production_flower
+#    command: /start-flower
 
   nginx:
     build:

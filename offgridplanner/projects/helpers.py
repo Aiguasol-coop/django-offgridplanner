@@ -7,9 +7,8 @@ from pathlib import Path
 import pandas as pd
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.forms import model_to_dict
-from django.template.loader import render_to_string
-from django.forms import model_to_dict
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from offgridplanner.projects.models import Options
@@ -171,6 +170,7 @@ def from_nested_dict(model_cls, nested_data):
             params[field_name] = percentage_value
 
     return params
+
 
 def csv_to_dict(filepath, label_col="label"):
     """

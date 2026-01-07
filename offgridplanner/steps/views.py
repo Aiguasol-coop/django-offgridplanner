@@ -166,46 +166,49 @@ def demand_estimation(request, proj_id=None):
         custom_demand, _ = CustomDemand.objects.get_or_create(
             project=project, defaults=get_param_from_metadata("default", "CustomDemand")
         )
-        if request.method == "GET":
-            form = CustomDemandForm(instance=custom_demand)
-            calibration_initial = custom_demand.calibration_option
-            calibration_active = custom_demand.calibration_option is not None
+        calibration_initial = custom_demand.calibration_option
+        calibration_active = custom_demand.calibration_option is not None
+        # Pass the default values to be able to switch between settlement types
+        household_default_shares = custom_demand.get_shares_dict(
+            as_percentage=True, defaults=True
+        )
 
-            # Pass the default values to be able to switch between settlement types
-            household_default_shares = custom_demand.get_shares_dict(
-                as_percentage=True, defaults=True
-            )
-
-            # Pass the initial values for the customDemand shares to be able to use the dynamic reset button
-            household_initial_shares = custom_demand.get_shares_dict(as_percentage=True)
-            context = {
-                "calibration": {
-                    "active": calibration_active,
-                    "initial": calibration_initial,
-                },
-                "custom_demand_shares": [
-                    "very_low",
-                    "low",
-                    "middle",
-                    "high",
-                    "very_high",
-                ],
-                "household_default_shares": household_default_shares,
-                "household_initial_shares": household_initial_shares,
-                "form": form,
-                "proj_id": proj_id,
-                "step_id": step_id,
-                "step_list": STEP_LIST_RIBBON,
-            }
-
-            return render(request, "pages/demand_estimation.html", context)
+        # Pass the initial values for the customDemand shares to be able to use the dynamic reset button
+        household_initial_shares = custom_demand.get_shares_dict(as_percentage=True)
 
         if request.method == "POST":
             form = CustomDemandForm(request.POST, instance=custom_demand)
             if form.is_valid():
                 form.save()
+                return redirect("steps:ogp_steps", proj_id, step_id + 1)
+            else:
+                errors = form.non_field_errors()
+                display_error = errors[0] if len(errors) == 1 else errors
+                messages.add_message(request, messages.WARNING, display_error)
+        else:
+            form = CustomDemandForm(instance=custom_demand)
 
-            return redirect("steps:ogp_steps", proj_id, step_id + 1)
+        context = {
+            "calibration": {
+                "active": calibration_active,
+                "initial": calibration_initial,
+            },
+            "custom_demand_shares": [
+                "very_low",
+                "low",
+                "middle",
+                "high",
+                "very_high",
+            ],
+            "household_default_shares": household_default_shares,
+            "household_initial_shares": household_initial_shares,
+            "form": form,
+            "proj_id": proj_id,
+            "step_id": step_id,
+            "step_list": STEP_LIST_RIBBON,
+        }
+
+        return render(request, "pages/demand_estimation.html", context)
 
 
 @login_required

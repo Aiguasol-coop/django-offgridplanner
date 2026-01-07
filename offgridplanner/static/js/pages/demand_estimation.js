@@ -75,6 +75,7 @@ function resetInitialShares() {
   for (const [field, value] of Object.entries(previousValues)) {
         document.querySelector(`#id_${field}`).value = value;
       }
+  updateDemandCheck();
 }
 
 // Handle change of calibration values (total vs. peak)
@@ -546,3 +547,29 @@ async function export_demand(file_type) {
         console.error('Error details:', errorDetails);
     }
 }
+
+// update UI element to show users that they need to enter input of total 100%
+function updateDemandCheck() {
+    const inputs = document.querySelectorAll(".shares-container input[type='number']");
+    let sum = 0;
+    inputs.forEach(input => {
+        sum += parseFloat(input.value) || 0;
+    });
+    // fix floating point precision with 2 decimals precision
+    sum = Math.round(sum * 100) / 100;
+
+    const display = document.getElementById("demand-check");
+    display.innerText = sum.toFixed(2) + "%";
+
+    display.classList.remove("shares_correct", "shares_incorrect");
+
+    // Apply color
+    if (sum === 100) {
+        display.classList.add("shares_correct");
+    } else {
+        display.classList.add("shares_incorrect");
+    }
+}
+// household demand shares should be checked on first load and every input change
+document.addEventListener("DOMContentLoaded", updateDemandCheck);
+document.addEventListener("input", updateDemandCheck);

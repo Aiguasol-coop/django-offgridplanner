@@ -2371,6 +2371,10 @@ content: "6"; }
     min-width: 1000px;
 }
 
+.modal .modal-dialog {
+    max-width: none;
+}
+
 .modal.modal--gui .modal-body .container {
     padding: 0;
 }
@@ -2848,6 +2852,7 @@ td, th {
     letter-spacing: 0.03rem;
     font-weight: 700;
     padding: 0.25rem;
+    width: 100px;
 }
 
 * {
@@ -2898,7 +2903,7 @@ button:hover {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1050; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -2989,6 +2994,7 @@ td, th {
     letter-spacing: 0.03rem;
     font-weight: 700;
     padding: 0.25rem;
+    width: 100px;
 }
 
 * {
@@ -3039,7 +3045,7 @@ button:hover {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1050; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
