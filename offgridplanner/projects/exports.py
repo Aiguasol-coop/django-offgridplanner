@@ -326,7 +326,7 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
 
     title = Paragraph("Off-Grid System Planning Results", styles["Title"])
     subtitle = Paragraph(
-        "Energy System Optimization Carried Out with the Tool Offgridplanner (https://offgridplanner.org)",
+        "Energy System Optimization Carried Out with the Tool Offgridplanner Mozambique",
         subtitle_style,
     )
 
@@ -887,7 +887,7 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
         buffer, pagesize=A4, leftMargin=left_margin, rightMargin=right_margin
     )
     doc.title = "Offgridplanner"
-    doc.author = "PeopleSuN"
+    doc.author = "FUNAE"
     doc.subject = f"{input_data.name}"
     doc.keywords = "off-grid, energy, planning"
 
