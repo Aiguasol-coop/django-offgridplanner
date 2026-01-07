@@ -202,7 +202,6 @@ def demand_estimation(request, proj_id=None):
             ],
             "household_default_shares": household_default_shares,
             "household_initial_shares": household_initial_shares,
-
             "form": form,
             "proj_id": proj_id,
             "step_id": step_id,

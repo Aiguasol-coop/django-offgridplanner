@@ -44,4 +44,9 @@ class OptionForm(ModelForm):
 class SiteExplorationForm(ModelForm):
     class Meta:
         model = SiteExploration
-        fields = ["consumer_count_min", "diameter_max", "distance_from_grid_min", "match_distance_max"]
+        fields = [
+            "consumer_count_min",
+            "diameter_max",
+            "distance_from_grid_min",
+            "match_distance_max",
+        ]
