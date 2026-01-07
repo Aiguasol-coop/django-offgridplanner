@@ -2,17 +2,10 @@
 
 ## [Unreleased]
 
-## [v1.0.1] – 2026-01-06
-### Added
-- Display version in footer
-- Add CHANGELOG
-
-## [v1.0.0] – 2026-01-06
+## [v1.0.1-moz.1.0] – 2026-01-07
 ### Added
 - First official versioned release.
 
 ### Notes
-- This app replaces the formally existing [offgridplanner](https://github.com/rl-institut/tier_spatial_planning) developed in FastAPI.
-- This release marks the start of structured versioning.
-- Earlier changes were not formally tracked.
-- This Django implementation already contains some new features, such as translation support, sortable projects and minor UX improvements.
+- This app is the Mozambique fork of [django-offgridplanner]([https://github.com/rl-institut/django-offgridplanner) and rebases on changes and features introduced upstream.
+- This implementation introduces new features specific to the project.
