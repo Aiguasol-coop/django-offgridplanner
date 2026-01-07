@@ -75,6 +75,7 @@ function resetInitialShares() {
   for (const [field, value] of Object.entries(previousValues)) {
         document.querySelector(`#id_${field}`).value = value;
       }
+  updateDemandCheck();
 }
 
 // Handle change of calibration values (total vs. peak)
@@ -572,16 +573,3 @@ function updateDemandCheck() {
 // household demand shares should be checked on first load and every input change
 document.addEventListener("DOMContentLoaded", updateDemandCheck);
 document.addEventListener("input", updateDemandCheck);
-
-// add functionality to reset Shares Button
-document.getElementById("resetShares").addEventListener("click", () => {
-    const inputs = document.querySelectorAll(".shares-container input[type='number']");
-
-    inputs.forEach(input => {
-        input.value = ""; // or input.defaultValue if Django pre-fills data
-    });
-
-    if (typeof updateDemandCheck === "function") {
-        updateDemandCheck();
-    }
-});
