@@ -1,3 +1,7 @@
+.leaflet-container {
+  z-index: 7;
+}
+
 /* Base dimming */
 .leaflet-container.pole-editing .leaflet-tile-pane,
 .leaflet-container.pole-editing .leaflet-overlay-pane,
