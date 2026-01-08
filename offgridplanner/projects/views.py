@@ -336,7 +336,11 @@ def populate_site_data(request):
                 setattr(proj, field, value)
 
         else:
-            project_input = project_input | {"user": request.user, "name": res["id"]}
+            project_input = project_input | {
+                "user": request.user,
+                "name": res["id"],
+                "status": "potential",
+            }
             proj = Project.objects.create(**project_input)
 
         if proj.options is None:
