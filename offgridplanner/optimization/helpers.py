@@ -69,7 +69,7 @@ def check_missing_columns(df, required_columns):
 
 
 def set_default_values(df, defaults):
-    df = df.replace("", np.nan)
+    df = df.replace(["", "n.a."], np.nan)
     for col, val in defaults.items():
         if col in df.columns:
             df[col] = df[col].fillna(val)
