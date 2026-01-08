@@ -77,9 +77,6 @@
                       <p>
                         <a>{% translate 'Set Own Custom Shares of Households Allocated per Consumption Category' %}</a>
                       </p>
-                      <p>
-                        <em>{% translate 'The default values correspond to the national average of rural areas' %}</em>
-                      </p>
                       <p>{% translate "You have entered" %}
                         <strong id="demand-check">0%</strong>
                       {% translate "out of 100%." %}</p>
@@ -116,31 +113,6 @@
                                 grid-column: span 2"
                          href="javascript:void(0);">{% translate 'Reset' %}</a>
                     </div>
-                  </div>
-                  <div class="row">
-                    <p>
-                      <a>{% translate 'Demand Estimation' %}</a>
-                    </p>
-                    <p>
-                      {% blocktranslate trimmed %}
-                      Several typical standardized household demand profiles have been developed from
-                      roughly 3600 energy appliance ownership and usage surveys that were conducted
-                      across Nigeria in 2020 in 3 prioritized geopolitical zones. Survey details can
-                      be found in the publication here:
-                      {% endblocktranslate %}
-                      <a href="https://www.nature.com/articles/s41597-023-02185-0">PeopleSuN
-                      (2023) Electricity supply quality and use among rural and peri-urban
-                      households and small firms in Nigeria</a>
-                    </p>
-                    <p>
-                      {% blocktranslate trimmed %}
-                      The open-source Remote Area Multi-Energy Profiles simulation software (RAMP) has
-                      been used to develop 5 typical non-urban Nigerian household energy consumption
-                      categories (from Very Low to Very High). The pre-created default options below
-                      represent weighted combinations of each of these consumption categories that
-                      match the observed data in each of the geographic zones.
-                      {% endblocktranslate %}
-                    </p>
                   </div>
                 </div>
                 <p style="display: flex;

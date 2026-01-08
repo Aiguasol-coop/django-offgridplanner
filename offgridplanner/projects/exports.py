@@ -485,14 +485,15 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
             body_style,
         )
     )
-    elements.append(
-        Paragraph(
-            "For demand estimation, the tool employs statistical models and stochastic algorithms based on extensive survey data from thousands of households and enterprises in non-urban Nigerian villages. "
-            "It analyzes factors such as appliance ownership, electricity consumption patterns, and affordability to generate realistic demand profiles. "
-            "These profiles are customized for each location, considering geographical zones and socioeconomic levels, to provide precise predictions of electricity demand.",
-            body_style,
-        )
-    )
+    # TODO update with Mozambique methodology
+    # elements.append(
+    #     Paragraph(
+    #         "For demand estimation, the tool employs statistical models and stochastic algorithms based on extensive survey data from thousands of households and enterprises in non-urban Nigerian villages. "
+    #         "It analyzes factors such as appliance ownership, electricity consumption patterns, and affordability to generate realistic demand profiles. "
+    #         "These profiles are customized for each location, considering geographical zones and socioeconomic levels, to provide precise predictions of electricity demand.",
+    #         body_style,
+    #     )
+    # )
     elements.append(
         Paragraph(
             "With both geolocation and demand data, the tool optimizes the spatial layout of the distribution grid. "
