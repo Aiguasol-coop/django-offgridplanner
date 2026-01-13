@@ -11,6 +11,8 @@ import numpy as np
 import pandas as pd
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Exists
+from django.db.models import OuterRef
 from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -85,8 +87,14 @@ def projects_list(request, status="analyzing"):
         projects = (
             Project.objects.filter(Q(user=request.user, status=status))
             .distinct()
+            .annotate(
+                has_simulation=Exists(
+                    Simulation.objects.filter(project=OuterRef("pk")).filter(
+                        Q(status_grid="DONE") | Q(status_supply="DONE")
+                    )
+                )
+            )
             .order_by("date_created")
-            .select_related("simulation")
             .reverse()
         )
         return render(
