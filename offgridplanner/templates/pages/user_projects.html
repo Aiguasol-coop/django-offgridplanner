@@ -105,7 +105,7 @@
                                              padding:4px"
                                       class="grey_button"
                                       type="submit"
-                                      value="Duplicate">{% translate "Duplicate Project" %}</button>
+                                      value="Duplicate">{% translate "Duplicate" %}</button>
                             </form>
                           </span>
             </td>
@@ -115,20 +115,20 @@
                         <span style="float:right;">
                           <button class="grey_button">
                           <a onclick="document.getElementById('projectID{{ project.id }}').style.display='block'"
-                             style="color:white">{% translate "Delete Project" %}</a>
+                             style="color:white">{% translate "Delete" %}</a>
                           </button>
                         </span>
             </td>
             <td>
                         <span style="float:right;">
                           <button class="grey_button">
-                          <a href="{% url 'steps:project_setup' project.id %}">{% translate "Edit Project" %}</a>
+                          <a href="{% url 'steps:project_setup' project.id %}">{% translate "Edit" %}</a>
                           </button>
                         </span>
             </td>
             <td>
                         <span style="float:right;">
-                          <button class="grey_button" >
+                          <button class="grey_button {% if not project.has_simulation %} disabled {% endif %}" >
                             {% if project.has_simulation %}
                               <a href="{% url 'steps:simulation_results' project.id %}" >{% endif %}
                               {% translate "Show Results" %}</a>
@@ -163,7 +163,7 @@
             method="POST">
         {% csrf_token %}
         <div class="container">
-          <h1>{% translate "Delete Project" %}</h1>
+          <h1>{% translate "Delete" %}</h1>
           <p>{% translate "Are you sure you want to delete the project?" %}</p>
           <div class="clearfix">
             <button style="margin-top:0.25rem;" class="deletebtn" type="submit">{% translate "Delete" %}</button>
