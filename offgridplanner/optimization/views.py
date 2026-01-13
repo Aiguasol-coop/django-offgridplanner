@@ -27,14 +27,13 @@ from offgridplanner.optimization.helpers import check_imported_consumer_data
 from offgridplanner.optimization.helpers import check_imported_demand_data
 from offgridplanner.optimization.helpers import consumer_data_to_file
 from offgridplanner.optimization.helpers import convert_file_to_df
+from offgridplanner.optimization.helpers import df_to_file
 from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.helpers import validate_file_extension
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
-from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.models import Roads
 from offgridplanner.optimization.models import Simulation
-from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import PreProcessor
 from offgridplanner.optimization.requests import fetch_road_network
 from offgridplanner.optimization.requests import optimization_check_status

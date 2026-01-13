@@ -18,10 +18,25 @@ from offgridplanner.optimization.supply.demand_estimation import ENTERPRISE_LIST
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_KW_MAPPING
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_LIST
 from offgridplanner.optimization.supply.demand_estimation import PUBLIC_SERVICE_LIST
-from offgridplanner.projects.helpers import df_to_file
 from offgridplanner.projects.models import Project
 
 logger = logging.getLogger(__name__)
+
+
+def df_to_file(df, file_type):
+    if file_type == "xlsx":
+        output = io.BytesIO()
+        df.to_excel(output, index=False, engine="xlsxwriter")
+        output.seek(0)
+        return io.BytesIO(output.getvalue())
+    if file_type == "csv":
+        output = io.StringIO()
+        df.to_csv(output, index=False)
+        output.seek(0)
+        return io.StringIO(output.getvalue())
+    else:
+        err = f"File type .{file_type} not supported"
+        raise ValueError(err)
 
 
 def validate_file_extension(filename):
