@@ -30,6 +30,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import Image
 from svglib.svglib import svg2rlg
 
+from config.settings.base import DONE
 from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
@@ -90,7 +91,7 @@ def projects_list(request, status="analyzing"):
             .annotate(
                 has_simulation=Exists(
                     Simulation.objects.filter(project=OuterRef("pk")).filter(
-                        Q(status_grid="DONE") | Q(status_supply="DONE")
+                        Q(status_grid=DONE) | Q(status_supply=DONE)
                     )
                 )
             )
