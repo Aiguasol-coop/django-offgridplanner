@@ -492,15 +492,9 @@ def load_demand_plot_data(request, proj_id=None):
     timeseries["Average"] = timeseries["Average"].tolist()
 
     # need num_households to calculate demand for plots
-    dataframes = collect_project_dataframes(proj_id)
-    nodes_df = dataframes["nodes_df"]
-    num_households = len(
-        nodes_df[
-            (nodes_df["consumer_type"] == "household")
-            & (nodes_df["is_connected"] == True)  # noqa:E712
-        ],
-    )
+    num_households = len(nodes.filter_consumers("household"))
     timeseries["num_households"] = num_households
+
     return JsonResponse({"timeseries": timeseries})
 
 
