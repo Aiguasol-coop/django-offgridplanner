@@ -377,7 +377,8 @@ def populate_site_data(request):
 
         # Create a CustomDemand object
         custom_demand, _ = CustomDemand.objects.get_or_create(project=proj)
-        settlement_type = custom_demand.settlement_type
+        settlement_type = res["settlement_type"]
+        custom_demand.settlement_type = settlement_type
         defaults = custom_demand.get_shares_dict(defaults=True)[settlement_type]
         for field, val in defaults.items():
             setattr(custom_demand, field, val)
