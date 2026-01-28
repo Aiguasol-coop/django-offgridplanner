@@ -316,7 +316,7 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
     elements = []
 
     # Add logo and titles
-    image_path = staticfiles_storage.path("assets/logos/LogoFUNAE.svg")
+    image_path = staticfiles_storage.path("assets/logos/LogoFUNAE.png")
     image_reader = ImageReader(image_path)
     img_width, img_height = image_reader.getSize()
     desired_height = 1 * inch  # Adjust as needed
@@ -326,7 +326,7 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
 
     title = Paragraph("Off-Grid System Planning Results", styles["Title"])
     subtitle = Paragraph(
-        "Energy System Optimization Carried Out with the Tool Offgridplanner (https://offgridplanner.org)",
+        "Energy System Optimization Carried Out with the Tool Offgridplanner Mozambique",
         subtitle_style,
     )
 
@@ -485,14 +485,15 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
             body_style,
         )
     )
-    elements.append(
-        Paragraph(
-            "For demand estimation, the tool employs statistical models and stochastic algorithms based on extensive survey data from thousands of households and enterprises in non-urban Nigerian villages. "
-            "It analyzes factors such as appliance ownership, electricity consumption patterns, and affordability to generate realistic demand profiles. "
-            "These profiles are customized for each location, considering geographical zones and socioeconomic levels, to provide precise predictions of electricity demand.",
-            body_style,
-        )
-    )
+    # TODO update with Mozambique methodology
+    # elements.append(
+    #     Paragraph(
+    #         "For demand estimation, the tool employs statistical models and stochastic algorithms based on extensive survey data from thousands of households and enterprises in non-urban Nigerian villages. "
+    #         "It analyzes factors such as appliance ownership, electricity consumption patterns, and affordability to generate realistic demand profiles. "
+    #         "These profiles are customized for each location, considering geographical zones and socioeconomic levels, to provide precise predictions of electricity demand.",
+    #         body_style,
+    #     )
+    # )
     elements.append(
         Paragraph(
             "With both geolocation and demand data, the tool optimizes the spatial layout of the distribution grid. "
@@ -887,7 +888,7 @@ def create_pdf_report(  # noqa: PLR0915, PLR0912, C901
         buffer, pagesize=A4, leftMargin=left_margin, rightMargin=right_margin
     )
     doc.title = "Offgridplanner"
-    doc.author = "PeopleSuN"
+    doc.author = "FUNAE"
     doc.subject = f"{input_data.name}"
     doc.keywords = "off-grid, energy, planning"
 

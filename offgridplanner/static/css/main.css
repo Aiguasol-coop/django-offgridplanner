@@ -1786,7 +1786,9 @@ nav.navbar .dropdown-menu li {
 }
 
 .wizard {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 8;
     background-color: var(--bcc);
     height: 5.5rem;
     min-height: 4.5rem;
@@ -1836,6 +1838,9 @@ nav.navbar .dropdown-menu li {
     top: 4rem;
     bottom: 1rem;
     font-size: 0.875rem;
+    background-color: var(--bcc);
+    width: 100%;
+    height: fit-content;
 }
 
 
@@ -2369,10 +2374,6 @@ content: "6"; }
 
 .modal.modal--gui .modal-dialog {
     min-width: 1000px;
-}
-
-.modal .modal-dialog {
-    max-width: none;
 }
 
 .modal.modal--gui .modal-body .container {
@@ -3218,4 +3219,16 @@ input:checked + .slider:before {
 
 .disabled {
     cursor: not-allowed;
+}
+
+.leaflet-container {
+  z-index: 7;
+}
+
+html, body {
+  height: auto;
+}
+
+body {
+  min-height: 100vh;
 }

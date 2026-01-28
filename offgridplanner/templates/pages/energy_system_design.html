@@ -17,16 +17,16 @@
         {% csrf_token %}
       <div class="row">
         <div class="col-md-4">
-          <div class="box" id="selectDiesel_gensetBox">
-            {% for field_name, field in grouped_fields|getkey:"Diesel Genset" %}
-            {% if field_name == "diesel_genset_settings_is_selected" %}
+                    <div class="box box--small" id="selectPvBox">
+            {% for field_name, field in grouped_fields|getkey:"Pv" %}
+            {% if field_name == "pv_settings_is_selected" %}
             <div class="box__header">
               {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
-                  <span class="grid-title" id="selectDiesel_genset">{{ field.label }}</span>
+                  <span class="grid-title" id="selectPv">{{ field.label }}</span>
                 </div>
             </div>
-            {% elif field_name == "diesel_genset_settings_design" %}
+            {% elif field_name == "pv_settings_design" %}
             <div class="row">
             {{ field }}
             </div>
@@ -40,7 +40,33 @@
             </div>
             {% endif %}
             {% endfor %}
+          </div>
+          <div class="box box--medium" id="selectInverterBox">
+            {% for field_name, field in grouped_fields|getkey:"Inverter" %}
+            {% if field_name == "inverter_settings_is_selected" %}
+            <div class="box__header">
+              {{ field|add_class:"form-check-input" }}
+                <div class="form-check">
+                  <span class="grid-title" id="selectInverter">{{ field.label }}</span>
+                </div>
             </div>
+            {% elif field_name == "inverter_settings_design" %}
+            <div class="row">
+            {{ field }}
+            </div>
+            {% else %}
+            <div class="row">
+              <div class="input-group">
+                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                {{ field|add_class:"form-control" }}
+                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+          </div>
+
         </div>
         <div class="col-md-8">
           <div class="chart">
@@ -167,7 +193,7 @@
                 </g>
                 <rect id="blockRectifier" />
                 <text id="textRectifier" dominant-baseline="middle" text-anchor="middle">
-                  Rectifier
+                  Charger
                 </text>
                 <text id="informationRectifier" dominant-baseline="bottom">
                   design
@@ -219,16 +245,16 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="box box--small" id="selectPvBox">
-            {% for field_name, field in grouped_fields|getkey:"Pv" %}
-            {% if field_name == "pv_settings_is_selected" %}
+                    <div class="box" id="selectDiesel_gensetBox">
+            {% for field_name, field in grouped_fields|getkey:"Diesel Genset" %}
+            {% if field_name == "diesel_genset_settings_is_selected" %}
             <div class="box__header">
               {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
-                  <span class="grid-title" id="selectPv">{{ field.label }}</span>
+                  <span class="grid-title" id="selectDiesel_genset">{{ field.label }}</span>
                 </div>
             </div>
-            {% elif field_name == "pv_settings_design" %}
+            {% elif field_name == "diesel_genset_settings_design" %}
             <div class="row">
             {{ field }}
             </div>
@@ -242,32 +268,7 @@
             </div>
             {% endif %}
             {% endfor %}
-          </div>
-          <div class="box box--medium" id="selectInverterBox">
-            {% for field_name, field in grouped_fields|getkey:"Inverter" %}
-            {% if field_name == "inverter_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
-                <div class="form-check">
-                  <span class="grid-title" id="selectInverter">{{ field.label }}</span>
-                </div>
             </div>
-            {% elif field_name == "inverter_settings_design" %}
-            <div class="row">
-            {{ field }}
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
-              </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-
-          </div>
         </div>
         <div class="col-md-4">
           <div class="box box--small" id="selectShortageBox">
@@ -291,7 +292,7 @@
             {% endfor %}
           </div>
           <div class="box box--medium" id="selectRectifierBox">
-            {% for field_name, field in grouped_fields|getkey:"Rectifier" %}
+            {% for field_name, field in grouped_fields|getkey:"Charger" %}
             {% if field_name == "rectifier_settings_is_selected" %}
             <div class="box__header">
               {{ field|add_class:"form-check-input" }}

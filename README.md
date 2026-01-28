@@ -1,6 +1,6 @@
-# Offgridplanner-Django
+# Offgridplanner-Mozambique
 
-This tool is the Django-based implementation of the already existing [Offgridplanner tool](https://github.com/rl-institut/tier_spatial_planning/), which originated from the [PeopleSun](https://reiner-lemoine-institut.de/projekt/peoplesun-optimierung-von-off-grid-energieversorgungssystemen-in-nigeria/)
+This tool forks the Django-based implementation of the already existing [Offgridplanner tool](https://github.com/rl-institut/tier_spatial_planning/), which originated from the [PeopleSun](https://reiner-lemoine-institut.de/projekt/peoplesun-optimierung-von-off-grid-energieversorgungssystemen-in-nigeria/)
 project and was originally written using FastAPI. The optimizer code is hosted separately in the [optimizer-offgridplanner](https://github.com/rl-institut/optimizer-offgridplanner)
 repository.
 
@@ -8,7 +8,7 @@ repository.
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 #  Web-Application
-The open-source tool originated from the PeopleSuN project and serves the planning of off-grid systems in Nigeria.
+The Offgridplanner Mozambique fork is a specific implementation of the original tool to simulate and analyze off-grid systems in Mozambique.
 The tool aims to perform a spatial optimization of the distribution grid as well as the design of the energy converters
 and energy storage.
 

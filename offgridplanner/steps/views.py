@@ -3,6 +3,7 @@ import os
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
@@ -216,7 +217,10 @@ def demand_estimation(request, proj_id=None):
 @require_http_methods(["GET", "POST"])
 def grid_design(request, proj_id=None):
     step_id = list(STEPS.keys()).index("grid_design") + 1
-    if proj_id is not None:
+    if proj_id is None:
+        err = "Project ID missing"
+        raise Http404(err)
+    else:
         project = get_object_or_404(Project, id=proj_id)
 
         grid_design, _ = GridDesign.objects.get_or_create(
@@ -227,11 +231,15 @@ def grid_design(request, proj_id=None):
             # Group form fields by component (for easier rendering inside boxes)
             grouped_fields = group_form_by_component(form)
 
+            component_name_mapping = {
+                "distribution_cable": "Distribution Line",
+                "mg": "Connection Costs",
+            }
             for component in list(grouped_fields):
                 clean_name = (
-                    component.title().replace("_", " ")
-                    if component != "mg"
-                    else "Connection Costs"
+                    component_name_mapping[component]
+                    if component in component_name_mapping
+                    else component.title().replace("_", " ")
                 )
                 grouped_fields[clean_name] = grouped_fields.pop(component)
 
@@ -273,9 +281,13 @@ def energy_system_design(request, proj_id=None):
         )
 
         grouped_fields = group_form_by_component(form)
-
+        component_name_mapping = {"rectifier": "Charger"}
         for component in list(grouped_fields):
-            clean_name = component.title().replace("_", " ")
+            clean_name = (
+                component_name_mapping[component]
+                if component in component_name_mapping
+                else component.title().replace("_", " ")
+            )
             grouped_fields[clean_name] = grouped_fields.pop(component)
 
         grouped_fields.default_factory = None
@@ -286,9 +298,6 @@ def energy_system_design(request, proj_id=None):
             "step_list": STEP_LIST_RIBBON,
             "grouped_fields": grouped_fields,
         }
-
-        # TODO read js/pages/energy-system-design.js
-        # todo restore using load_previous_data in the first place, then replace with Django forms
 
         return render(request, "pages/energy_system_design.html", context)
     if request.method == "POST":

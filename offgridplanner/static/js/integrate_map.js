@@ -377,7 +377,7 @@ function load_legend() {
     }
     var pageName = window.location.pathname;
 
-    var description = ["Load Center", "Household", "Enterprise", "Public Service", "Pole", "Solar Home System", "Distribution", "Connection"];
+    var description = ["Load Center", "Household", "Enterprise", "Public Service", "Pole", "Edited Pole", "Solar Home System", "Distribution", "Connection"];
 
     if (pageName === "/simulation_results" && is_load_center === false) {
         description[0] = "Power House";
