@@ -45,8 +45,9 @@ class SiteExplorationForm(ModelForm):
     class Meta:
         model = SiteExploration
         fields = [
-            "consumer_count_min",
-            "diameter_max",
-            "distance_from_grid_min",
-            "match_distance_max",
+            "min_num_of_consumers",
+            "max_minigrid_network_distance",
+            "min_distance_from_grid",
+            "min_distance_to_an_existing_minigrid",
+            "province",
         ]

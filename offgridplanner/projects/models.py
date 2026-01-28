@@ -89,18 +89,19 @@ class Project(models.Model):
 class SiteExploration(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     exploration_id = models.TextField(blank=True, default="")
-    consumer_count_min = models.PositiveSmallIntegerField(
+    min_num_of_consumers = models.PositiveSmallIntegerField(
         default=100, validators=[MinValueValidator(31), MaxValueValidator(500)]
     )
-    diameter_max = models.FloatField(
+    max_minigrid_network_distance = models.FloatField(
         default=500, validators=[MinValueValidator(0.1), MaxValueValidator(10000)]
     )
-    distance_from_grid_min = models.FloatField(
+    min_distance_from_grid = models.FloatField(
         default=60000, validators=[MinValueValidator(20000), MaxValueValidator(120000)]
     )
-    match_distance_max = models.FloatField(
+    min_distance_to_an_existing_minigrid = models.FloatField(
         default=5000, validators=[MinValueValidator(100), MaxValueValidator(20000)]
     )
+    province = models.CharField(max_length=51, blank=True, default="")
     latest_exploration_results = models.JSONField(null=True)
 
     def __str__(self):
