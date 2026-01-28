@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [v1.0.1-moz.1.1] – 2026-01-28
+### Added 
+- Added Satellite layer to potential minigrids map.
+
+### Changed
+- Keep steps navbar on top while scrolling.
+- Minorly changed layout of energy system components and updated names.
+
+### Fixed
+- Replaced favicon
+- Fixed results page functions (graphs and exports).
+
 ## [v1.0.1-moz.1.0] – 2026-01-07
 ### Added
 - First official versioned release.
