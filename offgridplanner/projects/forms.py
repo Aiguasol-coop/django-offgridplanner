@@ -1,7 +1,10 @@
+from django.forms import ChoiceField
 from django.forms import ModelForm
 from django.forms import Textarea
+from django.forms.widgets import Select
 from django.utils.translation import gettext_lazy as _
 
+from offgridplanner.optimization.requests import fetch_provinces
 from offgridplanner.steps.forms import CustomModelForm
 
 from .models import *
@@ -51,3 +54,19 @@ class SiteExplorationForm(ModelForm):
             "min_distance_to_an_existing_minigrid",
             "province",
         ]
+
+    province = ChoiceField(
+        widget=Select(
+            attrs={
+                "data-bs-toggle": "tooltip",
+                "class": "form-control",
+            }
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        provinces = fetch_provinces()
+        province_choices = [(prov, prov) for prov in provinces]
+        self.fields["province"].choices = province_choices
+        self.fields["province"].initial = "All"
