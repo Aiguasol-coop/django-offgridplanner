@@ -193,7 +193,7 @@
                 </g>
                 <rect id="blockRectifier" />
                 <text id="textRectifier" dominant-baseline="middle" text-anchor="middle">
-                  Rectifier
+                  Charger
                 </text>
                 <text id="informationRectifier" dominant-baseline="bottom">
                   design
@@ -292,7 +292,7 @@
             {% endfor %}
           </div>
           <div class="box box--medium" id="selectRectifierBox">
-            {% for field_name, field in grouped_fields|getkey:"Rectifier" %}
+            {% for field_name, field in grouped_fields|getkey:"Charger" %}
             {% if field_name == "rectifier_settings_is_selected" %}
             <div class="box__header">
               {{ field|add_class:"form-check-input" }}
