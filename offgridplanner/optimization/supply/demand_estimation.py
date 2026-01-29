@@ -177,7 +177,7 @@ def compute_household_demand(consumer_type_counts, custom_demand_params, load_pr
         total_demand (pd.Series): Total household demand
     """
     total_demand = pd.Series(0, index=load_profiles.index)
-    total_households = consumer_type_counts.get("default", 0)
+    total_households = consumer_type_counts.sum()
 
     for demand_param, value in custom_demand_params.items():
         if demand_param in ["very_low", "low", "middle", "high", "very_high"]:
