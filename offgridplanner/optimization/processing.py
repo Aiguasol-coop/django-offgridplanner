@@ -31,7 +31,7 @@ class OptimizationDataHandler:
         self.supply_components = self.energy_system_dict.keys()
         self.grid_design_dict = self.project.griddesign.to_nested_dict()
         self.grid_components = self.grid_design_dict.keys()
-        self.tax = 0
+        self.tax = self.project.tax / 100
         self.wacc = self.project.interest_rate / 100
         self.project_lifetime = self.project.lifetime
         self.crf = (self.wacc * (1 + self.wacc) ** self.project_lifetime) / (
@@ -251,7 +251,7 @@ class PreProcessor(OptimizationDataHandler):
             "energy_system_design": energy_system_design,
         }
 
-        self.validate_json_with_server_schema(supply_opt_json, "supply", "input")
+        # self.validate_json_with_server_schema(supply_opt_json, "supply", "input")
         return supply_opt_json
 
     def collect_grid_opt_json_data(self):

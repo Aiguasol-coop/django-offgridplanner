@@ -43,6 +43,9 @@ class Project(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     interest_rate = models.FloatField(validators=[MinValueValidator(0.0)], blank=False)
+    tax = models.FloatField(
+        validators=[MinValueValidator(0.0)], blank=False, default=0.0
+    )
     lifetime = models.PositiveSmallIntegerField(
         default=25,
         validators=[MinValueValidator(1), MaxValueValidator(35)],
