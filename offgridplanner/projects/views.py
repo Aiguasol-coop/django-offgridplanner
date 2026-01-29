@@ -322,8 +322,6 @@ def populate_site_data(request):
         project_input = {
             "uuid": res["id"],
         } | json.loads(res["project_input"])
-        # TODO find out where the tax parameter might be needed
-        project_input.pop("tax")
         proj_qs = Project.objects.filter(user__id=request.user.id, uuid=res["id"])
         if proj_qs.exists():
             proj = proj_qs.get()

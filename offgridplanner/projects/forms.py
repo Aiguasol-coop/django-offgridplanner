@@ -20,6 +20,7 @@ class ProjectForm(CustomModelForm):
             "temporal_resolution",
             "user",
             "options",
+            "tax",
         ]
         widgets = {"description": Textarea(attrs={"rows": 7})}
 
