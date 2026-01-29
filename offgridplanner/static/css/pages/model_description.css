@@ -33,3 +33,10 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+span.helpvar {
+  font-weight: bold;
+  color: #2c3e50;
+  background-color: #ecf0f1;
+  padding: 0.2rem 0.2rem;
+  border-radius: 0.2rem; }

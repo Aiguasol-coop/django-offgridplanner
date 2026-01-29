@@ -17,9 +17,14 @@
             <div class="col-12">
                 <h1>Model Description</h1>
                 <p>
-                    This section provides a brief overview of the models used in the backend of the tool. Each model is designed to address specific tasks related to demand estimation, spatial grid planning, and the optimal sizing of energy converters. Together, these models contribute to a comprehensive analysis framework, supporting the planning and optimization of off-grid energy systems. Below is a description of each model and its specific functionality.
+                    This section provides a brief overview of the models used in the backend of the tool. Each model is
+                  designed to address specific tasks related to cluster identification, demand estimation, spatial grid planning,
+                  and the optimal sizing of the electricity system. Together, these models contribute to a comprehensive
+                  analysis framework, supporting the planning and optimization of off-grid energy systems.
+                  Below is a description of each model and its specific functionality.
                 </p>
                 <ul>
+                    <li><a href="#clustering_tool">Description of the Clustering Methodology</a></li>
                     <li><a href="#demand_tool">Description of the Demand Estimation Model</a></li>
                     <li><a href="#grid_tool">Description of the Spatial Grid Optimization Tool</a></li>
                     <li><a href="#es_tool">Description of the Energy System Optimization Tool</a></li>
@@ -29,6 +34,52 @@
         </div>
 
         <!-- Main Content with Two Columns -->
+        <div class="row">
+<!--          <div class="col-md-6">-->
+            <h4 id="clustering_tool">Methodology for Clustering Building Centroids to Identify Potential Mini-Grid Sites</h4>
+            <p><strong>Objective</strong></p>
+            <p>Identify spatially coherent groups of buildings (“communities”) that are promising candidates for mini-grid deployment.
+              The pipeline ingests building centroids and applies density-based clustering (DBSCAN) together with a sequence of
+              geographic filters and post-processing rules that enforce practical siting constraints.</p>
+            <p><strong>Data Inputs</strong></p>
+            <ul>
+              <li><strong>Building centroids:</strong> latitude/longitude points with attributes (province, building type, surface, distance to existing grid, distance to road, island flag).</li>
+              <li><strong>Existing mini-grids:</strong> point locations used to avoid duplicating already electrified/served areas.</li>
+              <li><strong>User/analysis parameters:</strong>
+                <ul>
+                  <li><span class="helpvar">min_distance_from_grid</span> (m): the minimum standoff from the existing grid (default 20 km);</li>
+                  <li><span class="helpvar">min_num_of_consumers</span> (number of buildings required to form a viable cluster);</li>
+                  <li><span class="helpvar">max_minigrid_network_distance</span> (m), the maximum allowable intra-cluster span; and </li>
+                  <li><span class="helpvar">min_distance_to_an_existing_minigrid</span> (m), the minimum separation required between a new cluster and an existing mini-grid. </li>
+                  <li><span class="helpvar">province</span>, the province in which to conduct the analysis.</li>
+                </ul>
+              </li>
+            </ul>
+            <p><strong>Algorithm Workflow</strong></p>
+            <p>The workflow begins by querying the database for buildings that satisfy the grid-distance threshold, typically a minimum of 20 km from the existing grid.
+              This threshold is user-settable in the GUI via <span class="helpvar">min_distance_from_grid</span>. To reflect accessibility considerations, buildings on islands are always retained
+              due to their distinct logistics. For non-island areas, buildings that already satisfy the grid-distance criterion are kept only if they lie within one
+              kilometer of a road; this pre-screening step yields a concise, realistic set of candidate centroids for settlement-scale electrification. </p>
+            <p>The preselected centroids are then clustered with DBSCAN on latitude/longitude coordinates. The algorithm
+              uses a default neighborhood radius of 300 meters, a value derived from empirical analysis of existing mini-grids
+              in Mozambique, and <span class="helpvar">min_num_of_consumers</span> as the minimum viable consumer base. DBSCAN’s density-connectivity recovers non-convex,
+              settlement-like shapes, does not require the number of clusters a priori, and naturally labels isolated households as noise.
+              For the fit step, Euclidean distance in geographic degrees is used for efficiency at the spatial scales considered.</p>
+            <p>Immediately after DBSCAN, the method imposes a compactness control based on geodesic distances. For each provisional cluster,
+              it computes the maximum great-circle distance between any two member points. Clusters whose span
+              exceeds <span class="helpvar">max_minigrid_network_distance</span> are discarded as too dispersed for economical
+              low-voltage distribution, and singleton clusters are also rejected. This post-filter cleanly separates dense,
+              spatially coherent communities from elongated or accidentally bridged aggregates that can appear when density
+              thresholds connect distant hamlets. A final proximity filter prevents overlap with known assets: any cluster whose centroid
+              falls within <span class="helpvar">min_distance_to_an_existing_minigrid</span> of a catalogued mini-grid is excluded.
+              This rule de-duplicates candidates around existing infrastructure and encourages considering network extensions to serve nearby communities. </p>
+            <p>Parameterization should reflect local morphology and planning assumptions. The neighborhood radius ought to approximate typical inter-building spacing:
+              if set too small it fragments villages; if too large it fuses distinct communities. The minimum sample count encodes the
+              smallest viable consumer base. The diameter threshold provides an orthogonal compactness check: even with adequate density,
+              an excessive spatial span indicates a layout that may be costly to serve. Taken together, these elements yield a transparent,
+              parameter-driven shortlist of mini-grid candidate communities that balances demand concentration, accessibility, and non-overlap with existing systems.</p>
+<!--          </div>-->
+        </div>
         <div class="row">
             <!-- Left Column: Textual Content -->
             <div class="col-md-6">

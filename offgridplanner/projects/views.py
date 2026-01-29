@@ -322,8 +322,6 @@ def populate_site_data(request):
         project_input = {
             "uuid": res["id"],
         } | json.loads(res["project_input"])
-        # TODO find out where the tax parameter might be needed
-        project_input.pop("tax")
         proj_qs = Project.objects.filter(user__id=request.user.id, uuid=res["id"])
         if proj_qs.exists():
             proj = proj_qs.get()
@@ -377,9 +375,14 @@ def populate_site_data(request):
 
         # Create a CustomDemand object
         custom_demand, _ = CustomDemand.objects.get_or_create(project=proj)
-        settlement_type = custom_demand.settlement_type
+        settlement_type = res["settlement_type"]
+        custom_demand.settlement_type = settlement_type
+        household_shares = dict(
+            nodes.counts.loc["households"] / nodes.counts.loc["households"].sum()
+        )
         defaults = custom_demand.get_shares_dict(defaults=True)[settlement_type]
-        for field, val in defaults.items():
+        shares_dict = defaults if "default" in household_shares else household_shares
+        for field, val in shares_dict.items():
             setattr(custom_demand, field, val)
         custom_demand.save()
 

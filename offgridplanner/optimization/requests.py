@@ -311,3 +311,36 @@ def fetch_road_network():
     else:
         logger.info("Obtained road network data.")
         return response.json()
+
+
+def fetch_provinces():
+    """
+    Fetch the provinces for site filtering.
+    """
+    request_url = MG_EXPLORER_API_HOST + "/features/provinces"
+
+    try:
+        response = httpx.get(request_url, timeout=5)
+        response.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.exception("HTTP error occurred")
+        msg = "An error occurred during fetching of the province data. Using default values."
+        logger.warning(msg)
+        default_provinces = [
+            "Cabo Delgado",
+            "Gaza",
+            "Inhambane",
+            "Manica",
+            "Maputo",
+            "Maputo City",
+            "Nampula",
+            "Niassa",
+            "Sofala",
+            "Tete",
+            "Zambezia",
+            "All",
+        ]
+        return default_provinces
+    else:
+        logger.info("Obtained province data.")
+        return response.json()

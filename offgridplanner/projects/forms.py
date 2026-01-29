@@ -1,7 +1,10 @@
+from django.forms import ChoiceField
 from django.forms import ModelForm
 from django.forms import Textarea
+from django.forms.widgets import Select
 from django.utils.translation import gettext_lazy as _
 
+from offgridplanner.optimization.requests import fetch_provinces
 from offgridplanner.steps.forms import CustomModelForm
 
 from .models import *
@@ -17,6 +20,7 @@ class ProjectForm(CustomModelForm):
             "temporal_resolution",
             "user",
             "options",
+            "tax",
         ]
         widgets = {"description": Textarea(attrs={"rows": 7})}
 
@@ -45,8 +49,25 @@ class SiteExplorationForm(ModelForm):
     class Meta:
         model = SiteExploration
         fields = [
-            "consumer_count_min",
-            "diameter_max",
-            "distance_from_grid_min",
-            "match_distance_max",
+            "min_num_of_consumers",
+            "max_minigrid_network_distance",
+            "min_distance_from_grid",
+            "min_distance_to_an_existing_minigrid",
+            "province",
         ]
+
+    province = ChoiceField(
+        widget=Select(
+            attrs={
+                "data-bs-toggle": "tooltip",
+                "class": "form-control",
+            }
+        ),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        provinces = fetch_provinces()
+        province_choices = [(prov, prov) for prov in provinces]
+        self.fields["province"].choices = province_choices
+        self.fields["province"].initial = "All"
