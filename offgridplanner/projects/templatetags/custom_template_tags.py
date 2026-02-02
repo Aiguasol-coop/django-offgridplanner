@@ -36,3 +36,11 @@ def get_field(form, key):
 @register.filter
 def has_field(form, key):
     return key in form.fields
+
+
+@register.filter
+def divide(value, arg):
+    try:
+        return float(value) / float(arg)
+    except (ValueError, ZeroDivisionError):
+        return None
