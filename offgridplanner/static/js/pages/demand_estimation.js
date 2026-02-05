@@ -22,7 +22,7 @@ function calculateTotalDemand(households, enterprises, public_services) {
 };
 
 function calibrate_demand(reverse = false) {
-    var households_raw = AppState.average.map(value => value * AppState.num_households);
+    var households_raw = AppState.average_shares.map(value => value * AppState.num_households);
 
     let calibration_factor;
     const total_demand_raw = calculateTotalDemand(households_raw, AppState.enterprises, AppState.public_services);
@@ -64,7 +64,8 @@ const AppState = {
     enterprises: null,
     public_services: null,
 
-    average: [],
+    average_raw: [],
+    average_shares: [],
 
     traces: {
         averageIndex: 4, // trace6
@@ -213,7 +214,7 @@ function buildPlot(data) {
         num_households
     } = data.timeseries;
 
-    window.Average = Average; // required by updateTrace6()
+    AppState.average_raw = Average;
     AppState.num_households = num_households;
     AppState.households = households;
     AppState.enterprises = enterprises;
@@ -358,17 +359,15 @@ function showOnlySelection() {
     }
 }
 
-function updateTrace6() {
+function updateAverageTrace() {
     if (!AppState.plotReady) return;
 
     Plotly.restyle(
-        AppState.plotElement,
-        { y: [AppState.average] },
-        [AppState.traces.averageIndex]
+        AppState.plotElement,{ y: [AppState.average_shares] },[AppState.traces.averageIndex]
     );
 }
 
-function updateTrace7to10() {
+function updateTrace0to3() {
     Total_Demand = calculateTotalDemand(AppState.households, AppState.enterprises, AppState.public_services);
     // Restyle all traces in one command
     Plotly.restyle(AppState.plotElement, {
@@ -379,21 +378,21 @@ function updateTrace7to10() {
 function updateAverageArray() {
     const shares = AppState.customShares;
 
-    //retrieve input values from AppState and convert percantage to decimals
+    //retrieve input values from AppState and convert percentage to decimals
     const share1 = (parseFloat(shares.id_very_low.value) || 0) / 100;
     const share2 = (parseFloat(shares.id_low.value) || 0) / 100;
     const share3 = (parseFloat(shares.id_middle.value) || 0) / 100;
     const share4 = (parseFloat(shares.id_high.value) || 0) / 100;
     const share5 = (parseFloat(shares.id_very_high.value) || 0) / 100;
 
-    Average.forEach((val, idx) => {
-        Average[idx] = (share1 * AppState.traces.trace1Y[idx]) +
-                        (share2 * AppState.traces.trace2Y[idx]) +
-                        (share3 * AppState.traces.trace3Y[idx]) +
-                        (share4 * AppState.traces.trace4Y[idx]) +
-                        (share5 * AppState.traces.trace5Y[idx]);
+    AppState.average_raw.forEach((val, idx) => {
+        AppState.average_raw[idx] = (share1 * AppState.traces.trace1Y[idx]) +
+                                    (share2 * AppState.traces.trace2Y[idx]) +
+                                    (share3 * AppState.traces.trace3Y[idx]) +
+                                    (share4 * AppState.traces.trace4Y[idx]) +
+                                    (share5 * AppState.traces.trace5Y[idx]);
     0});
-    AppState.average = Average;
+    AppState.average_shares = AppState.average_raw;
 }
 
 /* ================================
@@ -413,9 +412,9 @@ function handleInputChange(inputId) {
         AppState.previousValues[inputId] = newValue;
 
         updateAverageArray();
-        updateTrace6();
+        updateAverageTrace();
         //calibrate_demand();
-        updateTrace7to10();
+        updateTrace0to3();
     };
 }
 
@@ -444,7 +443,7 @@ function handleCalibrationInputChange() {
                 calibration_target_value = value;
                 calibration_option = 'kWh';
                 calibrate_demand(false);
-                updateTrace7to10();
+                updateTrace0to3();
             }
         } else if (AppState.option8Radio.checked) {
             // Option 8: "Set Maximum Peak Demand (kW)"
@@ -454,7 +453,7 @@ function handleCalibrationInputChange() {
                 calibration_target_value = value;
                 calibration_option = 'kW';
                 calibrate_demand(false);
-                updateTrace7to10();
+                updateTrace0to3();
             }
         }
     } else {
@@ -462,8 +461,8 @@ function handleCalibrationInputChange() {
         calibrate_demand(true);
         calibration_target_value = 1;
         calibration_option = null;
-        updateTrace7to10();
-        households = AppState.average.map(value => value * AppState.num_households);
+        updateTrace0to3();
+        households = AppState.average_shares.map(value => value * AppState.num_households);
         calibrate_demand(false);
     }
 }
@@ -498,7 +497,7 @@ function attachInputListeners() {
             // Toggle is deactivated
             calibration_target_value = 1;
             calibration_option = null;
-            updateTrace7to10();
+            updateTrace0to3();
         }
     });
     AppState.option7Radio.addEventListener('change', handleRadioButtonChange, 1, false);
