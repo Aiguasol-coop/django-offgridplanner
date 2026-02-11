@@ -377,7 +377,8 @@ def populate_site_data(request):
         custom_demand, _ = CustomDemand.objects.get_or_create(project=proj)
         settlement_type = res["settlement_type"]
         custom_demand.settlement_type = settlement_type
-        household_shares = dict(
+        # Merge dictionary with all tiers set to 0 with tiers defined in response nodes
+        household_shares = dict.fromkeys(custom_demand.shares_tiers, 0) | dict(
             nodes.counts.loc["household"] / nodes.counts.loc["household"].sum()
         )
         defaults = custom_demand.get_shares_dict(defaults=True)[settlement_type]
