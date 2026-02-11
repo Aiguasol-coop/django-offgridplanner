@@ -32,7 +32,7 @@
         <td>{{ site.res|floatformat:2 }}</td>
         <td>{{ site.capex|floatformat:2|intcomma }}</td>
         <td>{{ site.co2_savings|floatformat:2|intcomma }}</td>
-        <td>{{ site.consumption_total|divide:1000|floatformat:2|intcomma }}</td>
+        <td>{{ site.consumption_total|floatformat:2|intcomma }}</td>
         <td><button data-site-id="{{ site.id }}" class="edit-btn btn btn-primary-small">Edit</button></td>
       </tr>
       {% endfor %}
