@@ -537,7 +537,9 @@ class SupplyProcessor(OptimizationDataHandler):
         self.total_demand = self.annualize(self.sequences["demand"].sum())
 
     def _calculate_kpis(self):
-        self.lcoe = 100 * self.total_revenue / self.total_demand
+        self.lcoe = (
+            100 * self.total_revenue / self.total_demand
+        )  # this lcoe does not yet include grid costs, it is calculated again later
         self.res = (
             100
             * (self.total_demand - self.sequences["genset"].sum())
