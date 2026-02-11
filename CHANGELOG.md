@@ -1,9 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Added clustering methodology to methodology page
+### Fixed
+- Fix processing and unit issues between API responses and tool
+- Fix marker snapping on pole editor
 
 ## [v1.0.1-moz.1.1] – 2026-01-28
-### Added 
+### Added
 - Added Satellite layer to potential minigrids map.
 
 ### Changed
