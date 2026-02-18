@@ -15,6 +15,23 @@ from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
 
 
+def get_geojson_centroid(latitudes: pd.Series, longitudes: pd.Series):
+    """
+    Returns centroid as [longitude, latitude] (GeoJSON format).
+    Ignores NaN values safely.
+    """
+    if latitudes.empty or longitudes.empty:
+        return None
+
+    lat = latitudes.mean()
+    lon = longitudes.mean()
+
+    if pd.isna(lat) or pd.isna(lon):
+        return None
+
+    return [float(lon), float(lat)]
+
+
 def format_exploration_sites_data(sites):
     """
     Takes the JSON from the site exploration API and fits the data into the corresponding geojson/table format to be
@@ -36,6 +53,7 @@ def format_exploration_sites_data(sites):
             },
             "properties": {
                 "name": site["id"],
+                "status": "potential",
             },
         }
         for site in sites

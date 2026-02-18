@@ -46,6 +46,7 @@ from offgridplanner.projects.forms import SiteExplorationForm
 from offgridplanner.projects.helpers import collect_project_dataframes
 from offgridplanner.projects.helpers import format_exploration_sites_data
 from offgridplanner.projects.helpers import from_nested_dict
+from offgridplanner.projects.helpers import get_geojson_centroid
 from offgridplanner.projects.helpers import load_project_from_dict
 from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
@@ -251,13 +252,38 @@ def potential_map(request):
         geojson_initial, _ = format_exploration_sites_data(existing_mgs)
 
     potential_sites = site_exploration.latest_exploration_results
+    geojson_potential = []
+    analyzing_sites = Project.objects.filter(
+        user=user, nodes__isnull=False
+    ).select_related("nodes")
+    geojson_analyzing = []
+    if analyzing_sites:
+        for project in analyzing_sites:
+            df = project.nodes.df
+
+            centroid = get_geojson_centroid(df["latitude"], df["longitude"])
+
+            geojson_analyzing.append(
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": centroid,
+                    },
+                    "properties": {
+                        "name": project.name,
+                        "status": "analyzing",
+                    },
+                }
+            )
+
     if potential_sites:
         geojson_potential, table_potential = format_exploration_sites_data(
             potential_sites["minigrids"]
         )
 
         context["table_data"] = json.dumps(table_potential)
-        context["map_data"] = json.dumps(geojson_potential)
+    context["map_data"] = json.dumps(geojson_potential + geojson_analyzing)
 
     return render(request, "pages/map.html", context=context)
 

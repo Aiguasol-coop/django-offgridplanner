@@ -145,5 +145,6 @@
 
 .cluster-green  { background-color: #27ae60; !important} /* existing */
 .cluster-blue { background-color: #3498db; !important} /* potential */
+.cluster-orange { background-color: #ff8c00; !important} /* analyzing */
 
 .cluster > span { display: inline-block; transform: translateY(-1px); }

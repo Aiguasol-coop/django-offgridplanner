@@ -1101,7 +1101,8 @@ document.addEventListener('DOMContentLoaded', function () {
           try {
             saveToProjectsBtn.disabled = true;
             const res = await fetch(saveToProjectsUrl);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (res.ok) { saveToProjectsBtn.innerHTML = "Saved"; }
+            else { throw new Error(`HTTP ${res.status}`); }
           } catch (err) {
             console.error(err);
             saveToProjectsBtn.disabled = false;
