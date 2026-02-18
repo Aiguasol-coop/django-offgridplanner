@@ -315,9 +315,9 @@ def populate_site_data(request):
     site_exploration = request.user.siteexploration
     exploration_id = site_exploration.exploration_id
     site_id = json.loads(request.body).get("site_id")
-    res = fetch_potential_minigrid_data(exploration_id, site_id)
 
     try:
+        res = fetch_potential_minigrid_data(exploration_id, site_id)
         # Extract the project data and create a new project
         project_input = {
             "uuid": res["id"],
@@ -400,7 +400,10 @@ def populate_site_data(request):
 
     except RuntimeError:
         return JsonResponse(
-            {"error": "Something went wrong fetching the site data"}, status=400
+            {
+                "error": "Something went wrong fetching the site data. The exploration may have expired, please try re-running it."
+            },
+            status=400,
         )
 
     return JsonResponse(
