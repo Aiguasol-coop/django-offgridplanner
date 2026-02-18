@@ -418,6 +418,21 @@ def save_to_projects(request, proj_id):
     project.status = "analyzing"
     project.save()
 
+    # Change project status in exploration results json
+    exploration = project.user.siteexploration
+    potential_mgs = exploration.latest_exploration_results["minigrids"]
+    try:
+        mg_index = next(
+            i for i, mg in enumerate(potential_mgs) if mg["id"] == str(project.uuid)
+        )
+        potential_mgs.pop(mg_index)
+        exploration.latest_exploration_results["minigrids"] = potential_mgs
+        exploration.save()
+    # Occurs when next() iterator does not find the id in the potential sites data
+    except StopIteration:
+        err = "Could not update exploration data for potential sites."
+        logger.warning(err)
+
     nodes_df = project.nodes.df
     min_latitude, min_longitude, max_latitude, max_longitude = (
         nodes_df["latitude"].min(),
