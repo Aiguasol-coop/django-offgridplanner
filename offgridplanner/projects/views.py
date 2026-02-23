@@ -469,7 +469,7 @@ def save_to_projects(request, proj_id):
 
     notify_mg_data = {
         "id": str(project.uuid),
-        "status": "potential",
+        "status": "analyzing",
         "centroid": {
             "bbox": [min_latitude, min_longitude, max_latitude, max_longitude],
             "type": "Point",
