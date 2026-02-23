@@ -18,6 +18,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
@@ -35,6 +36,8 @@ from offgridplanner.optimization.processing import PreProcessor
 from offgridplanner.optimization.requests import fetch_existing_minigrids
 from offgridplanner.optimization.requests import fetch_exploration_progress
 from offgridplanner.optimization.requests import fetch_grid_network
+from offgridplanner.optimization.requests import fetch_monitoring_alarms
+from offgridplanner.optimization.requests import fetch_monitoring_data
 from offgridplanner.optimization.requests import fetch_potential_minigrid_data
 from offgridplanner.optimization.requests import notify_existing_minigrids
 from offgridplanner.optimization.requests import start_site_exploration
@@ -44,10 +47,11 @@ from offgridplanner.projects.exports import prepare_data_for_export
 from offgridplanner.projects.exports import project_data_df_to_xlsx
 from offgridplanner.projects.forms import SiteExplorationForm
 from offgridplanner.projects.helpers import collect_project_dataframes
-from offgridplanner.projects.helpers import format_exploration_sites_data
+from offgridplanner.projects.helpers import format_sites_data
 from offgridplanner.projects.helpers import from_nested_dict
 from offgridplanner.projects.helpers import get_geojson_centroid
 from offgridplanner.projects.helpers import load_project_from_dict
+from offgridplanner.projects.models import MonitoringData
 from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
 from offgridplanner.projects.models import SiteExploration
@@ -70,16 +74,23 @@ def home(request):
 @login_required
 @require_http_methods(["GET"])
 def projects_list(request, status="analyzing"):
-    projects = (
-        Project.objects.filter(Q(user=request.user, status=status))
-        .distinct()
-        .order_by("date_created")
-        .select_related("simulation")
-        .reverse()
-    )
-    return render(
-        request, "pages/user_projects.html", {"projects": projects, "status": status}
-    )
+    if status == "potential":
+        return redirect("projects:potential_map")
+    elif status == "monitoring":
+        return redirect("projects:monitoring")
+    else:
+        projects = (
+            Project.objects.filter(Q(user=request.user, status=status))
+            .distinct()
+            .order_by("date_created")
+            .select_related("simulation")
+            .reverse()
+        )
+        return render(
+            request,
+            "pages/user_projects.html",
+            {"projects": projects, "status": status},
+        )
 
 
 @login_required
@@ -249,7 +260,7 @@ def potential_map(request):
     }
 
     if existing_mgs:
-        geojson_initial, _ = format_exploration_sites_data(existing_mgs)
+        geojson_initial, _ = format_sites_data(existing_mgs)
 
     potential_sites = site_exploration.latest_exploration_results
     geojson_potential = []
@@ -278,7 +289,7 @@ def potential_map(request):
             )
 
     if potential_sites:
-        geojson_potential, table_potential = format_exploration_sites_data(
+        geojson_potential, table_potential = format_sites_data(
             potential_sites["minigrids"]
         )
 
@@ -286,6 +297,40 @@ def potential_map(request):
     context["map_data"] = json.dumps(geojson_potential + geojson_analyzing)
 
     return render(request, "pages/map.html", context=context)
+
+
+@require_http_methods(["GET", "POST"])
+def monitoring(request):
+    user = request.user
+    monitoring_data, _ = MonitoringData.objects.get_or_create(user=user)
+    monit = monitoring_data.latest_monitoring_data
+    context = {"table_data": [], "map_data": []}
+    if monit:
+        map_data, table_data = format_sites_data(
+            json.loads(monit), "widgets/monitoring_table.html"
+        )
+        context["table_data"] = json.dumps(table_data)
+        context["map_data"] = json.dumps(map_data)
+    return render(request, "pages/monitoring.html", context=context)
+
+
+@require_http_methods(["GET", "POST"])
+def refresh_monitoring_data(request):
+    monitoring_data = request.user.monitoringdata
+    try:
+        monit = fetch_monitoring_data()
+        alarms = fetch_monitoring_alarms()
+        monitoring_data.latest_monitoring_data = json.dumps(monit)
+        monitoring_data.latest_alarms = json.dumps(alarms)
+        monitoring_data.save()
+        data = {}
+        data["geojson"], data["table"] = format_sites_data(
+            monit, "widgets/monitoring_table.html"
+        )
+        return JsonResponse(data)
+    except RuntimeError:
+        err = "An error occurred fetching the monitoring data. Please try again later."
+        return JsonResponse({"error": err}, status=400)
 
 
 def start_exploration(request):
@@ -332,7 +377,7 @@ def load_exploration_sites(request):
     data = {"status": status}
     if res["minigrids"]:
         sites = res["minigrids"]
-        data["geojson"], data["table"] = format_exploration_sites_data(sites)
+        data["geojson"], data["table"] = format_sites_data(sites)
 
     return JsonResponse(data)
 

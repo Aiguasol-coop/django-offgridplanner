@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+{% block head_block %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+<link href="{% static 'css/pages/monitoring.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/main.css' %}" rel="stylesheet"/>
+{% endblock head_block %}
+
+{% block content %}
+<body>
+<main>
+  {% include "warning_box.html" %}
+  <section class="dashboard">
+    <div class="dashboard" style="height: auto">
+      <div class="row">
+
+        <div class="chart" style="height: auto; padding-bottom: 10px">
+          <div class="chart__header">
+            <a class="title">{% translate "Monitoring overview" %}</a>
+            <div class="radio-inputs" id="status_header">
+              <label class="radio">
+                <input type="radio" name="radio" checked>
+                <a class="name" href="{% url 'projects:projects_list' 'potential' %}">{% translate "Potential" %}</a>
+              </label>
+              <label class="radio">
+                <input type="radio" name="radio">
+                <a class="name" href="{% url 'projects:projects_list' 'analyzing' %}">{% translate "Analyzing" %}</a>
+              </label>
+              <label class="radio">
+                <input type="radio" name="radio">
+                <a class="name" href="{% url 'projects:projects_list' 'monitoring' %}">{% translate "Monitoring" %}</a>
+              </label>
+            </div>
+            <button style="float:right;" class="btn btn-primary">{% translate "Refresh" %}</button>
+                              <span class="spinner" id="loading_spinner" style="display:none; margin-top: 0.5rem">
+                    <svg viewBox="25 25 50 50">
+                      <circle r="20" cy="50" cx="50"></circle>
+                    </svg>
+			            </span>
+
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+            </div>
+            <div id="map" class="col-md-12" style="height: 400px; z-index:8">
+            </div>
+            <div id="monitoring-table"></div>
+            <div id="alarms-table"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+{% endblock content %}
+
+{% block end_body_scripts %}
+<script>
+  const startExplorationUrl = `{% url 'projects:start_exploration' %}`;
+  const stopExplorationUrl = `{% url 'projects:stop_exploration' %}`;
+  const loadExplorationSitesUrl = `{% url 'projects:load_exploration_sites' %}`;
+  const populateSiteDataUrl = `{% url 'projects:populate_site_data' %}`;
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="{% static 'js/pages/potential_map.js' %}"></script>
+
+{% endblock end_body_scripts %}
+</html>

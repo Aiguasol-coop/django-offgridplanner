@@ -28,13 +28,19 @@ urlpatterns = [
         name="download_excel_results",
     ),
     path("projects/potential/map/", potential_map, name="potential_map"),
-    path("ajax/start_exploration/", start_exploration, name="start_exploration"),
-    path("ajax/stop_exploration/", stop_exploration, name="stop_exploration"),
+    path("projects/monitoring/map", monitoring, name="monitoring"),
+    path("ajax/exploration/start", start_exploration, name="start_exploration"),
+    path("ajax/exploration/stop", stop_exploration, name="stop_exploration"),
     path(
         "ajax/load_exploration_sites/",
         load_exploration_sites,
         name="load_exploration_sites",
     ),
     path("ajax/populate_site_data/", populate_site_data, name="populate_site_data"),
+    path(
+        "ajax/monitoring/refresh/",
+        refresh_monitoring_data,
+        name="refresh_monitoring_data",
+    ),
     path("save_to_projects/<int:proj_id>", save_to_projects, name="save_to_projects"),
 ]
