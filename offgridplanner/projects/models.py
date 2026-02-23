@@ -109,3 +109,12 @@ class SiteExploration(models.Model):
 
     def __str__(self):
         return f"{self.exploration_id}"
+
+
+class MonitoringData(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    latest_monitoring_data = models.JSONField(null=True)
+    latest_alarms = models.JSONField(null=True)
+
+    def __str__(self):
+        return f"{self.pk}"
