@@ -15,6 +15,23 @@ from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
 
 
+def get_geojson_centroid(latitudes: pd.Series, longitudes: pd.Series):
+    """
+    Returns centroid as [longitude, latitude] (GeoJSON format).
+    Ignores NaN values safely.
+    """
+    if latitudes.empty or longitudes.empty:
+        return None
+
+    lat = latitudes.mean()
+    lon = longitudes.mean()
+
+    if pd.isna(lat) or pd.isna(lon):
+        return None
+
+    return [float(lon), float(lat)]
+
+
 def format_exploration_sites_data(sites):
     """
     Takes the JSON from the site exploration API and fits the data into the corresponding geojson/table format to be
@@ -36,6 +53,7 @@ def format_exploration_sites_data(sites):
             },
             "properties": {
                 "name": site["id"],
+                "status": "potential",
             },
         }
         for site in sites
@@ -165,7 +183,10 @@ def from_nested_dict(model_cls, nested_data):
         params[field_name] = value
 
         # Reverse the efficiency scaling
-        if "efficiency" in db_column.split("__")[-1]:
+        if any(
+            percentage_param in db_column.split("__")[-1]
+            for percentage_param in ["soc", "efficiency", "max_shortage"]
+        ):
             percentage_value = value * 100
             params[field_name] = percentage_value
 

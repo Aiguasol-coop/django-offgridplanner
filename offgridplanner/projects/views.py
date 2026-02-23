@@ -46,6 +46,7 @@ from offgridplanner.projects.forms import SiteExplorationForm
 from offgridplanner.projects.helpers import collect_project_dataframes
 from offgridplanner.projects.helpers import format_exploration_sites_data
 from offgridplanner.projects.helpers import from_nested_dict
+from offgridplanner.projects.helpers import get_geojson_centroid
 from offgridplanner.projects.helpers import load_project_from_dict
 from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
@@ -251,13 +252,38 @@ def potential_map(request):
         geojson_initial, _ = format_exploration_sites_data(existing_mgs)
 
     potential_sites = site_exploration.latest_exploration_results
+    geojson_potential = []
+    analyzing_sites = Project.objects.filter(
+        user=user, nodes__isnull=False
+    ).select_related("nodes")
+    geojson_analyzing = []
+    if analyzing_sites:
+        for project in analyzing_sites:
+            df = project.nodes.df
+
+            centroid = get_geojson_centroid(df["latitude"], df["longitude"])
+
+            geojson_analyzing.append(
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": centroid,
+                    },
+                    "properties": {
+                        "name": project.name,
+                        "status": "analyzing",
+                    },
+                }
+            )
+
     if potential_sites:
         geojson_potential, table_potential = format_exploration_sites_data(
             potential_sites["minigrids"]
         )
 
         context["table_data"] = json.dumps(table_potential)
-        context["map_data"] = json.dumps(geojson_potential)
+    context["map_data"] = json.dumps(geojson_potential + geojson_analyzing)
 
     return render(request, "pages/map.html", context=context)
 
@@ -315,15 +341,13 @@ def populate_site_data(request):
     site_exploration = request.user.siteexploration
     exploration_id = site_exploration.exploration_id
     site_id = json.loads(request.body).get("site_id")
-    res = fetch_potential_minigrid_data(exploration_id, site_id)
 
     try:
+        res = fetch_potential_minigrid_data(exploration_id, site_id)
         # Extract the project data and create a new project
         project_input = {
             "uuid": res["id"],
         } | json.loads(res["project_input"])
-        # TODO find out where the tax parameter might be needed
-        project_input.pop("tax")
         proj_qs = Project.objects.filter(user__id=request.user.id, uuid=res["id"])
         if proj_qs.exists():
             proj = proj_qs.get()
@@ -377,9 +401,15 @@ def populate_site_data(request):
 
         # Create a CustomDemand object
         custom_demand, _ = CustomDemand.objects.get_or_create(project=proj)
-        settlement_type = custom_demand.settlement_type
+        settlement_type = res["settlement_type"]
+        custom_demand.settlement_type = settlement_type
+        # Merge dictionary with all tiers set to 0 with tiers defined in response nodes
+        household_shares = dict.fromkeys(custom_demand.shares_tiers, 0) | dict(
+            nodes.counts.loc["household"] / nodes.counts.loc["household"].sum()
+        )
         defaults = custom_demand.get_shares_dict(defaults=True)[settlement_type]
-        for field, val in defaults.items():
+        shares_dict = defaults if "default" in household_shares else household_shares
+        for field, val in shares_dict.items():
             setattr(custom_demand, field, val)
         custom_demand.save()
 
@@ -396,7 +426,10 @@ def populate_site_data(request):
 
     except RuntimeError:
         return JsonResponse(
-            {"error": "Something went wrong fetching the site data"}, status=400
+            {
+                "error": "Something went wrong fetching the site data. The exploration may have expired, please try re-running it."
+            },
+            status=400,
         )
 
     return JsonResponse(
@@ -411,6 +444,21 @@ def save_to_projects(request, proj_id):
     project.status = "analyzing"
     project.save()
 
+    # Change project status in exploration results json
+    exploration = project.user.siteexploration
+    potential_mgs = exploration.latest_exploration_results["minigrids"]
+    try:
+        mg_index = next(
+            i for i, mg in enumerate(potential_mgs) if mg["id"] == str(project.uuid)
+        )
+        potential_mgs.pop(mg_index)
+        exploration.latest_exploration_results["minigrids"] = potential_mgs
+        exploration.save()
+    # Occurs when next() iterator does not find the id in the potential sites data
+    except StopIteration:
+        err = "Could not update exploration data for potential sites."
+        logger.warning(err)
+
     nodes_df = project.nodes.df
     min_latitude, min_longitude, max_latitude, max_longitude = (
         nodes_df["latitude"].min(),
@@ -421,7 +469,7 @@ def save_to_projects(request, proj_id):
 
     notify_mg_data = {
         "id": str(project.uuid),
-        "status": "potential",
+        "status": "analyzing",
         "centroid": {
             "bbox": [min_latitude, min_longitude, max_latitude, max_longitude],
             "type": "Point",

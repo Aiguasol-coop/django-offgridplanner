@@ -1,9 +1,19 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Display analyzing projects in potential map
+
+### Changed
+- Added clustering methodology to methodology page
+- Remove project from potential table when moved to analyzing
+
+### Fixed
+- Fix processing and unit issues between API responses and tool
+- Fix marker snapping on pole editor
 
 ## [v1.0.1-moz.1.1] – 2026-01-28
-### Added 
+### Added
 - Added Satellite layer to potential minigrids map.
 
 ### Changed

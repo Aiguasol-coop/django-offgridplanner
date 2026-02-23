@@ -31,7 +31,8 @@
 }
 
 /* Add slight padding around the marker so that they are easier to grab */
-.leaflet-marker-icon.pole-marker {
+.leaflet-marker-icon.pole-marker,
+.leaflet-marker-icon.pole-highlight {
   padding: 8px;
   box-sizing: content-box;
 }

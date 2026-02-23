@@ -21,7 +21,7 @@ L.control.layers(
   }
 ).addTo(map);
 
-// Make green clusters for Existing, blue clusters for Potential
+// Make clusters
 const existingSitesLayer = L.markerClusterGroup({
   disableClusteringAtZoom: 15,
   iconCreateFunction: (cluster) => {
@@ -44,6 +44,17 @@ const potentialSitesLayer = L.markerClusterGroup({
   }
 }).addTo(map);
 
+const analyzingSitesLayer = L.markerClusterGroup({
+  disableClusteringAtZoom: 15,
+  iconCreateFunction: (cluster) => {
+    return L.divIcon({
+      html: `<div class="cluster cluster-orange"><span>${cluster.getChildCount()}</span></div>`,
+      className: 'cluster-wrapper',
+      iconSize: L.point(40, 40)
+    });
+  }
+}).addTo(map);
+
 // Custom
 const existingMarker = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
@@ -54,8 +65,17 @@ const existingMarker = new L.Icon({
   shadowSize: [41, 41]
 });
 
-const newMarker = new L.Icon({
+const potentialMarker = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+const analyzingMarker = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -157,15 +177,23 @@ function initSitesTableClicks(){
       });
       const data = await response.json();
       if (data.redirect_url) window.open(data.redirect_url, '_blank');
-      if (data.error) console.error(data.error);
-    } catch (e) {
-      console.error('Error in fetch:', e);
-      button.innerHTML = 'Error';
-      return;
-    } finally {
+      if (data.error) {
+        document.getElementById('responseMsg').innerHTML = data.error;
+        document.getElementById('msgBox').style.display = 'block';
+        button.innerHTML = 'Error';
+        return;
+
+      };
+    } catch (err) {
+      hasError = true;
+      console.error(err);
+    }
+    if (!hasError) {
+      // only reset if everything was successful
       button.disabled = false;
       button.innerHTML = original;
-      button.dataset.busy = 'false';
+      // keep button greyed out so user cant access same project multiple times
+      // button.dataset.busy = 'false';
     }
   });
 }
@@ -236,14 +264,20 @@ function updateResults(table_data, map_data) {
       // Update map
       potentialSitesLayer.clearLayers();
       map_data.forEach(feature => {
-      let [lng, lat] = feature.geometry.coordinates;
-      let id = feature.properties.name;
+        let status = feature.properties.status;
+        let [lng, lat] = feature.geometry.coordinates;
+        let id = feature.properties.name;
 
         const content = `
           <h3>ID: ${id}</h3>
         `;
-        const marker = L.marker([lat, lng], { icon: newMarker }).bindPopup(content);
+        if (status === "potential") {
+        marker = L.marker([lat, lng], { icon: potentialMarker }).bindPopup(content);
         potentialSitesLayer.addLayer(marker);
+        } else if (status === "analyzing") {
+        marker = L.marker([lat, lng], { icon: analyzingMarker }).bindPopup(content);
+        analyzingSitesLayer.addLayer(marker);
+        }
     });
   }
   }
@@ -305,6 +339,10 @@ function loadLegend() {
     {
       img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
       text: 'Potential site'
+    },
+    {
+      img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+      text: 'Analysis site'
     }
   ];
 

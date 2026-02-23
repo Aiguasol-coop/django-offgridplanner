@@ -62,6 +62,11 @@ class CustomDemand(models.Model):
         return f"CustomDemand {self.id}: Project {self.project.name}"
 
     @property
+    def shares_tiers(self):
+        shares_tiers = ["very_low", "low", "middle", "high", "very_high"]
+        return shares_tiers
+
+    @property
     def settlement_defaults(self):
         settlement_defaults = csv_to_dict(
             "data/settlement_defaults.csv", label_col="settlement_type"
@@ -85,7 +90,6 @@ class CustomDemand(models.Model):
 
     def get_shares_dict(self, *, as_percentage=False, defaults=False):
         multiplier = 100 if as_percentage else 1
-        shares_fields = ["very_low", "low", "middle", "high", "very_high"]
         if defaults:
             shares_dict = {
                 household: {k: float(v) * multiplier for k, v in demands.items()}
@@ -93,7 +97,7 @@ class CustomDemand(models.Model):
             }
         else:
             shares_dict = {
-                field: getattr(self, field) * multiplier for field in shares_fields
+                field: getattr(self, field) * multiplier for field in self.shares_tiers
             }
 
         return shares_dict

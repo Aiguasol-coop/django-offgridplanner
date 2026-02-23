@@ -1,5 +1,7 @@
 {% load static %}
 {% load i18n %}
+{% load custom_template_tags %}
+{% load humanize %}
 
 <div class="table-container-scrollable">
   <table class="minimal-table">
@@ -8,9 +10,9 @@
         <th onclick="sortTable(0, this)">ID <span class="sort-arrow">↕</span></th>
         <th onclick="sortTable(1, this)">Province <span class="sort-arrow">↕</span></th>
         <th onclick="sortTable(2, this)">Consumers <span class="sort-arrow">↕</span></th>
-        <th onclick="sortTable(3, this)">Grid Dist. [m]<span class="sort-arrow">↕</span></th>
-        <th onclick="sortTable(4, this)">Road Dist. [m]<span class="sort-arrow">↕</span></th>
-        <th onclick="sortTable(5, this)">LCOE [cent]<span class="sort-arrow">↕</span></th>
+        <th onclick="sortTable(3, this)">Grid Dist. [km]<span class="sort-arrow">↕</span></th>
+        <th onclick="sortTable(4, this)">Road Dist. [km]<span class="sort-arrow">↕</span></th>
+        <th onclick="sortTable(5, this)">LCOE [ct/kWh]<span class="sort-arrow">↕</span></th>
         <th onclick="sortTable(6, this)">RES [%]<span class="sort-arrow">↕</span></th>
         <th onclick="sortTable(7, this)">CAPEX [USD]<span class="sort-arrow">↕</span></th>
         <th onclick="sortTable(8, this)">CO2 Savings [t/a]<span class="sort-arrow">↕</span></th>
@@ -23,14 +25,14 @@
       <tr>
         <td>{{ site.id|truncatechars:6 }}</td>
         <td>{{ site.province }}</td>
-        <td>{{ site.num_buildings|floatformat:2 }}</td>
-        <td>{{ site.distance_to_grid_m|floatformat:2 }}</td>
-        <td>{{ site.avg_distance_to_road_m|floatformat:2 }}</td>
+        <td>{{ site.num_buildings }}</td>
+        <td>{{ site.distance_from_grid|floatformat:2|intcomma }}</td>
+        <td>{{ site.distance_to_main_road|floatformat:2|intcomma }}</td>
         <td>{{ site.lcoe|floatformat:2 }}</td>
         <td>{{ site.res|floatformat:2 }}</td>
-        <td>{{ site.capex|floatformat:2 }}</td>
-        <td>{{ site.co2_savings|floatformat:2 }}</td>
-        <td>{{ site.consumption_total|floatformat:2 }}</td>
+        <td>{{ site.capex|floatformat:2|intcomma }}</td>
+        <td>{{ site.co2_savings|floatformat:2|intcomma }}</td>
+        <td>{{ site.consumption_total|floatformat:2|intcomma }}</td>
         <td><button data-site-id="{{ site.id }}" class="edit-btn btn btn-primary-small">Edit</button></td>
       </tr>
       {% endfor %}
