@@ -21,61 +21,19 @@ L.control.layers(
   }
 ).addTo(map);
 
-// Make clusters
-const existingSitesLayer = L.markerClusterGroup({
+const monitoringSitesLayer = L.markerClusterGroup({
   disableClusteringAtZoom: 15,
   iconCreateFunction: (cluster) => {
     return L.divIcon({
-      html: `<div class="cluster cluster-green"><span>${cluster.getChildCount()}</span></div>`,
+      html: `<div class="cluster cluster-violet"><span>${cluster.getChildCount()}</span></div>`,
       className: 'cluster-wrapper',
       iconSize: L.point(40, 40)
     });
   }
 }).addTo(map);
 
-const potentialSitesLayer = L.markerClusterGroup({
-  disableClusteringAtZoom: 15,
-  iconCreateFunction: (cluster) => {
-    return L.divIcon({
-      html: `<div class="cluster cluster-blue"><span>${cluster.getChildCount()}</span></div>`,
-      className: 'cluster-wrapper',
-      iconSize: L.point(40, 40)
-    });
-  }
-}).addTo(map);
-
-const analyzingSitesLayer = L.markerClusterGroup({
-  disableClusteringAtZoom: 15,
-  iconCreateFunction: (cluster) => {
-    return L.divIcon({
-      html: `<div class="cluster cluster-orange"><span>${cluster.getChildCount()}</span></div>`,
-      className: 'cluster-wrapper',
-      iconSize: L.point(40, 40)
-    });
-  }
-}).addTo(map);
-
-// Custom
-const existingMarker = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-const potentialMarker = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-const analyzingMarker = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+const monitoringMarker = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -101,182 +59,53 @@ loadLegend();
 let shouldStop = false;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const startExplorationBtn = document.getElementById("exploration-btn");
-  const stopBtn = document.getElementById('stop-btn');
-  const sitesTable = document.getElementById("sites-table");
+  const refreshBtn = document.getElementById("refresh-btn");
+  const monitoringTable = document.getElementById("monitoring-table");
+  const alarmsTable = document.getElementById("alarms-table");
 
   // Load previous data on first load
   updateResults(table_data, map_data);
+  refreshBtn.addEventListener("click", async (event) => {
+    $("#loading_spinner").show();
+    try {
+    const resp = await fetch(fetchMonitoringDataUrl);
+    if (!resp.ok) {
+      $("#loading_spinner").hide();
+      const msg = await resp.json();
+      document.getElementById('responseMsg').textContent = msg.error;
+      document.getElementById('msgBox').style.display = "block";
 
-  // load existing Minigrids on map
-  existing_mgs.forEach(feature => {
-  const [lng, lat] = feature.centroid.coordinates;
-  const content = `
-    <h4>${feature.name}</h4></br>
-      Status: ${feature.status}</br>
-      PV capacity: ${feature.pv_capacity}</br>
-      Grid distance: ${feature.distance_to_grid}
-    `;
-
-  const marker = L.marker([lat, lng], { icon: existingMarker }).bindPopup(content);
-  existingSitesLayer.addLayer(marker);
+    } else {
+      $("#loading_spinner").hide();
+      data = await resp.json();
+      updateResults(data.table, data.geojson);
+    };
+    } catch (err) {
+        console.log("An error occurred", err);
+    }
   });
-
-  // load grid network on map
-  addGridToMap(grid_network);
-
-  //  Add event listeners for start and stop buttons
-  stopBtn.addEventListener('click', () => {
-     const response = fetch(stopExplorationUrl);
-     $("#loading_spinner").hide();
-     document.getElementById('exploration-finished').innerHTML = "<b>The site exploration was stopped<b>";
-     document.getElementById('exploration-finished').style.display = "block";
-
-     shouldStop = true;
-     startExplorationBtn.disabled = false;
-  });
-
-  startExplorationBtn.addEventListener("click", async (event) => {
-    event.preventDefault();
-    const formData = new FormData(filterForm);
-    await sendRequest(formData);
-  });
-
-  // Add event listener to edit button for exploration sites
-  initSitesTableClicks();
-
 });
 
-function initSitesTableClicks(){
-  const table = document.getElementById('sites-table');
-  table.addEventListener('click', async (event) => {
-    const button = event.target.closest('.edit-btn');   // use a CLASS, not duplicate ID
-    if (!button || !table.contains(button)) return;
 
-    event.preventDefault();
-    event.stopPropagation();
-
-    // guard against double clicks / duplicate triggers
-    if (button.dataset.busy === 'true') return;
-    button.dataset.busy = 'true';
-
-    const siteId = button.getAttribute('data-site-id');
-    const original = button.innerHTML;
-    button.disabled = true;
-    button.innerHTML = 'Loading...';
-
-    try {
-      const response = await fetch(populateSiteDataUrl, {
-        method: 'POST',
-        headers: {
-          'X-CSRFToken': csrfToken,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ site_id: siteId }),
-      });
-      const data = await response.json();
-      if (data.redirect_url) window.open(data.redirect_url, '_blank');
-      if (data.error) {
-        document.getElementById('responseMsg').innerHTML = data.error;
-        document.getElementById('msgBox').style.display = 'block';
-        button.innerHTML = 'Error';
-        return;
-
-      };
-    } catch (err) {
-      hasError = true;
-      console.error(err);
-    }
-    if (!hasError) {
-      // only reset if everything was successful
-      button.disabled = false;
-      button.innerHTML = original;
-      // keep button greyed out so user cant access same project multiple times
-      // button.dataset.busy = 'false';
-    }
-  });
-}
-
-
-async function sendRequest(body) {
-  shouldStop = false;
-  document.getElementById('exploration-finished').style.display = "none";
-  const response = await fetch(startExplorationUrl, {
-    method: "POST",
-    headers: { 'X-CSRFToken': csrfToken },
-    body: body
-  });
-  if (!response.ok) {
-    console.error("Failed to start exploration");
-    document.getElementById('exploration-finished').style.display = "block";
-    document.getElementById('exploration-finished').innerHTML = "An error occurred. Please try again.";
-    // try stopping the exploration in case the issue is an already running exploration
-    stopBtn.click();
-    return;
-  }
-  const data = await response.json();
-  document.getElementById("exploration-btn").disabled = true;
-  document.querySelector('#sites-table').innerHTML = "";
-  potentialSitesLayer.clearLayers();
-
-  if (data.status === "FINISHED") {
-    updateResults(data.table, data.geojson);
-  } else if (data.status === "RUNNING") {
-    $("#loading_spinner").show();
-    await new Promise(resolve => setTimeout(resolve, 10000)); // wait 10s
-    pollExplorationResults();
-  }
-}
-
-async function pollExplorationResults() {
-  while (!shouldStop) {
-    const response = await fetch(loadExplorationSitesUrl);
-    console.log("Polling exploration data...")
-
-    if (!response.ok) {
-      console.error("Failed to fetch exploration results");
-      $("#loading_spinner").hide();
-      break;
-    }
-
-    const data = await response.json();
-    updateResults(data.table, data.geojson);
-
-    if (data.status === "FINISHED" || data.status === "STOPPED") {
-      $("#loading_spinner").hide();
-      break;
-    }
-
-    await new Promise(resolve => setTimeout(resolve, 10000)); // wait 10s
-  }
-  $("#loading_spinner").hide();
-  document.getElementById('exploration-finished').innerHTML = "<b>The site exploration has finished<b>";
-  document.getElementById('exploration-finished').style.display = "block";
-}
 
 function updateResults(table_data, map_data) {
   if (table_data !== undefined) {
       // Update table
-      document.querySelector('#sites-table').innerHTML = table_data;
+      document.querySelector('#monitoring-table').innerHTML = table_data;
       }
   if (map_data !== undefined) {
       // Update map
-      potentialSitesLayer.clearLayers();
+      monitoringSitesLayer.clearLayers();
       map_data.forEach(feature => {
         let status = feature.properties.status;
         let [lng, lat] = feature.geometry.coordinates;
         let id = feature.properties.name;
 
         const content = `
-          <h3>ID: ${id}</h3>
+          <div>ID: ${id} <br>Name: ${</div>
         `;
-        if (status === "potential") {
-        marker = L.marker([lat, lng], { icon: potentialMarker }).bindPopup(content);
-        potentialSitesLayer.addLayer(marker);
-        } else if (status === "analyzing") {
-        marker = L.marker([lat, lng], { icon: analyzingMarker }).bindPopup(content);
-        analyzingSitesLayer.addLayer(marker);
-        }
+        marker = L.marker([lat, lng], { icon: monitoringMarker }).bindPopup(content);
+        monitoringSitesLayer.addLayer(marker);
     });
   }
   }
@@ -332,17 +161,9 @@ function loadLegend() {
 
   const labels = [
     {
-      img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-      text: 'Existing minigrid'
+      img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+      text: 'Monitored minigrid'
     },
-    {
-      img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-      text: 'Potential site'
-    },
-    {
-      img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
-      text: 'Analysis site'
-    }
   ];
 
   legend.onAdd = function () {
