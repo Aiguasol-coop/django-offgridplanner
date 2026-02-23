@@ -1,8 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Display analyzing projects in potential map
+
 ### Changed
 - Added clustering methodology to methodology page
+- Remove project from potential table when moved to analyzing
+
 ### Fixed
 - Fix processing and unit issues between API responses and tool
 - Fix marker snapping on pole editor
