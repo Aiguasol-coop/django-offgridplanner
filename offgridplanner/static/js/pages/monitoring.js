@@ -64,7 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const alarmsTable = document.getElementById("alarms-table");
 
   // Load previous data on first load
-  updateResults(table_data, map_data);
+  updateResults(monit_table, monit_geojson, "monitoring-table");
+  updateResults(alarms_table, null, "alarms-table");
+
+  // load grid network on map
+  addGridToMap(grid_network);
+
   refreshBtn.addEventListener("click", async (event) => {
     $("#loading_spinner").show();
     try {
@@ -78,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       $("#loading_spinner").hide();
       data = await resp.json();
-      updateResults(data.table, data.geojson);
+      updateResults(data.monit_table, data.monit_geojson, "monitoring-table");
+      updateResults(data.alarms_table, null, "alarms-table");
     };
     } catch (err) {
         console.log("An error occurred", err);
@@ -88,12 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-function updateResults(table_data, map_data) {
-  if (table_data !== undefined) {
+function updateResults(table_data, map_data, table_id) {
+  if (table_data !== null) {
       // Update table
-      document.querySelector('#monitoring-table').innerHTML = table_data;
+      document.getElementById(table_id).innerHTML = table_data;
       }
-  if (map_data !== undefined) {
+  if (map_data !== null) {
       // Update map
       monitoringSitesLayer.clearLayers();
       map_data.forEach(feature => {
@@ -102,7 +108,7 @@ function updateResults(table_data, map_data) {
         let id = feature.properties.name;
 
         const content = `
-          <div>ID: ${id} <br>Name: ${</div>
+          <div>ID: ${id} <br>Name: ${id}</div>
         `;
         marker = L.marker([lat, lng], { icon: monitoringMarker }).bindPopup(content);
         monitoringSitesLayer.addLayer(marker);
@@ -114,7 +120,8 @@ let currentSortIndex = null;
 let sortAscending = true;
 
 function sortTable(colIndex, th) {
-  const tbody = sitesTable.querySelector("tbody");
+  const table = th.closest("table");
+  const tbody = table.querySelector("tbody");
   const rows = Array.from(tbody.querySelectorAll("tr"));
 
   // Determine sort direction

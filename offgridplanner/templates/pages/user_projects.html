@@ -21,7 +21,7 @@
           <div class="radio-inputs" id="status_header" >
             <label class="radio">
               <input type="radio" name="radio">
-              <a class="name" href="{% url 'projects:potential_map' %}">Potential</a>
+              <a class="name" href="{% url 'projects:projects_list' 'potential' %}">Potential</a>
             </label>
             <label class="radio">
               <input type="radio" name="radio" {% if status == "analyzing" %}checked{% endif %}>

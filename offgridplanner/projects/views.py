@@ -304,13 +304,34 @@ def monitoring(request):
     user = request.user
     monitoring_data, _ = MonitoringData.objects.get_or_create(user=user)
     monit = monitoring_data.latest_monitoring_data
-    context = {"table_data": [], "map_data": []}
+    alarms = monitoring_data.latest_alarms
+
+    monit_geojson = monit_table = alarms_table = []
     if monit:
-        map_data, table_data = format_sites_data(
+        monit_geojson, monit_table = format_sites_data(
             json.loads(monit), "widgets/monitoring_table.html"
         )
-        context["table_data"] = json.dumps(table_data)
-        context["map_data"] = json.dumps(map_data)
+    if alarms:
+        _, alarms_table = format_sites_data(
+            json.loads(alarms), "widgets/alarms_table.html"
+        )
+
+    if "grid_network" in request.session:
+        grid_network = request.session["grid_network"]
+    else:
+        try:
+            grid_network = fetch_grid_network()
+            request.session["grid_network"] = grid_network
+        except RuntimeError:
+            grid_network = []
+
+    context = {
+        "monit_table": json.dumps(monit_table),
+        "alarms_table": json.dumps(alarms_table),
+        "monit_geojson": json.dumps(monit_geojson),
+        "grid_network": json.dumps(grid_network),
+    }
+
     return render(request, "pages/monitoring.html", context=context)
 
 
@@ -323,10 +344,16 @@ def refresh_monitoring_data(request):
         monitoring_data.latest_monitoring_data = json.dumps(monit)
         monitoring_data.latest_alarms = json.dumps(alarms)
         monitoring_data.save()
-        data = {}
-        data["geojson"], data["table"] = format_sites_data(
+        monit_geojson, monit_table = format_sites_data(
             monit, "widgets/monitoring_table.html"
         )
+        _, alarms_table = format_sites_data(alarms, "widgets/alarms_table.html")
+
+        data = {
+            "monit_geojson": json.dumps(monit_geojson),
+            "monit_table": json.dumps(monit_table),
+            "alarms_table": json.dumps(alarms_table),
+        }
         return JsonResponse(data)
     except RuntimeError:
         err = "An error occurred fetching the monitoring data. Please try again later."
