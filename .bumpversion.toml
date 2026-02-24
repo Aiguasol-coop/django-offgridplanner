@@ -1,5 +1,5 @@
 [tool.bumpversion]
-current_version = "1.0.1-moz.1.1"
+current_version = "1.0.1-moz.2.0"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)-moz\\.(?P<fork_minor>\\d+)\\.(?P<fork_patch>\\d+)"
 serialize = ["{major}.{minor}.{patch}-moz.{fork_minor}.{fork_patch}"]
 search = "{current_version}"
@@ -19,13 +19,6 @@ commit_args = "--no-verify"
 setup_hooks = []
 pre_commit_hooks = []
 post_commit_hooks = []
-
-[tool.bumpversion.parts.fork_minor]
-independent = true
-first_value = "0"
-
-[tool.bumpversion.parts.fork_patch]
-first_value = "0"
 
 [[tool.bumpversion.files]]
 filename = "config/settings/base.py"

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.0.1-moz.2.0] – 2026-02-24
 ### Added
 - Display roads on consumer mini grid maps (consumer selection and results view)
 - Display monitored minigrids and fetch status ([#16](https://github.com/Aiguasol-coop/django-offgridplanner/pull/16))
