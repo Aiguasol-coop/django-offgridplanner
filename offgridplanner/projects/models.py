@@ -39,6 +39,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=51, blank=True, default="")
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    monitoring_id = models.CharField(max_length=64, blank=True, default="")
     description = models.CharField(max_length=201, blank=True, default="")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
