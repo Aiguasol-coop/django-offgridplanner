@@ -108,7 +108,7 @@ function updateResults(table_data, map_data, table_id) {
         let id = feature.properties.name;
 
         const content = `
-          <div>ID: ${id} <br>Name: ${id}</div>
+          <div>ID: ${id}</div>
         `;
         marker = L.marker([lat, lng], { icon: monitoringMarker }).bindPopup(content);
         monitoringSitesLayer.addLayer(marker);

@@ -350,9 +350,9 @@ def refresh_monitoring_data(request):
         _, alarms_table = format_sites_data(alarms, "widgets/alarms_table.html")
 
         data = {
-            "monit_geojson": json.dumps(monit_geojson),
-            "monit_table": json.dumps(monit_table),
-            "alarms_table": json.dumps(alarms_table),
+            "monit_geojson": monit_geojson,
+            "monit_table": monit_table,
+            "alarms_table": alarms_table,
         }
         return JsonResponse(data)
     except RuntimeError:
