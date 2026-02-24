@@ -42,6 +42,7 @@ from offgridplanner.optimization.requests import fetch_potential_minigrid_data
 from offgridplanner.optimization.requests import notify_existing_minigrids
 from offgridplanner.optimization.requests import start_site_exploration
 from offgridplanner.optimization.requests import stop_site_exploration
+from offgridplanner.optimization.requests import validate_monitoring_id
 from offgridplanner.projects.exports import create_pdf_report
 from offgridplanner.projects.exports import prepare_data_for_export
 from offgridplanner.projects.exports import project_data_df_to_xlsx
@@ -174,8 +175,15 @@ def update_project_status(request):
     data = json.loads(request.body)
     project_id = int(data.get("proj_id"))
     new_status = data.get("status")
+    monitoring_id = data.get("monitoring_id")
     project = Project.objects.get(id=project_id)
     project.status = new_status
+    if new_status == "monitoring":
+        valid_monitoring_id, msg = validate_monitoring_id(monitoring_id, project.uuid)
+        if valid_monitoring_id:
+            project.monitoring_id = monitoring_id
+        else:
+            return JsonResponse({"error": msg}, status=400)
     project.save()
     return JsonResponse({"success": True})
 

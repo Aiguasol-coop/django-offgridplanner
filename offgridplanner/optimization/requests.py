@@ -384,7 +384,7 @@ def fetch_monitoring_alarms():
 
 def validate_monitoring_id(monitoring_id, mg_uuid):
     """
-    Validate that the given minigrid ID is being monitored.
+    Validate that the given minigrid ID is being monitored. Returns True if valid, False if not.
     """
     request_url = MG_EXPLORER_API_HOST + "/monitoring/id_validation"
 
@@ -395,10 +395,9 @@ def validate_monitoring_id(monitoring_id, mg_uuid):
             timeout=5,
         )
         response.raise_for_status()
+        msg = None
     except httpx.HTTPError as e:
-        logger.exception("HTTP error occurred")
-        msg = "An error occurred during monitoring validation."
-        raise RuntimeError(msg) from e
-    else:
-        logger.info("Checked monitoring ID.")
-        return response.json()
+        msg = response.json()["detail"]
+        logger.warning("Invalid monitoring ID")
+        return False, msg
+    return True, msg
