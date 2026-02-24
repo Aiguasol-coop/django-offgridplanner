@@ -1,0 +1,20 @@
+.status-light {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+/* Colors */
+.status-red {
+  background-color: #e74c3c;
+}
+
+.status-green {
+  background-color: #2ecc71;
+}
+
+.status-yellow {
+  background-color: #f1c40f;
+}

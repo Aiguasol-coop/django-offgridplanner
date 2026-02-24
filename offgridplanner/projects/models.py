@@ -39,6 +39,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=51, blank=True, default="")
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    monitoring_id = models.CharField(max_length=64, blank=True, default="")
     description = models.CharField(max_length=201, blank=True, default="")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -109,3 +110,12 @@ class SiteExploration(models.Model):
 
     def __str__(self):
         return f"{self.exploration_id}"
+
+
+class MonitoringData(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    latest_monitoring_data = models.JSONField(null=True)
+    latest_alarms = models.JSONField(null=True)
+
+    def __str__(self):
+        return f"{self.pk}"

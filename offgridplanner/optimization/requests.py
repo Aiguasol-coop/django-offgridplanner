@@ -344,3 +344,60 @@ def fetch_provinces():
     else:
         logger.info("Obtained province data.")
         return response.json()
+
+
+def fetch_monitoring_data():
+    """
+    Fetch the data for the minigrids being monitored.
+    """
+    request_url = MG_EXPLORER_API_HOST + "/monitoring/data"
+
+    try:
+        response = httpx.get(request_url, timeout=120)
+        response.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.exception("HTTP error occurred")
+        msg = "An error occurred during fetching of the monitoring data. "
+        raise RuntimeError(msg) from e
+    else:
+        logger.info("Obtained monitoring data.")
+        return response.json()
+
+
+def fetch_monitoring_alarms():
+    """
+    Fetch the data for the minigrids being monitored.
+    """
+    request_url = MG_EXPLORER_API_HOST + "/monitoring/alarms"
+
+    try:
+        response = httpx.get(request_url, timeout=120)
+        response.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.exception("HTTP error occurred")
+        msg = "An error occurred during fetching of the monitoring alarms. "
+        raise RuntimeError(msg) from e
+    else:
+        logger.info("Obtained monitoring alarms.")
+        return response.json()
+
+
+def validate_monitoring_id(monitoring_id, mg_uuid):
+    """
+    Validate that the given minigrid ID is being monitored. Returns True if valid, False if not.
+    """
+    request_url = MG_EXPLORER_API_HOST + "/monitoring/id_validation"
+
+    try:
+        response = httpx.get(
+            request_url,
+            params={"monitoring_id": monitoring_id, "minigrid_id": mg_uuid},
+            timeout=5,
+        )
+        response.raise_for_status()
+        msg = None
+    except httpx.HTTPError as e:
+        msg = response.json()["detail"]
+        logger.warning("Invalid monitoring ID")
+        return False, msg
+    return True, msg
