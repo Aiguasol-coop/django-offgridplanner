@@ -31,6 +31,7 @@ from svglib.svglib import svg2rlg
 from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
+from offgridplanner.optimization.models import Roads
 from offgridplanner.optimization.models import Simulation
 from offgridplanner.optimization.processing import PreProcessor
 from offgridplanner.optimization.requests import fetch_existing_minigrids
@@ -39,6 +40,7 @@ from offgridplanner.optimization.requests import fetch_grid_network
 from offgridplanner.optimization.requests import fetch_monitoring_alarms
 from offgridplanner.optimization.requests import fetch_monitoring_data
 from offgridplanner.optimization.requests import fetch_potential_minigrid_data
+from offgridplanner.optimization.requests import fetch_road_network
 from offgridplanner.optimization.requests import notify_existing_minigrids
 from offgridplanner.optimization.requests import start_site_exploration
 from offgridplanner.optimization.requests import stop_site_exploration
@@ -417,7 +419,7 @@ def load_exploration_sites(request):
     return JsonResponse(data)
 
 
-def populate_site_data(request):
+def populate_site_data(request):  # noqa: PLR0915
     site_exploration = request.user.siteexploration
     exploration_id = site_exploration.exploration_id
     site_id = json.loads(request.body).get("site_id")
@@ -457,11 +459,31 @@ def populate_site_data(request):
 
         nodes, _ = Nodes.objects.get_or_create(project=proj)
         links, _ = Links.objects.get_or_create(project=proj)
+        roads, _ = Roads.objects.get_or_create(project=proj)
         # Format data to be in the same format as db (# TODO change db format to orient="list" eventually)
         nodes.data = pd.DataFrame(nodes_data).to_json(orient="records")
         nodes.save()
         links.data = pd.DataFrame(links_data).to_json(orient="records")
         links.save()
+
+        # Fetch the roads for the project site
+        min_latitude = nodes.df["latitude"].min()
+        min_longitude = nodes.df["longitude"].min()
+        max_latitude = nodes.df["latitude"].max()
+        max_longitude = nodes.df["longitude"].max()
+        bbox = [min_latitude, min_longitude, max_latitude, max_longitude]
+        road_geometries = fetch_road_network(bbox)
+
+        if road_geometries:
+            df = pd.DataFrame.from_records(road_geometries)
+            if not df.empty:
+                df = df.drop_duplicates(subset=["road_id"], keep="first")
+                required_columns = ["road_id", "coordinates", "how_added", "road_type"]
+                df = df[required_columns]
+                df["how_added"] = df["how_added"].fillna("automatic")
+                df["road_type"] = df["road_type"].fillna("osm")
+                roads.data = df.to_json(orient="records")
+                roads.save()
 
         # Save the energy system model data
         energy_system_data = json.loads(res["supply_input"])["energy_system_design"]
