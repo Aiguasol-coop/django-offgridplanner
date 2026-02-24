@@ -2930,7 +2930,7 @@ button:hover {
     background-color: var(--bct);
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 0px solid #fff;
-    width: 40%; /* Could be more or less, depending on screen size */
+    max-width: 40%; /* Could be more or less, depending on screen size */
     padding: 20px;
 }
 
@@ -3054,33 +3054,6 @@ button:hover {
     color: white;
 }
 
-/* Add padding and center-align text to the container */
-.container {
-    padding: 16px;
-    text-align: center;
-}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1050; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5);
-    padding-top: 50px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: var(--bct);
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 0px solid #fff;
-    width: 40%; /* Could be more or less, depending on screen size */
-}
 
 /* Style the horizontal ruler */
 hr {
