@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Display roads on consumer mini grid maps (consumer selection and results view)
 - Display monitored minigrids and fetch status ([#16](https://github.com/Aiguasol-coop/django-offgridplanner/pull/16))
 - Handle changing projects from analyzing to monitoring status([#16](https://github.com/Aiguasol-coop/django-offgridplanner/pull/16))
 - Display analyzing projects in potential map ([#15](https://github.com/Aiguasol-coop/django-offgridplanner/pull/15))
