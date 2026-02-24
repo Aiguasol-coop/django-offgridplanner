@@ -11,6 +11,32 @@
 {% block content %}
 <body>
 <main>
+  <div id="msgBox"
+       class="modal"
+       style="background-color: rgba(0,0,0,0.5);
+                z-index: 999;display:{% if show_modal %}block{% else %}none{% endif %}">
+    <form class="modal-content" style="max-width: 40rem" id="monitoringIdForm">
+      <div class="container">
+        <h1 style="text-align:left;">Enter monitoring ID</h1>
+        <p style="text-align:left;">
+          {% translate "Enter the monitoring ID that is used to track the mini-grid status on the FUNAE smart data system." %}
+        </p>
+        <input type="text" id="monitoringIdInput" style="width:100%;" placeholder="Monitoring ID">
+                    <div id="idError" style="color:red; margin-top:8px;"></div>
+        <div class="clearfix">
+          <button id="continueBtn" type="submit" class="btn btn-primary">Continue</button>
+
+          <a id="cancelBtn"
+             onclick="document.getElementById('msgBox').style.display='none'"
+             type="button"
+             class="btn btn--small btn--hollow">Cancel</a>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+
   <section class="dashboard">
     <section class="dashboard" style="height: auto">
       <div class="chart"
@@ -58,7 +84,7 @@
                   {% if projects|length > 0 %}
                     {% for project in projects %}
                       <tr>
-                        <td id="id">{{ project.id }}</td>
+                        <td class="proj-id">{{ project.id }}</td>
                         <td>{{ project.name }}</td>
                         <td>{{ project.date_created }}</td>
                         <td>{{ project.date_updated }}</td>
