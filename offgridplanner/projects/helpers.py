@@ -32,7 +32,7 @@ def get_geojson_centroid(latitudes: pd.Series, longitudes: pd.Series):
     return [float(lon), float(lat)]
 
 
-def format_sites_data(sites, table_template_path="widgets/table_template.html"):
+def format_sites_data(sites, table_template_path="widgets/potential_table.html"):
     """
     Takes the JSON from the site exploration API and fits the data into the corresponding geojson/table format to be
     displayed on the exploration site.
@@ -42,12 +42,12 @@ def format_sites_data(sites, table_template_path="widgets/table_template.html"):
 
     Returns:
         geojson_data: Data to construct the map markers
-        table_data: Data formatted into table_template.html
+        table_data: Data formatted into potential_table.html
     """
     # generate geoJSON for map
     status = (
         "potential"
-        if table_template_path == "widgets/table_template.html"
+        if table_template_path == "widgets/potential_table.html"
         else "monitoring"
     )
     features = [
@@ -58,7 +58,7 @@ def format_sites_data(sites, table_template_path="widgets/table_template.html"):
                 "coordinates": site["centroid"]["coordinates"],
             },
             "properties": {
-                "name": site["id"],
+                "name": site["id"] if status == "potential" else site["name"],
                 "status": status,
             },
         }
