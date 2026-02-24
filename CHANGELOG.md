@@ -2,15 +2,17 @@
 
 ## [Unreleased]
 ### Added
-- Display analyzing projects in potential map
+- Display monitored minigrids and fetch status ([#16](https://github.com/Aiguasol-coop/django-offgridplanner/pull/16))
+- Handle changing projects from analyzing to monitoring status([#16](https://github.com/Aiguasol-coop/django-offgridplanner/pull/16))
+- Display analyzing projects in potential map ([#15](https://github.com/Aiguasol-coop/django-offgridplanner/pull/15))
 
 ### Changed
-- Added clustering methodology to methodology page
-- Remove project from potential table when moved to analyzing
+- Added clustering methodology to methodology page ([#15](https://github.com/Aiguasol-coop/django-offgridplanner/pull/15))
+- Remove project from potential table when moved to analyzing ([#15](https://github.com/Aiguasol-coop/django-offgridplanner/pull/15))
 
 ### Fixed
-- Fix processing and unit issues between API responses and tool
-- Fix marker snapping on pole editor
+- Fix processing and unit issues between API responses and tool ([#15](https://github.com/Aiguasol-coop/django-offgridplanner/pull/15))
+- Fix marker snapping on pole editor ([#15](https://github.com/Aiguasol-coop/django-offgridplanner/pull/15))
 
 ## [v1.0.1-moz.1.1] – 2026-01-28
 ### Added
