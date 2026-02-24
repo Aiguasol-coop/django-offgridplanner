@@ -84,13 +84,13 @@
                   {% if projects|length > 0 %}
                     {% for project in projects %}
                       <tr>
-                        <td class="proj-id">{{ project.id }}</td>
+                        <td>{{ project.id }}</td>
                         <td>{{ project.name }}</td>
                         <td>{{ project.date_created }}</td>
                         <td>{{ project.date_updated }}</td>
                         <td>{{ project.simulation.status }}</td>
                         <td>
-              <select class="status-select" data-original-status="{{ project.status }}">
+              <select class="status-select" data-proj-id="{{ project.id }}" data-original-status="{{ project.status }}">
                 <option value="monitoring" {% if project.status == "monitoring" %}selected{% endif %}>Monitoring</option>
                 <option value="analyzing" {% if project.status == "analyzing" %}selected{% endif %}>Analyzing</option>
               </select>

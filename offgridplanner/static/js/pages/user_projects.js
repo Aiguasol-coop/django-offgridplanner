@@ -33,7 +33,7 @@ $(document).ready(function () {
       const row = select.closest("tr");
       const originalStatus = select.getAttribute("data-original-status");
       const currentStatus = select.value;
-      const proj_id = row.querySelector(".proj-id").innerHTML.trim();
+      const proj_id = select.getAttribute("data-proj-id");
       if (currentStatus !== originalStatus) {
             row.classList.add('greyed');
         } else {
