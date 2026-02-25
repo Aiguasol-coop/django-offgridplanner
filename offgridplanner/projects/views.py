@@ -11,9 +11,9 @@ import numpy as np
 import pandas as pd
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Exists
 from django.db.models import OuterRef
-from django.db import transaction
 from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -57,7 +57,6 @@ from offgridplanner.projects.helpers import collect_project_dataframes
 from offgridplanner.projects.helpers import format_sites_data
 from offgridplanner.projects.helpers import from_nested_dict
 from offgridplanner.projects.helpers import get_geojson_centroid
-from offgridplanner.projects.helpers import load_project_from_dict
 from offgridplanner.projects.models import MonitoringData
 from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project

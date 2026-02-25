@@ -32,8 +32,10 @@ from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.helpers import validate_file_extension
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
+from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.models import Roads
 from offgridplanner.optimization.models import Simulation
+from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import PreProcessor
 from offgridplanner.optimization.requests import fetch_road_network
 from offgridplanner.optimization.requests import optimization_check_status
@@ -41,7 +43,6 @@ from offgridplanner.optimization.requests import optimization_server_request
 from offgridplanner.optimization.supply.demand_estimation import LOAD_PROFILES
 from offgridplanner.optimization.supply.demand_estimation import get_demand_timeseries
 from offgridplanner.optimization.tasks import revoke_task
-from offgridplanner.projects.helpers import df_to_file
 from offgridplanner.projects.helpers import format_results_into_kpi_dict
 from offgridplanner.projects.helpers import sanitize_output_kpis
 from offgridplanner.projects.models import Project
