@@ -11,6 +11,9 @@ import numpy as np
 import pandas as pd
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import Exists
+from django.db.models import OuterRef
 from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import HttpResponse
@@ -28,6 +31,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import Image
 from svglib.svglib import svg2rlg
 
+from config.settings.base import DONE
 from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
@@ -53,7 +57,6 @@ from offgridplanner.projects.helpers import collect_project_dataframes
 from offgridplanner.projects.helpers import format_sites_data
 from offgridplanner.projects.helpers import from_nested_dict
 from offgridplanner.projects.helpers import get_geojson_centroid
-from offgridplanner.projects.helpers import load_project_from_dict
 from offgridplanner.projects.models import MonitoringData
 from offgridplanner.projects.models import Options
 from offgridplanner.projects.models import Project
@@ -62,7 +65,6 @@ from offgridplanner.steps.decorators import user_owns_project
 from offgridplanner.steps.models import CustomDemand
 from offgridplanner.steps.models import EnergySystemDesign
 from offgridplanner.steps.models import GridDesign
-from offgridplanner.users.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -85,8 +87,14 @@ def projects_list(request, status="analyzing"):
         projects = (
             Project.objects.filter(Q(user=request.user, status=status))
             .distinct()
+            .annotate(
+                has_simulation=Exists(
+                    Simulation.objects.filter(project=OuterRef("pk")).filter(
+                        Q(status_grid=DONE) | Q(status_supply=DONE)
+                    )
+                )
+            )
             .order_by("date_created")
-            .select_related("simulation")
             .reverse()
         )
         return render(
@@ -96,17 +104,57 @@ def projects_list(request, status="analyzing"):
         )
 
 
+def populate_project_from_export(export_dict, user):
+    # TODO technically one could also just duplicate the model instances directly instead of recreating them from dictionaries, but this allows the option to also have a file export/import in the future in json format that works with the same functions
+    with transaction.atomic():
+        project_input = export_dict["proj"] | {
+            "user": user,
+        }
+        proj = Project.objects.create(**project_input)
+
+        if proj.options is None:
+            proj.options = Options.objects.create()
+        proj.save()
+
+        # Save links and nodes data
+        for name, model in zip(["links", "nodes"], [Links, Nodes], strict=False):
+            if name in export_dict:
+                json_data = export_dict[name]
+                instance, _ = model.objects.get_or_create(project=proj)
+                instance.data = json_data
+                instance.save()
+
+        # Save the energy system and grid design model data
+        for name, model in zip(
+            ["energy_system_design", "grid_design"],
+            [EnergySystemDesign, GridDesign],
+            strict=False,
+        ):
+            if name in export_dict:
+                params_dict = json.loads(export_dict[name])
+                processed_dict = from_nested_dict(model, params_dict)
+                model_input = {"project": proj} | processed_dict
+                instance, _ = model.objects.get_or_create(**model_input)
+                instance.save()
+
+        # Create a CustomDemand object
+        if "custom_demand" in export_dict:
+            model_input = export_dict["custom_demand"] | {"project": proj}
+            custom_demand, _ = CustomDemand.objects.get_or_create(**model_input)
+            custom_demand.save()
+
+    return proj.id
+
+
 @login_required
 @user_owns_project
 @require_http_methods(["GET", "POST"])
 def project_duplicate(request, proj_id):
     if proj_id is not None:
         project = get_object_or_404(Project, id=proj_id)
-        # TODO check user rights to the project
-        dm = project.export()
-        user = User.objects.get(email=request.user.email)
-        # TODO must find user from its email address
-        new_proj_id = load_project_from_dict(dm, user=user)
+        export_dict = project.export()
+        user = request.user
+        new_proj_id = populate_project_from_export(export_dict, user=user)
 
     return HttpResponseRedirect(reverse("projects:projects_list"))
 

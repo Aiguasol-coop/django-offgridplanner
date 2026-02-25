@@ -27,6 +27,7 @@ from offgridplanner.optimization.helpers import check_imported_consumer_data
 from offgridplanner.optimization.helpers import check_imported_demand_data
 from offgridplanner.optimization.helpers import consumer_data_to_file
 from offgridplanner.optimization.helpers import convert_file_to_df
+from offgridplanner.optimization.helpers import df_to_file
 from offgridplanner.optimization.helpers import process_optimization_results
 from offgridplanner.optimization.helpers import validate_file_extension
 from offgridplanner.optimization.models import Links
@@ -42,7 +43,6 @@ from offgridplanner.optimization.requests import optimization_server_request
 from offgridplanner.optimization.supply.demand_estimation import LOAD_PROFILES
 from offgridplanner.optimization.supply.demand_estimation import get_demand_timeseries
 from offgridplanner.optimization.tasks import revoke_task
-from offgridplanner.projects.helpers import df_to_file
 from offgridplanner.projects.helpers import format_results_into_kpi_dict
 from offgridplanner.projects.helpers import sanitize_output_kpis
 from offgridplanner.projects.models import Project
