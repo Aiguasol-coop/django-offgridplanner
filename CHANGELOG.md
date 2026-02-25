@@ -1,9 +1,16 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Redirect to project editing from monitoring page if project exists ([#18](https://github.com/Aiguasol-coop/django-offgridplanner/pull/18))
+
+### Changed
+- Updated monitoring data fields for monitoring and alarms tables
+- Removed landing page
+
 ## [v1.1.1-moz.2.0] – 2026-02-25
 ### Changed
-- Merged upstream bug fixes, namely project duplication, custom demand upload and greyed results button if no simulation exists
+- Merged upstream bug fixes, namely project duplication, custom demand upload and greyed results button if no simulation exists ([#17](https://github.com/Aiguasol-coop/django-offgridplanner/pull/17))
 
 ## [v1.0.1-moz.2.0] – 2026-02-24
 ### Added
