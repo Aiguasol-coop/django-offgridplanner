@@ -1,5 +1,4 @@
 import csv
-import io
 import math
 from collections import defaultdict
 from pathlib import Path
@@ -107,46 +106,6 @@ def collect_project_dataframes(proj_id):
         "custom_demand_df": custom_demand_df,
     }
     return dataframes
-
-
-def from_nested_dict(model_cls, nested_data):
-    """
-    Convert a nested dict back to {field_name: value} for a Django model.
-    """
-
-    def flatten_dict(d, parent_key=""):
-        items = []
-        for k, v in d.items():
-            new_key = f"{parent_key}__{k}" if parent_key else k
-            if isinstance(v, dict):
-                items.extend(flatten_dict(v, new_key))
-            else:
-                items.append((new_key, v))
-        return items
-
-    flat_items = flatten_dict(nested_data)
-
-    # Map db_column -> field_name
-    db_to_field = {
-        field.db_column: field.name
-        for field in model_cls._meta.fields  # noqa: SLF001
-        if field.db_column
-    }
-
-    params = {}
-    for db_column, value in flat_items:
-        field_name = db_to_field.get(db_column)
-        if not field_name:
-            continue
-
-        params[field_name] = value
-
-        # Reverse the efficiency scaling
-        if "efficiency" in db_column.split("__")[-1]:
-            percentage_value = value * 100
-            params[field_name] = percentage_value
-
-    return params
 
 
 def is_ajax(request):

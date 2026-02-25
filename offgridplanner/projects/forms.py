@@ -1,8 +1,8 @@
 from django.forms import ChoiceField
 from django.forms import ModelForm
 from django.forms import Textarea
-from django.forms.widgets import Select
 from django.forms.widgets import CheckboxInput
+from django.forms.widgets import Select
 from django.utils.translation import gettext_lazy as _
 
 from offgridplanner.optimization.requests import fetch_provinces
