@@ -11,6 +11,16 @@
 {% block content %}
 <body>
 <main>
+  <div id="successMessage" class="modal" style="background-color: rgba(0,0,0,0.5); z-index: 999; text-align: left">
+    <form class="modal-content" style="max-width: 24rem">
+        <div class="container">
+            <p>{% translate "Project successfully moved to monitoring!" %}</p>
+            <button onclick="document.getElementById('successMessage').style.display='none'" type="button" class="deletebtn">
+                OK
+            </button>
+        </div>
+    </form>
+</div>
   <div id="msgBox"
        class="modal"
        style="background-color: rgba(0,0,0,0.5);

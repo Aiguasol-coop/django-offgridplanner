@@ -84,6 +84,7 @@ $(document).ready(function () {
       pendingSelect = null;
       pendingProjId = null;
       pendingOriginalStatus = null;
+      document.getElementById("successMessage").style.display = "block";
     } catch (err) {
       $("#idError").text(err.message);
     }
