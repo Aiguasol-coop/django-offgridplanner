@@ -29,16 +29,19 @@ $(document).ready(function () {
   }
 
   document.querySelectorAll(".status-select").forEach(function (select) {
+    const originalStatus = select.getAttribute("data-original-status");
+    select.value = originalStatus;
     select.addEventListener("change", async function () {
       const row = select.closest("tr");
-      const originalStatus = select.getAttribute("data-original-status");
       const currentStatus = select.value;
       const proj_id = select.getAttribute("data-proj-id");
+
       if (currentStatus !== originalStatus) {
-            row.classList.add('greyed');
-        } else {
-            row.classList.remove('greyed');
-        }
+        row.classList.add('greyed');
+      } else {
+        row.classList.remove('greyed');
+      }
+
       // Only require ID for analyzing -> monitoring
       if (originalStatus === "analyzing" && currentStatus === "monitoring") {
         pendingSelect = select;
@@ -49,6 +52,7 @@ $(document).ready(function () {
       }
 
       try {
+        // Update project status and sync the original status
         await update_project_status(proj_id, null, currentStatus);
         select.setAttribute("data-original-status", currentStatus);
       } catch (err) {
@@ -79,7 +83,6 @@ $(document).ready(function () {
 
     try {
       await update_project_status(pendingProjId, monitoring_id, "monitoring");
-      pendingSelect.setAttribute("data-original-status", "monitoring");
       closeModal();
       pendingSelect = null;
       pendingProjId = null;
