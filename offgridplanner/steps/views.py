@@ -51,22 +51,6 @@ STEP_LIST_RIBBON = list(STEPS.values())
 
 
 @login_required
-@require_http_methods(["GET", "POST"])
-def project_setup_from_uuid(request, proj_uuid=None):
-    if proj_uuid is not None:
-        project_qs = Project.objects.filter(uuid=proj_uuid)
-        if project_qs.exists():
-            project = project_qs.get()
-            return redirect("steps:project_setup", proj_id=project.id)
-        else:
-            err = "Could not find project with the given UUID."
-    else:
-        err = "Missing project UUID in monitoring data."
-    messages.add_message(request, messages.WARNING, err)
-    return redirect("projects:monitoring")
-
-
-@login_required
 @user_owns_project
 @require_http_methods(["GET", "POST"])
 def project_setup(request, proj_id=None):

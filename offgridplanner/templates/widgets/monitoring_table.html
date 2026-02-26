@@ -43,7 +43,9 @@
         </a>
       </td>
       <td>
-        <a class="edit-btn btn btn-primary-small" href="{% url 'steps:project_setup_from_uuid' site.component_uuid %}">{% translate "Edit" %}</a>
+        {% if site.proj_id %}
+        <a class="edit-btn btn btn-primary-small" href="{% url 'steps:project_setup' site.proj_id %}">{% translate "Edit" %}</a>
+        {% endif %}
       </td>
     </tr>
     {% endfor %}

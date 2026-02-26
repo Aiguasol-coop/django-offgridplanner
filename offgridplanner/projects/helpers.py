@@ -12,6 +12,12 @@ from django.utils.translation import gettext_lazy as _
 
 from offgridplanner.projects.models import Project
 
+TABLE_TEMPLATE_MAPPING = {
+    "potential": "widgets/potential_table.html",
+    "monitoring": "widgets/monitoring_table.html",
+    "alarms": "widgets/alarms_table.html",
+}
+
 
 def get_geojson_centroid(latitudes: pd.Series, longitudes: pd.Series):
     """
@@ -30,24 +36,21 @@ def get_geojson_centroid(latitudes: pd.Series, longitudes: pd.Series):
     return [float(lon), float(lat)]
 
 
-def format_sites_data(sites, table_template_path="widgets/potential_table.html"):
+def format_sites_data(sites, table="potential"):
     """
     Takes the JSON from the site exploration API and fits the data into the corresponding geojson/table format to be
     displayed on the exploration site.
     Parameters:
         :param sites: JSON data from fetch_exploration_progress["minigrids"]
-        :param table_template_path: path to template to which to render tabular data
+        :param table: table which will be rendered, template taken from TABLE_TEMPLATE_MAPPING
 
     Returns:
         geojson_data: Data to construct the map markers
         table_data: Data formatted into potential_table.html
     """
     # generate geoJSON for map
-    status = (
-        "potential"
-        if table_template_path == "widgets/potential_table.html"
-        else "monitoring"
-    )
+    table_template_path = TABLE_TEMPLATE_MAPPING[table]
+    status = table
     features = [
         {
             "type": "Feature",
@@ -63,10 +66,20 @@ def format_sites_data(sites, table_template_path="widgets/potential_table.html")
         for site in sites
     ]
 
+    # add proj_id to projects which are in the database
+    if table == "monitoring":
+        component_uuids = [site["component_uuid"] for site in sites]
+        projects = Project.objects.filter(monitoring_id__in=component_uuids).values(
+            "monitoring_id", "id"
+        )
+        project_lookup = {p["monitoring_id"]: p["id"] for p in projects}
+        for site in sites:
+            site["proj_id"] = project_lookup.get(site["component_uuid"], None)
+
     # generate table HTML
     context = {"sites": sites}
-    table = render_to_string(table_template_path, context)
-    return features, table
+    table_div = render_to_string(table_template_path, context)
+    return features, table_div
 
 
 def collect_project_dataframes(proj_id):
