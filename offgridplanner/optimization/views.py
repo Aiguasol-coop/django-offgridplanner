@@ -466,6 +466,7 @@ def load_demand_plot_data(request, proj_id=None):
         get_demand_timeseries(nodes, custom_demand, time_range=time_range) / 1000
     )
     load_profiles = LOAD_PROFILES.iloc[time_range].copy()
+    num_households = len(nodes.filter_consumers("household"))
 
     timeseries = {
         "x": demand_df.index.tolist(),
@@ -473,6 +474,7 @@ def load_demand_plot_data(request, proj_id=None):
         "enterprises": demand_df.enterprise.tolist(),
         "public_services": demand_df.public_service.tolist(),
         "Average": np.zeros(len(time_range)),
+        "num_households": num_households,
     }
 
     for tier in custom_demand.shares_tiers:
