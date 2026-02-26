@@ -66,6 +66,15 @@ class SiteExplorationForm(ModelForm):
             "min_distance_to_an_existing_minigrid",
             "province",
         ]
+        labels = {
+            "min_num_of_consumers": _("Min. number of consumers"),
+            "max_minigrid_network_distance": _("Max. minigrid network distance [m]"),
+            "min_distance_from_grid": _("Min. distance from national grid [m]"),
+            "min_distance_to_an_existing_minigrid": _(
+                "Min. distance to an existing minigrid [m]"
+            ),
+            "province": _("Province"),
+        }
 
     province = ChoiceField(
         widget=Select(
