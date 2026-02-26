@@ -23,6 +23,7 @@ class ProjectForm(CustomModelForm):
             "options",
             "tax",
             "monitoring_id",
+            "status",
         ]
         widgets = {"description": Textarea(attrs={"rows": 7})}
 

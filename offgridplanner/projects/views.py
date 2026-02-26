@@ -366,13 +366,9 @@ def monitoring(request):
 
     monit_geojson = monit_table = alarms_table = []
     if monit:
-        monit_geojson, monit_table = format_sites_data(
-            json.loads(monit), "widgets/monitoring_table.html"
-        )
+        monit_geojson, monit_table = format_sites_data(json.loads(monit), "monitoring")
     if alarms:
-        _, alarms_table = format_sites_data(
-            json.loads(alarms), "widgets/alarms_table.html"
-        )
+        _, alarms_table = format_sites_data(json.loads(alarms), "alarms")
 
     if "grid_network" in request.session:
         grid_network = request.session["grid_network"]
@@ -402,10 +398,8 @@ def refresh_monitoring_data(request):
         monitoring_data.latest_monitoring_data = json.dumps(monit)
         monitoring_data.latest_alarms = json.dumps(alarms)
         monitoring_data.save()
-        monit_geojson, monit_table = format_sites_data(
-            monit, "widgets/monitoring_table.html"
-        )
-        _, alarms_table = format_sites_data(alarms, "widgets/alarms_table.html")
+        monit_geojson, monit_table = format_sites_data(monit, "monitoring")
+        _, alarms_table = format_sites_data(alarms, "alarms")
 
         data = {
             "monit_geojson": monit_geojson,

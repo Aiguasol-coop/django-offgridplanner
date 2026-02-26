@@ -30,6 +30,16 @@ const radioTotalDemand = document.getElementById('optionTotalDemand');
 const radioSingleHousehold = document.getElementById('optionSingleHousehold');
 const plotElement = document.getElementById("demand_plot");
 const settlementTypeSelect = document.getElementById("id_settlement_type");
+// Get references to custom_share input fields
+const customShare1 = document.getElementById('id_very_low');
+const customShare2 = document.getElementById('id_low');
+const customShare3 = document.getElementById('id_middle');
+const customShare4 = document.getElementById('id_high');
+const customShare5 = document.getElementById('id_very_high');
+let Average = new Array(24).fill(0);
+let trace1Y, trace2Y, trace3Y, trace4Y, trace5Y;
+let calibration_option;
+let num_households;
 
 let layout;
 
@@ -92,97 +102,7 @@ function handleOptions2Change() {
 }
 
 // TODO the automatic calibration is not working yet
-// Function to calculate Total_Demand
-function calculateTotalDemand(households, enterprises, public_services) {
-    return households.map((value, index) => {
-        return value + enterprises[index] + public_services[index];
-    });
-}
 
-// Updates trace6 (Single Household Profile) based on custom share inputs
-function updateTrace6() {
-    // Update trace6's Y-values in the Plotly plot
-    Plotly.restyle(plotElement, { 'y': [Average] }, [4]); // trace6 is at index 4
-}
-
-// TODO this is so the trace only updates if the value raises by > threshold
-// Function to check if the change is significant (≥ 0.5)
-function isSignificantChange(newValue, oldValue, threshold = 0.2) {
-    return Math.abs(newValue - oldValue) >= threshold;
-}
-
-// Function to handle input changes with threshold
-function handleInputChange(inputId) {
-    return function () {
-        const input = document.getElementById(inputId);
-        const newValue = parseFloat(input.value) || 0;
-        const oldValue = previousValues[inputId];
-        if (isSignificantChange(newValue, oldValue)) {
-            previousValues[inputId] = newValue;
-            updateAverageArray()
-            updateTrace6();
-            calibrate_demand();
-            updateTrace7to10();
-        }
-    };
-}
-
-// Function to update plot based on selection
-function showOnlySelection() {
-    if (radioTotalDemand.checked) {
-        // Activate traces 1 to 4 (indices 0 to 3)
-        Plotly.restyle(plotElement, { 'visible': true }, [0, 1, 2, 3]);
-        // Deactivate traces 5 to 10 (indices 4 to 9)
-        Plotly.restyle(plotElement, { 'visible': 'legendonly' }, [4, 5, 6, 7, 8, 9]);
-    } else if (radioSingleHousehold.checked) {
-        // Activate traces 5 to 10 (indices 4 to 9)
-        Plotly.restyle(plotElement, { 'visible': true }, [4, 5, 6, 7, 8, 9]);
-        // Deactivate traces 1 to 4 (indices 0 to 3)
-        Plotly.restyle(plotElement, { 'visible': 'legendonly' }, [0, 1, 2, 3]);
-    }
-}
-
-function calibrate_demand(reverse = false) {
-    var households_raw = Average.map(value => value * num_households);
-
-    let calibration_factor;
-    const total_demand_raw = calculateTotalDemand(households_raw, enterprises_raw, public_services_raw);
-    if (calibration_option === 'kW') {
-        calibration_factor = calibration_target_value / Math.max(...total_demand_raw);
-    } else if (calibration_option === 'kWh') {
-        calibration_factor = calibration_target_value / total_demand_raw.reduce((a, b) => a + b, 0);
-    } else {
-        calibration_factor = 1
-    }
-    households = households_raw.map(value => value * calibration_factor);
-    enterprises = enterprises_raw.map(value => value * calibration_factor);
-    public_services = public_services_raw.map(value => value * calibration_factor);
-}
-
-function updateTrace7to10() {
-    Total_Demand = calculateTotalDemand(households, enterprises, public_services);
-    // Restyle all traces in one command
-    Plotly.restyle(plotElement, {
-        'y': [Total_Demand, public_services, enterprises, households]
-    }, [0, 1, 2, 3]);
-}
-
-function updateAverageArray() {
-    // Retrieve and parse input values, converting percentages to decimals
-    const share1 = parseFloat(customShare1.value) / 100 || 0;
-    const share2 = parseFloat(customShare2.value) / 100 || 0;
-    const share3 = parseFloat(customShare3.value) / 100 || 0;
-    const share4 = parseFloat(customShare4.value) / 100 || 0;
-    const share5 = parseFloat(customShare5.value) / 100 || 0;
-
-    Average.forEach((val, idx) => {
-        Average[idx] = (share1 * trace1Y[idx]) +
-                        (share2 * trace2Y[idx]) +
-                        (share3 * trace3Y[idx]) +
-                        (share4 * trace4Y[idx]) +
-                        (share5 * trace5Y[idx]);
-    0});
-}
 
 // TODO this is currently not in use since the plot is not dynamically changing
 function resetToDefault() {
@@ -317,6 +237,7 @@ function plotDemandData() {
                 'households': households,
                 'enterprises': enterprises,
                 'public_services': public_services,
+                'num_households': num_households,
             } = data.timeseries;
 
 //            const enterprises_raw = enterprises.map(value => value / calibration_factor);
@@ -446,28 +367,114 @@ function plotDemandData() {
             Plotly.react(plotElement, dataTraces, layout);
 
             // Store trace1 to trace5 Y-values
-            const trace1Y = dataTraces[9].y; // trace1: index 9
-            const trace2Y = dataTraces[8].y; // trace2: index 8
-            const trace3Y = dataTraces[7].y; // trace3: index 7
-            const trace4Y = dataTraces[6].y; // trace4: index 6
-            const trace5Y = dataTraces[5].y; // trace5: index 5
+            trace1Y = dataTraces[9].y; // trace1: index 9
+            trace2Y = dataTraces[8].y; // trace2: index 8
+            trace3Y = dataTraces[7].y; // trace3: index 7
+            trace4Y = dataTraces[6].y; // trace4: index 6
+            trace5Y = dataTraces[5].y; // trace5: index 5
 
-            // Get references to custom_share input fields
-            const customShare1 = document.getElementById('id_very_low');
-            const customShare2 = document.getElementById('id_low');
-            const customShare3 = document.getElementById('id_middle');
-            const customShare4 = document.getElementById('id_high');
-            const customShare5 = document.getElementById('id_very_high');
+            // Compute average
+            updateAverageArray();
+            // Function to calculate Total_Demand
+            function calculateTotalDemand(households, enterprises, public_services) {
+                return households.map((value, index) => {
+                    return (value + enterprises[index] + public_services[index]);
+                });
+            }
 
+            // Updates trace6 (Single Household Profile) based on custom share inputs
+            function updateTrace6() {
+                // Update trace6's Y-values in the Plotly plot
+                Plotly.restyle(plotElement, { 'y': [Average] }, [4]); // trace6 is at index 4
+            }
+
+            // TODO this is so the trace only updates if the value raises by > threshold
+            // Function to check if the change is significant (≥ 0.5)
+            function isSignificantChange(newValue, oldValue, threshold = 0.2) {
+                return Math.abs(newValue - oldValue) >= threshold;
+            }
+
+            // Function to handle input changes with threshold
+            function handleInputChange(inputId) {
+                return function () {
+                    const input = document.getElementById(inputId);
+                    const newValue = parseFloat(input.value) || 0;
+                    const oldValue = previousValues[inputId.substr(3)];
+                    if (isSignificantChange(newValue, oldValue)) {
+                        previousValues[inputId] = newValue;
+                        updateAverageArray()
+                        updateTrace6();
+                        calibrate_demand();
+                        updateTrace7to10();
+                    }
+                };
+            }
+
+            // Function to update plot based on selection
+            function showOnlySelection() {
+                if (radioTotalDemand.checked) {
+                    // Activate traces 1 to 4 (indices 0 to 3)
+                    Plotly.restyle(plotElement, { 'visible': true }, [0, 1, 2, 3]);
+                    // Deactivate traces 5 to 10 (indices 4 to 9)
+                    Plotly.restyle(plotElement, { 'visible': 'legendonly' }, [4, 5, 6, 7, 8, 9]);
+                } else if (radioSingleHousehold.checked) {
+                    // Activate traces 5 to 10 (indices 4 to 9)
+                    Plotly.restyle(plotElement, { 'visible': true }, [4, 5, 6, 7, 8, 9]);
+                    // Deactivate traces 1 to 4 (indices 0 to 3)
+                    Plotly.restyle(plotElement, { 'visible': 'legendonly' }, [0, 1, 2, 3]);
+                }
+            }
+
+            function calibrate_demand(reverse = false) {
+                var households_raw = Average.map(value => value / 1000 * num_households);
+
+                let calibration_factor;
+                const total_demand_raw = calculateTotalDemand(households_raw, enterprises, public_services);
+                if (calibration_option === 'kW') {
+                    calibration_factor = calibration_target_value / Math.max(...total_demand_raw);
+                } else if (calibration_option === 'kWh') {
+                    calibration_factor = calibration_target_value / total_demand_raw.reduce((a, b) => a + b, 0);
+                } else {
+                    calibration_factor = 1
+                }
+                households = households_raw.map(value => value * calibration_factor);
+                enterprises = enterprises.map(value => value * calibration_factor);
+                public_services = public_services.map(value => value * calibration_factor);
+            }
+
+            function updateTrace7to10() {
+                Total_Demand = calculateTotalDemand(households, enterprises, public_services);
+                debugger;
+                // Restyle all traces in one command
+                Plotly.restyle(plotElement, {
+                    'y': [Total_Demand, public_services, enterprises, households]
+                }, [0, 1, 2, 3]);
+            }
+
+            function updateAverageArray() {
+                // Retrieve and parse input values, converting percentages to decimals
+                const share1 = parseFloat(customShare1.value) / 100 || 0;
+                const share2 = parseFloat(customShare2.value) / 100 || 0;
+                const share3 = parseFloat(customShare3.value) / 100 || 0;
+                const share4 = parseFloat(customShare4.value) / 100 || 0;
+                const share5 = parseFloat(customShare5.value) / 100 || 0;
+                Average.forEach((val, idx) => {
+                    Average[idx] = (share1 * trace1Y[idx]) +
+                                    (share2 * trace2Y[idx]) +
+                                    (share3 * trace3Y[idx]) +
+                                    (share4 * trace4Y[idx]) +
+                                    (share5 * trace5Y[idx]);
+                0});
+            }
             // Attach event listener to reset button
             document.getElementById('resetDefault').addEventListener('click', resetInitialShares);
 
             // Add event listeners with threshold logic
-            customShare1.addEventListener('input', handleInputChange('id_very_low'), 250, false);
-            customShare2.addEventListener('input', handleInputChange('id_low'), 250, false);
-            customShare3.addEventListener('input', handleInputChange('id_middle'), 250, false);
-            customShare4.addEventListener('input', handleInputChange('id_high'), 250, false);
-            customShare5.addEventListener('input', handleInputChange('id_very_high'), 250, false);
+            customShare1.addEventListener('input', handleInputChange('id_very_low'));
+            customShare2.addEventListener('input', handleInputChange('id_low'));
+            customShare3.addEventListener('input', handleInputChange('id_middle'));
+            customShare4.addEventListener('input', handleInputChange('id_high'));
+            customShare5.addEventListener('input', handleInputChange('id_very_high'));
 
             // Add event listeners to radio buttons
             radioTotalDemand.addEventListener('change', showOnlySelection);
