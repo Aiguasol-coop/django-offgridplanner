@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.1.1-moz.2.2] – 2026-03-02
+### Fixed
+- Fix pole mover and other small errors ([#20](https://github.com/Aiguasol-coop/django-offgridplanner/pull/20))
+
 ## [v1.1.1-moz.2.1] – 2026-02-26
 ### Added
 - Redirect to project editing from monitoring page if project exists ([#18](https://github.com/Aiguasol-coop/django-offgridplanner/pull/18))
