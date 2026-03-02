@@ -96,7 +96,15 @@ def validate_column_inputs(input_values, column):
     allowed_values = {
         "consumer_type": {"household", "enterprise", "public_service"},
         "shs_options": {0, 1},
-        "consumer_detail": {"", "default"}
+        "consumer_detail": {
+            "",
+            "default",
+            "low",
+            "very_low",
+            "middle",
+            "high",
+            "very_high",
+        }
         | set(ENTERPRISE_LIST)
         | set(PUBLIC_SERVICE_LIST),
         "custom_specification": {
