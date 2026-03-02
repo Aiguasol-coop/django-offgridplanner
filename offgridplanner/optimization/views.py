@@ -771,7 +771,14 @@ def update_pole_positions(request, proj_id):
             # Add is_fixed column if it doesn't yet exist in the nodes dataframe
             if "is_fixed" not in nodes_df:
                 nodes_df["is_fixed"] = False
-            nodes_df.loc[pid, "is_fixed"] = True
+
+            try:
+                nodes_df.loc[pid, "is_fixed"] = True
+            except TypeError:
+                # If column contains erroneous data, we delete it and re-build it with bool values
+                nodes_df = nodes_df.drop(columns=["is_fixed"])
+                nodes_df["is_fixed"] = False
+
             # Change the coordinates in the links data
             links_from_pole_ix = links_df[links_df["from_node"] == pid].index
             links_df.loc[links_from_pole_ix, "lat_from"] = lat
