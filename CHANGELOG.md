@@ -4,6 +4,9 @@
 ### Changed
 - Update methodology page ([#21](https://github.com/Aiguasol-coop/django-offgridplanner/pull/21))
 
+### Fixed
+- Export demand with currently selected custom shares ([#22](https://github.com/Aiguasol-coop/django-offgridplanner/pull/22))
+
 ## [v1.1.1-moz.2.2] – 2026-03-02
 ### Fixed
 - Fix pole mover and other small errors ([#20](https://github.com/Aiguasol-coop/django-offgridplanner/pull/20))
