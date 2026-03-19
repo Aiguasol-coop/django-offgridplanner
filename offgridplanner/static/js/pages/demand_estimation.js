@@ -444,7 +444,6 @@ function plotDemandData() {
 
             function updateTrace7to10() {
                 Total_Demand = calculateTotalDemand(households, enterprises, public_services);
-                debugger;
                 // Restyle all traces in one command
                 Plotly.restyle(plotElement, {
                     'y': [Total_Demand, public_services, enterprises, households]
@@ -531,10 +530,15 @@ function loadDashboard() {
 
 
 async function export_demand(file_type) {
+    custom_shares = {"very_low": customShare1.value,
+    "low": customShare2.value,
+    "middle": customShare3.value,
+    "high": customShare4.value,
+    "very_high": customShare5.value}
     const response = await fetch(exportDemandUrl, {
         method: "POST",
         headers: {"Content-Type": "application/json", 'X-CSRFToken': csrfToken},
-        body: JSON.stringify({"file_type": file_type})
+        body: JSON.stringify({"file_type": file_type, "custom_shares": custom_shares})
     });
 
     if (response.ok) {
