@@ -18,10 +18,10 @@
                 <h1>Model Description</h1>
                 <p>
                     This section provides a brief overview of the models used in the backend of the tool. Each model is
-                  designed to address specific tasks related to cluster identification, demand estimation, spatial grid planning,
-                  and the optimal sizing of the electricity system. Together, these models contribute to a comprehensive
-                  analysis framework, supporting the planning and optimization of off-grid energy systems.
-                  Below is a description of each model and its specific functionality.
+                    designed to address specific tasks related to cluster identification, demand estimation, spatial grid planning,
+                    and the optimal sizing of the electricity system. Together, these models contribute to a comprehensive
+                    analysis framework supporting the planning and optimization of off-grid energy systems in rural Mozambique.
+                    Below is a description of each model and its specific functionality.
                 </p>
                 <ul>
                     <li><a href="#clustering_tool">Description of the Clustering Methodology</a></li>
@@ -35,88 +35,165 @@
 
         <!-- Main Content with Two Columns -->
         <div class="row">
-<!--          <div class="col-md-6">-->
             <h4 id="clustering_tool">Methodology for Clustering Building Centroids to Identify Potential Mini-Grid Sites</h4>
             <p><strong>Objective</strong></p>
-            <p>Identify spatially coherent groups of buildings (“communities”) that are promising candidates for mini-grid deployment.
-              The pipeline ingests building centroids and applies density-based clustering (DBSCAN) together with a sequence of
-              geographic filters and post-processing rules that enforce practical siting constraints.</p>
+            <p>
+                Identify spatially coherent groups of buildings (“communities”) that are promising candidates for mini-grid deployment.
+                The pipeline ingests building centroids and applies density-based clustering (DBSCAN) together with a sequence of
+                geographic filters and post-processing rules that enforce practical siting constraints.
+            </p>
             <p><strong>Data Inputs</strong></p>
             <ul>
-              <li><strong>Building centroids:</strong> latitude/longitude points with attributes (province, building type, surface, distance to existing grid, distance to road, island flag).</li>
-              <li><strong>Existing mini-grids:</strong> point locations used to avoid duplicating already electrified/served areas.</li>
-              <li><strong>User/analysis parameters:</strong>
-                <ul>
-                  <li><span class="helpvar">min_distance_from_grid</span> (m): the minimum standoff from the existing grid (default 20 km);</li>
-                  <li><span class="helpvar">min_num_of_consumers</span> (number of buildings required to form a viable cluster);</li>
-                  <li><span class="helpvar">max_minigrid_network_distance</span> (m), the maximum allowable intra-cluster span; and </li>
-                  <li><span class="helpvar">min_distance_to_an_existing_minigrid</span> (m), the minimum separation required between a new cluster and an existing mini-grid. </li>
-                  <li><span class="helpvar">province</span>, the province in which to conduct the analysis.</li>
-                </ul>
-              </li>
+                <li><strong>Building centroids:</strong> latitude/longitude points with attributes such as province, building type, surface area, distance to the existing grid, distance to roads, and island status.</li>
+                <li><strong>Existing mini-grids:</strong> point locations used to avoid duplicating already electrified or served areas.</li>
+                <li><strong>User/analysis parameters:</strong>
+                    <ul>
+                        <li><span class="helpvar">min_distance_from_grid</span> (m): the minimum distance from the existing grid (default 20 km)</li>
+                        <li><span class="helpvar">min_num_of_consumers</span>: minimum number of buildings required to form a viable cluster</li>
+                        <li><span class="helpvar">max_minigrid_network_distance</span> (m): maximum allowable intra-cluster span</li>
+                        <li><span class="helpvar">min_distance_to_an_existing_minigrid</span> (m): minimum separation required between a new cluster and an existing mini-grid</li>
+                        <li><span class="helpvar">province</span>: the province in which the analysis is conducted</li>
+                    </ul>
+                </li>
             </ul>
             <p><strong>Algorithm Workflow</strong></p>
-            <p>The workflow begins by querying the database for buildings that satisfy the grid-distance threshold, typically a minimum of 20 km from the existing grid.
-              This threshold is user-settable in the GUI via <span class="helpvar">min_distance_from_grid</span>. To reflect accessibility considerations, buildings on islands are always retained
-              due to their distinct logistics. For non-island areas, buildings that already satisfy the grid-distance criterion are kept only if they lie within one
-              kilometer of a road; this pre-screening step yields a concise, realistic set of candidate centroids for settlement-scale electrification. </p>
-            <p>The preselected centroids are then clustered with DBSCAN on latitude/longitude coordinates. The algorithm
-              uses a default neighborhood radius of 300 meters, a value derived from empirical analysis of existing mini-grids
-              in Mozambique, and <span class="helpvar">min_num_of_consumers</span> as the minimum viable consumer base. DBSCAN’s density-connectivity recovers non-convex,
-              settlement-like shapes, does not require the number of clusters a priori, and naturally labels isolated households as noise.
-              For the fit step, Euclidean distance in geographic degrees is used for efficiency at the spatial scales considered.</p>
-            <p>Immediately after DBSCAN, the method imposes a compactness control based on geodesic distances. For each provisional cluster,
-              it computes the maximum great-circle distance between any two member points. Clusters whose span
-              exceeds <span class="helpvar">max_minigrid_network_distance</span> are discarded as too dispersed for economical
-              low-voltage distribution, and singleton clusters are also rejected. This post-filter cleanly separates dense,
-              spatially coherent communities from elongated or accidentally bridged aggregates that can appear when density
-              thresholds connect distant hamlets. A final proximity filter prevents overlap with known assets: any cluster whose centroid
-              falls within <span class="helpvar">min_distance_to_an_existing_minigrid</span> of a catalogued mini-grid is excluded.
-              This rule de-duplicates candidates around existing infrastructure and encourages considering network extensions to serve nearby communities. </p>
-            <p>Parameterization should reflect local morphology and planning assumptions. The neighborhood radius ought to approximate typical inter-building spacing:
-              if set too small it fragments villages; if too large it fuses distinct communities. The minimum sample count encodes the
-              smallest viable consumer base. The diameter threshold provides an orthogonal compactness check: even with adequate density,
-              an excessive spatial span indicates a layout that may be costly to serve. Taken together, these elements yield a transparent,
-              parameter-driven shortlist of mini-grid candidate communities that balances demand concentration, accessibility, and non-overlap with existing systems.</p>
-<!--          </div>-->
+            <p>
+                The workflow begins by querying the database for buildings that satisfy the grid-distance threshold, typically a minimum of 20 km from the existing grid.
+                This threshold is user-settable in the graphical user interface via <span class="helpvar">min_distance_from_grid</span>. The purpose of this criterion is to focus the analysis on settlements where mini-grid solutions are more likely to be relevant than grid extension.
+            </p>
+            <p>
+                To reflect logistical constraints and accessibility considerations, buildings located on islands are always retained.
+                For mainland areas, buildings that satisfy the grid-distance criterion are retained only if they lie within one kilometer of a road.
+                This pre-screening step ensures that the resulting candidate settlements remain realistically accessible for infrastructure deployment.
+            </p>
+            <p>
+                The selected centroids are then clustered using the DBSCAN algorithm based on their geographic coordinates. The algorithm uses a default neighborhood radius of 300 meters,
+                derived from empirical observations of settlement morphology in Mozambique,
+                and <span class="helpvar">min_num_of_consumers</span> as the minimum number of buildings required to form a cluster.
+                DBSCAN is particularly suited for this task because it identifies clusters of arbitrary shapes, does not require specifying the number of clusters beforehand,
+                and naturally classifies isolated buildings as noise.
+            </p>
+            <p>
+                After clustering, a compactness control is applied. For each cluster, the maximum great-circle distance between any two buildings is calculated.
+                Clusters exceeding the threshold defined by <span class="helpvar">max_minigrid_network_distance</span> are discarded because they would imply excessive low-voltage distribution distances and higher network costs.
+                Single-building clusters are also excluded.
+            </p>
+            <p>
+                Finally, a proximity filter is applied to avoid duplication with existing energy infrastructure. Any cluster whose centroid falls within
+                <span class="helpvar">min_distance_to_an_existing_minigrid</span> of a known mini-grid is removed from the candidate set.
+                This ensures that the model identifies new potential sites rather than settlements already served by existing systems.
+            </p>
+            <p>
+                Proper parameterization of the clustering process is essential. The neighborhood radius should reflect typical distances between buildings within rural settlements.
+                If the radius is too small, villages may be fragmented into several clusters; if too large, distinct settlements may be merged.
+                The minimum number of consumers represents the smallest viable customer base, while the maximum cluster diameter ensures that resulting mini-grid layouts remain technically and economically feasible.
+            </p>
         </div>
+
         <div class="row">
             <!-- Left Column: Textual Content -->
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h4 id="demand_tool">Description of the Demand Estimation Model</h4>
                 <p>
-                    The demand modeling tool developed by PeopleSuN aims to predict electricity demand in non-urban Nigerian villages by integrating extensive survey data with the simulation capabilities of the Remote Area Multi-Energy Profiles (RAMP) software. The primary goal of the tool is to model appliance ownership, electricity consumption trends, and the financial capacity of households and enterprises to afford electricity services. By generating detailed consumer profiles based on geographical zones and wealth categories, it provides nuanced predictions of electricity demand to inform off-grid energy planning and implementation.
+                    The demand estimation model is designed to simulate electricity demand in rural Mozambique by combining geospatial information,
+                    consumer typologies, and stochastic load-profile generation. Its purpose is to estimate settlement-level demand profiles that can
+                    be used as direct inputs for mini-grid planning and energy system optimization.
                 </p>
 
-                <p><strong>Survey Data Collection</strong></p>
-
                 <p>
-                    Quantitative household and enterprise energy surveys (~5,000 total) were conducted, targeting users who already use electricity in some capacity. The survey gathered key data, including:
+                    The model distinguishes between three main consumer classes:
                 </p>
                 <ul>
-                    <li>Average appliance ownership likelihood (%)</li>
-                    <li>Average daily appliance usage duration (minutes)</li>
-                    <li>Appliance power and time of use assumptions (W)</li>
-                    <li>For enterprises and public services: daily opening and closing times, as well as additional "high power energy-intensive appliances"</li>
+                    <li>Households (HH)</li>
+                    <li>Public Services (PS)</li>
+                    <li>Enterprises</li>
+                </ul>
+
+                <p>
+                    By default, buildings identified in the geospatial dataset are initially classified as households.
+                    Public service facilities such as schools, health centers, and administrative buildings can be identified through dedicated geospatial layers and automatically classified as public-service consumers.
+                    Users may manually review and adjust these classifications to ensure that local conditions are correctly represented.
+                </p>
+
+                <p><strong>Household Demand Categories</strong></p>
+
+                <p>
+                    Households are categorized into five consumption levels, which serve as proxies for income level, appliance ownership, and energy access:
+                </p>
+                <ul>
+                    <li>Very Low</li>
+                    <li>Low</li>
+                    <li>Medium</li>
+                    <li>High</li>
+                    <li>Very High</li>
                 </ul>
                 <p>
-                    This data forms the foundation for modeling energy consumption profiles, providing insights into appliance usage patterns, energy demand, and operational characteristics across different user types.
+                    Each category is associated with an indicative daily electricity consumption level expressed in kWh per household per day.
+                    These consumption bands also correspond to different appliance bundles and usage patterns. For example, households in the lowest category may primarily use lighting and phone charging, while higher categories may include televisions, refrigerators, fans, and other appliances.
+                </p>
+                <p>
+                    The distribution of these household categories varies depending on the settlement typology.
+                    The model distinguishes between rural isolated settlements and rural peri-urban settlements, which typically exhibit different demand structures.
                 </p>
 
-                <p><strong>Generating Demand Profiles Using RAMP</strong></p>
+                <p><strong>Public Services and Enterprise Loads</strong></p>
 
                 <p>
-                    The Remote Area Multi-Energy Profiles (RAMP) tool is an open-source software for the stochastic simulation of user-driven energy demand time series. By inputting survey data into RAMP, typical energy consumption profiles for non-urban Nigerian households were developed. The process involved:
+                    Public services and enterprises are represented through predefined consumer categories, each associated with characteristic
+                    daily energy consumption and operating schedules.
                 </p>
-                <ol>
-                    <li><strong>Data Analysis and Categorization:</strong> Survey data was analyzed to identify patterns in appliance ownership and usage. Households were categorized into consumption levels: Very Low, Low, Medium, High, and Very High, considering factors like appliance types, usage frequency, and household income.</li>
-                    <li><strong>Creation of a National Consumption Profile:</strong> A national profile was developed to reflect the diversity of households, accounting for regional variations in wealth, access to energy, and cultural practices.</li>
-                    <li><strong>Simulation with RAMP:</strong> The categorized data was used in RAMP to simulate energy consumption patterns, considering hourly, daily, and seasonal variations. Appliance-specific energy use allowed for detailed profiles, including peak demand and load variations.</li>
-                    <li><strong>Stochastic Algorithms:</strong> Stochastic methods were applied to account for variability in electricity demand, generating likely distributions of demand rather than fixed values. This enhances the reliability of predictions by considering factors like random appliance breakdowns or changes in usage behavior.</li>
-                </ol>
-            </div>
-            <div class="col-md-6">
-                <img src="{% static 'images/ramp_profile_generation.png' %}" class="img-fluid" alt="Grid Optimization">
+                <p>Examples of public-service consumers include:</p>
+                <ul>
+                    <li>health centers and clinics</li>
+                    <li>schools and training facilities</li>
+                    <li>administrative buildings</li>
+                    <li>police stations</li>
+                    <li>public lighting</li>
+                    <li>religious buildings</li>
+                </ul>
+                <p>Enterprise loads represent productive uses of electricity such as:</p>
+                <ul>
+                    <li>retail shops and groceries</li>
+                    <li>restaurants and bars</li>
+                    <li>carpentry and metal workshops</li>
+                    <li>repair shops</li>
+                    <li>pharmacies</li>
+                    <li>cybercafés</li>
+                    <li>agricultural processing equipment</li>
+                    <li>cold storage facilities</li>
+                </ul>
+                <p>
+                    These consumer categories allow the model to capture productive electricity uses that are often important drivers of local economic development in rural electrification projects.
+                </p>
+
+                <p><strong>Generation of Load Profiles Using RAMP</strong></p>
+
+                <p>
+                    Hourly demand profiles are generated using RAMP, an open-source software tool designed for the stochastic simulation of energy demand in contexts where detailed consumption measurements are not available.
+                </p>
+                <p>RAMP generates load curves by combining information about:</p>
+                <ul>
+                    <li>consumer categories</li>
+                    <li>appliance ownership</li>
+                    <li>appliance power ratings</li>
+                    <li>appliance usage windows during the day</li>
+                </ul>
+                <p>Within the tool, appliance usage is assigned to typical time-of-use patterns such as:</p>
+                <ul>
+                    <li>constant load (24 h)</li>
+                    <li>daytime usage</li>
+                    <li>nighttime usage</li>
+                    <li>morning and evening peaks</li>
+                    <li>office hours</li>
+                    <li>workshop operating hours</li>
+                </ul>
+                <p>
+                    Using stochastic algorithms, RAMP generates realistic variability in electricity consumption by introducing probabilistic behavior in appliance operation.
+                    Instead of producing a single deterministic demand curve, the tool generates demand distributions that better reflect the diversity of real-world consumption patterns.
+                </p>
+                <p>
+                    The resulting hourly demand profiles are aggregated at settlement level and used as direct inputs for the energy system optimization model.
+                </p>
             </div>
         </div>
 
@@ -127,9 +204,33 @@
             <div class="col-md-6">
                 <h4 id="grid_tool">Description of the Spatial Grid Optimization Tool</h4>
                 <img src="{% static 'images/grid_alg_7.png' %}" class="img-fluid" alt="Grid Optimization">
-                <p>The Spatial Grid Optimization model strategically identifies optimal locations for poles, distribution cables, and connection cables to build the distribution grid. It achieves this by first clustering consumers and then connecting these clusters in a way that results in the lowest total distance. This approach minimizes investment and operational costs while ensuring comprehensive coverage and adherence to connection and distance constraints. Additionally, the model calculates annualized costs for assessing the Levelized Cost of Energy (LCOE).</p>
-                <p>The model provides the option to identify consumers with particularly high connection costs and exclude them from being connected to the grid. Instead, these consumers should be equipped with a solar home system. To achieve this, the costs for poles, connection, and distribution cables are distributed among consumers along each branch and its sub-branches, starting from the load center of the grid, which is the pole closest to the median longitude and latitude values. For each branch and its sub-branches, the costs are allocated from the load center, with consumers only responsible for the costs of poles and cables connecting them towards the load center. Costs for poles and cables beyond a consumer are borne by subsequent consumers.</p>
-                <p>The user can set a threshold value called Max Specific Grid Cost. If a consumer exceeds this cost, they are excluded from the grid. Starting from the ends of the branches, consumers with excessive costs are identified, and when consumers are excluded, the cost distribution is recalculated iteratively. The process continues until the consumer at the end of a branch falls below the threshold. Once this happens, the branch is no longer evaluated. The process stops when all consumers at the ends of branches have costs below the threshold.</p>
+                <p>
+                    The Spatial Grid Optimization model determines the optimal configuration of the distribution network required to connect consumers within a mini-grid.
+                    The objective is to identify the locations of poles, distribution cables, and connection lines that minimize total network distance while satisfying technical constraints.
+                </p>
+                <p>
+                    The starting point of the optimization is the geolocation of individual consumers.
+                    Consumers are first grouped using a constrained clustering approach. The centroids of these clusters are used as candidate locations for distribution poles.
+                </p>
+                <p>
+                    Each consumer is connected to its respective cluster pole, forming the initial network structure.
+                    The poles are then connected using a minimum spanning tree (MST) algorithm, specifically Kruskal’s algorithm, which identifies the network configuration with the minimum total connection distance.
+                </p>
+                <p>
+                    To ensure practical network layouts, intermediate poles may be introduced where necessary to avoid excessively long cable spans.
+                </p>
+                <p>
+                    The model also includes a mechanism for identifying consumers with particularly high connection costs.
+                    In such cases, the user may choose to exclude these consumers from the mini-grid and instead consider alternatives such as solar home systems.
+                </p>
+                <p>
+                    To evaluate this, the costs of poles, connection cables, and distribution lines are allocated among consumers along each branch of the network.
+                    The cost allocation begins at the load center, defined as the pole located closest to the median longitude and latitude of the settlement. Consumers are assigned the costs of the infrastructure required to connect them to the load center.
+                </p>
+                <p>
+                    A user-defined parameter called Max Specific Grid Cost defines the maximum acceptable connection cost per consumer.
+                    Consumers whose connection costs exceed this threshold may be iteratively removed from the network, starting from the ends of branches. After each removal, the cost allocation is recalculated until all remaining consumers fall below the specified threshold.
+                </p>
             </div>
             <div class="col-md-6">
                 <ol>
@@ -164,35 +265,72 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <h4 id="es_tool">Description of the Energy System Optimization Tool</h4>
-                <p>This tool is a comprehensive solution for the design and optimization of off-grid energy systems. It integrates a variety of energy sources, including photovoltaic (PV) systems and diesel generators, and supports key components such as battery systems, inverters, and rectifiers. The tool's core functionality lies in its ability to design and optimize these systems to meet specific energy demands in the most cost-efficient way. It uses advanced data modeling techniques, including ERA5 satellite data and PVLIB, to accurately simulate solar potentials, ensuring that PV systems are optimized for the specific environmental conditions of the installation site.</p>
-                <p>A central aspect of the tool is its focus on minimizing the total annualized costs. Annualized costs account for both the capital expenditures (CapEx) associated with the installation of energy systems and the operational expenditures (OpEx) incurred throughout their lifetime. By optimizing the balance between these costs, the tool generates a configuration that not only meets consumer energy demands but does so in the most financially sustainable manner. This optimization is achieved through mixed-integer linear programming (MILP), a mathematical modeling approach that enables the tool to explore multiple possible configurations and select the one that offers the lowest total annualized cost.</p>
-                <strong>OEMOF-Solph and MILP for Investment Optimization</strong>
-                <p>The tool's optimization relies on the OEMOF (Open Energy Modeling Framework) and its Solph library, which specialize in energy system optimization. OEMOF Solph offers a flexible, open-source platform for modeling various energy converters, storage solutions, and energy flows. Using mixed-integer linear programming (MILP), the tool addresses complex tasks like investment planning and unit commitment.</p>
-                <p>Investment optimization using MILP offers an efficient approach to system design by minimizing total annualized costs, which include both initial capital investments and ongoing operational expenses. MILP enables the tool to handle discrete decisions, such as selecting additional PV arrays or generators, as well as continuous decisions like determining their optimal capacities. By focusing on a minimal formulation and foregoing the global optimality guarantees of nonlinear programming (NLP), MILP can be solved more efficiently. However, this efficiency comes with the trade-off of accepting some inaccuracies due to the linearization of nonlinear relationships. Nonetheless, MILP provides a practical balance between solution quality and computational performance, making it well-suited for optimizing energy technologies.</p>
-                <p>Unit commitment refers to the tool's ability to determine which energy units (such as generators or battery systems) should be activated at any given time to meet energy demands efficiently. By using MILP, the tool ensures that these decisions are made in a way that minimizes operational costs, such as fuel consumption and wear-and-tear on equipment, while adhering to technical constraints such as storage capacity and generation limits.</p>
-                <p><strong>Data-Driven Results for Strategic Decision-Making</strong></p>
                 <p>
-                    The tool generates detailed results regarding the energy system's performance and financial metrics. Key outputs include installed capacities, operational time series, investment costs, CO<sub>2</sub> emissions, and fuel requirements. These results provide stakeholders with a comprehensive overview of the system's operational efficiency and its long-term economic and environmental impacts. This information supports strategic planning for off-grid energy systems across various scales, from small rural electrification projects to larger industrial applications.
+                    This tool provides a comprehensive framework for designing and optimizing off-grid energy systems that supply electricity to rural settlements.
+                    It integrates different generation technologies, including photovoltaic (PV) systems and diesel generators, as well as key components such as battery storage systems, inverters, and rectifiers.
                 </p>
-            </div>
-            <div class="col-md-6">
-                <div class="text-center my-4">
-                    <img src="{% static 'images/es_description_slide_1.svg' %}" class="img-fluid full-width-img" alt="Grid Optimization">
-                </div>
-                <div class="text-center my-4">
-                    <img src="{% static 'images/es_description_slide_2.svg' %}" class="img-fluid full-width-img" alt="Grid Optimization">
-                </div>
-                <div class="text-center my-4">
-                    <img src="{% static 'images/es_description_slide_5.svg' %}" class="img-fluid full-width-img" alt="Grid Optimization">
-                </div>
-                <div class="text-center my-4">
-                    <img src="{% static 'images/es_description_slide_3.svg' %}" class="img-fluid full-width-img" alt="Grid Optimization">
-                </div>
-                <div class="text-center my-4">
-                    <img src="{% static 'images/es_description_slide_4.svg' %}" class="img-fluid full-width-img" alt="Grid Optimization">
-                </div>
+                <p>
+                    The objective of the model is to determine the most cost-effective system configuration capable of meeting the estimated electricity demand.
+                </p>
+                <p>
+                    Solar resource availability is represented using location-specific datasets and solar modeling tools such as PVLIB, which convert climate data into hourly photovoltaic generation profiles.
+                </p>
+                <p><strong>Optimization Approach</strong></p>
+                <p>
+                    The system optimization is implemented using oemof.solph, part of the Open Energy Modeling Framework (OEMOF).
+                    OEMOF Solph allows flexible representation of energy systems through interconnected components such as energy buses, generators, storage units, and loads.
+                </p>
+                <p>
+                    The optimization problem is formulated as a mixed-integer linear programming (MILP) model.
+                    The objective function minimizes the total annualized cost of the energy system.
+                </p>
+                <p>Annualized costs include:</p>
+                <ul>
+                    <li>capital expenditures for system installation</li>
+                    <li>operational and maintenance costs</li>
+                    <li>fuel costs for diesel generators</li>
+                    <li>replacement costs for components such as batteries</li>
+                </ul>
+                <p>
+                    By minimizing total annualized costs, the model identifies the optimal balance between capital investment and operational expenses.
+                </p>
+                <p>
+                    MILP optimization allows the model to represent both continuous variables, such as generation capacity, and discrete investment decisions, such as the installation of additional system components.
+                    Although linearization introduces some simplifications compared to nonlinear models, MILP offers a robust balance between computational efficiency and solution accuracy.
+                </p>
+                <p><strong>System Operation and Unit Commitment</strong></p>
+                <p>
+                    The model also determines the operational dispatch of system components over time.
+                    This includes deciding which energy sources should supply electricity at each time step in order to meet demand while minimizing operating costs.
+                </p>
+                <p>Operational constraints include:</p>
+                <ul>
+                    <li>generator capacity limits</li>
+                    <li>battery state-of-charge limits</li>
+                    <li>inverter capacity constraints</li>
+                    <li>energy balance at each time step</li>
+                </ul>
+                <p>
+                    Through this process, the model determines both the optimal system design and the corresponding operational schedule.
+                </p>
+                <p><strong>Model Outputs</strong></p>
+                <p>
+                    The optimization generates a range of outputs describing both technical and economic system performance.
+                </p>
+                <p>Key outputs include:</p>
+                <ul>
+                    <li>installed generation and storage capacities</li>
+                    <li>hourly dispatch time series</li>
+                    <li>investment costs</li>
+                    <li>operational costs</li>
+                    <li>fuel consumption</li>
+                    <li>estimated CO<sub>2</sub> emissions</li>
+                </ul>
+                <p>
+                    These outputs provide decision-makers with a comprehensive overview of the expected performance, cost structure, and environmental impact of proposed mini-grid systems.
+                </p>
             </div>
         </div>
     </div>
