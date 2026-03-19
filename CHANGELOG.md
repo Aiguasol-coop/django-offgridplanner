@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Update methodology page ([#21](https://github.com/Aiguasol-coop/django-offgridplanner/pull/21))
 
 ## [v1.1.1-moz.2.2] – 2026-03-02
 ### Fixed
