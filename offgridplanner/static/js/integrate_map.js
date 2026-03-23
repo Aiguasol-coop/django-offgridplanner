@@ -33,8 +33,6 @@ let polygonCoordinates = [];
 
 let map_elements = [];
 
-let_roads_elements = [];
-
 var markerConsumer = new L.Icon({
     iconUrl: "/static/assets/icons/i_consumer.svg",
     iconSize: [18, 18],
