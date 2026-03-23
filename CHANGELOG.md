@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [v1.1.6-moz.2.3] – 2026-03-23
+### Changed
+- Update patches from upstream ([#24](https://github.com/Aiguasol-coop/django-offgridplanner/pull/24))
+
 ## [v1.1.1-moz.2.3] – 2026-03-19
 ### Changed
 - Update methodology page ([#21](https://github.com/Aiguasol-coop/django-offgridplanner/pull/21))
