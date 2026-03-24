@@ -33,8 +33,6 @@ let polygonCoordinates = [];
 
 let map_elements = [];
 
-let_roads_elements = [];
-
 var markerConsumer = new L.Icon({
     iconUrl: "/static/assets/icons/i_consumer.svg",
     iconSize: [18, 18],
@@ -140,12 +138,13 @@ function initializeMap(center = null, zoom = null, bounds = null) {
 
         // Define the OSM layer
         let osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            referrerPolicy: 'origin-when-cross-origin'
         });
 
         // Define the Esri satellite layer
         let satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri'
+            attribution: 'Tiles &copy; Esri',
         });
 
         // Add the OSM layer to the map as the default
