@@ -240,40 +240,43 @@ def grid_design(request, proj_id=None):
         grid_design, _ = GridDesign.objects.get_or_create(
             project=project, defaults=get_param_from_metadata("default", "GridDesign")
         )
+
         if request.method == "GET":
             form = GridDesignForm(instance=grid_design, set_db_column_attribute=True)
-            # Group form fields by component (for easier rendering inside boxes)
-            grouped_fields = group_form_by_component(form)
 
-            component_name_mapping = {
-                "distribution_cable": "Distribution Line",
-                "mg": "Connection Costs",
-            }
-            for component in list(grouped_fields):
-                clean_name = (
-                    component_name_mapping[component]
-                    if component in component_name_mapping
-                    else component.title().replace("_", " ")
-                )
-                grouped_fields[clean_name] = grouped_fields.pop(component)
-
-            # Reorder dictionary for easier rendering in the correct order in the template (move SHS fields to #3)
-            grouped_fields = reorder_dict(grouped_fields, 4, 2)
-
-            context = {
-                "grouped_fields": grouped_fields,
-                "proj_id": proj_id,
-                "step_id": step_id,
-                "step_list": STEP_LIST_RIBBON,
-            }
-            return render(request, "pages/grid_design.html", context)
-
-        if request.method == "POST":
-            form = GridDesignForm(request.POST, instance=grid_design)
+        elif request.method == "POST":
+            form = GridDesignForm(
+                request.POST, instance=grid_design, set_db_column_attribute=True
+            )
             if form.is_valid():
                 form.save()
+                return redirect("steps:ogp_steps", proj_id, step_id + 1)
 
-            return redirect("steps:ogp_steps", proj_id, step_id + 1)
+        # Group form fields by component (for easier rendering inside boxes)
+        grouped_fields = group_form_by_component(form)
+
+        component_name_mapping = {
+            "distribution_cable": "Distribution Line",
+            "mg": "Connection Costs",
+        }
+        for component in list(grouped_fields):
+            clean_name = (
+                component_name_mapping[component]
+                if component in component_name_mapping
+                else component.title().replace("_", " ")
+            )
+            grouped_fields[clean_name] = grouped_fields.pop(component)
+
+        # Reorder dictionary for easier rendering in the correct order in the template (move SHS fields to #3)
+        grouped_fields = reorder_dict(grouped_fields, 4, 2)
+
+        context = {
+            "grouped_fields": grouped_fields,
+            "proj_id": proj_id,
+            "step_id": step_id,
+            "step_list": STEP_LIST_RIBBON,
+        }
+        return render(request, "pages/grid_design.html", context)
 
 
 @login_required
