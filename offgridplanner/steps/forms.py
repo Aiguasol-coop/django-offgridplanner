@@ -112,6 +112,33 @@ class GridDesignForm(CustomModelForm):
         model = GridDesign
         exclude = ["project"]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        errors = {}
+        for field in cleaned_data:
+            # The shs_max_grid_cost field is handled separately
+            if field != "shs_max_grid_cost":
+                val = cleaned_data.get(field)
+                if val is None:
+                    errors[field] = "Please enter a number."
+
+        for field, msg in errors.items():
+            self.add_error(field, msg)
+
+        return cleaned_data
+
+    def clean_shs_max_grid_cost(self):
+        cleaned_data = super().clean()
+        include_shs = cleaned_data.get("include_shs")
+        shs_max_grid_cost = cleaned_data.get("shs_max_grid_cost")
+        if include_shs and shs_max_grid_cost is None:
+            err_msg = "Max. grid cost threshold must be set if SHS option is selected."
+            raise ValidationError(err_msg)
+        return shs_max_grid_cost
+
 
 class EnergySystemDesignForm(CustomModelForm):
     class Meta:

@@ -32,6 +32,11 @@
                   <span class="input-group-text">{{ field.field.widget.attrs.unit }}</span>
                 </div>
               </div>
+              {% for error in field.errors %}
+                                  <div class="row">
+                  <p style="color:red"><b>{{ error }}</b></p>
+                </div>
+                  {% endfor %}
               {% endfor %}
             </div>
           </div>
@@ -44,6 +49,11 @@
                   {{ field|add_class:"form-check-input" }}
                   <span id="selectShsBoxTitle" class="grid-title">{{ field.label | safe }}</span>
                 </div>
+              {% for error in field.errors %}
+                                  <div class="row">
+                  <p style="color:red"><b>{{ error }}</b></p>
+                </div>
+                  {% endfor %}
                 {% else %}
                 <div class="row">
                   <div class="input-group" id="shsLifetimeLabel">
@@ -51,6 +61,11 @@
                     {{ field|add_class:"form-control" }}
                     <span class="input-group-text" id="shsLifetimeUnit">{{ field.field.widget.attrs.unit }}</span>
                   </div>
+                  {% for error in field.errors %}
+                                  <div class="row">
+                  <p style="color:red"><b>{{ error }}</b></p>
+                </div>
+                  {% endfor %}
                   <img
                     src="{% static 'assets/icons/qm.svg' %}"
                     alt="Icon"
@@ -63,6 +78,7 @@
                     </i>
 
                 </div>
+
                 {% endif %}
               {% endfor %}
             </div>
@@ -72,19 +88,6 @@
         </div>
         <input type="submit" id="submitFormBtn" hidden>
       </form>
-      <div class="row">
-        <p style="font-size: 12px;">
-          Sources: <br>
-          <a href="https://openknowledge.worldbank.org/server/api/core/bitstreams/32287154-1ccb-46ce-83af-08facf7a3b49/content">Mini
-            Grids for Half a Billion People: Market Outlook and Handbook for Decision Makers</a>, <i>ESMAP -
-          World Bank</i>, 2022 <br>
-          <a href="https://www.nrel.gov/docs/fy18osti/69044.pdf">Tariff Considerations for Micro-Grids in
-            Sub-Saharan Africa</a>, <i>National Renewable Energy Laboratory</i>, 2018 <br>
-          <a href="https://rmi.org/wp-content/uploads/2018/12/rmi-seeds-minigrid-report.pdf"> Minigrids in the
-            Money: Six Ways to Reduce Minigrid Costs by 60% for Rural Electrification</a>, <i>Rocky Mountain
-          Institute</i>, 2018
-        </p>
-      </div>
     </div>
   </section>
   <div id="videoTutorial" class="modal" style="background-color: rgba(0,0,0,0.5); z-index: 999; text-align: left">
