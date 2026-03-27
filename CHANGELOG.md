@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.2.4] – 2026-03-27
 ### Changed
 - Fetch load profiles from API on startup ([#26](https://github.com/Aiguasol-coop/django-offgridplanner/pull/26))
 
