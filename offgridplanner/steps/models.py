@@ -13,6 +13,22 @@ SETTLEMENT_TYPE = (
 )
 
 
+def change_percentage_format(value, upper_limit=1):
+    if value is None:
+        return None
+    # Changes the value from a percentage range 0-1 to 0-100 and viceversa
+    upper_limit_one = 1
+    upper_limit_hundred = 100
+    if upper_limit == upper_limit_one:
+        value /= 100.0
+    elif upper_limit == upper_limit_hundred:
+        value *= 100
+    else:
+        msg = "Upper limit must be either 1 or 100"
+        raise ValueError(msg)
+    return value
+
+
 class NestedModel(models.Model):
     class Meta:
         abstract = True
@@ -36,7 +52,9 @@ class NestedModel(models.Model):
                 for part in parts[:-1]:  # Traverse the dictionary except the last key
                     d = d[part]
                 d[parts[-1]] = (
-                    value / 100 if self.is_percentage_field(field.name) else value
+                    change_percentage_format(value, upper_limit=1)
+                    if self.is_percentage_field(field.name)
+                    else value
                 )  # Set the final value
 
         return data
