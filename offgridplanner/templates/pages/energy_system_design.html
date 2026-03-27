@@ -15,334 +15,370 @@
     <div>
       <form method="post">
         {% csrf_token %}
-      <div class="row">
-        <div class="col-md-4">
-                    <div class="box box--small" id="selectPvBox">
-            {% for field_name, field in grouped_fields|getkey:"Pv" %}
-            {% if field_name == "pv_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
+        <div class="row">
+          <div class="col-md-4">
+            <div class="box box--small" id="selectPvBox">
+              {% for field_name, field in grouped_fields|getkey:"Pv" %}
+              {% if field_name == "pv_settings_is_selected" %}
+              <div class="box__header">
+                {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
                   <span class="grid-title" id="selectPv">{{ field.label }}</span>
                 </div>
-            </div>
-            {% elif field_name == "pv_settings_design" %}
-            <div class="row">
-            {{ field }}
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
               </div>
+              {% elif field_name == "pv_settings_design" %}
+              <div class="row">
+                {{ field }}
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="input-group">
+                  <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                  {{ field|add_class:"form-control" }}
+                  <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+                </div>
+              </div>
+              {% for error in field.errors %}
+              <div class="row">
+                <p style="color:red"><b>{{ error }}</b></p>
+              </div>
+              {% endfor %}
+
+              {% endif %}
+              {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-          <div class="box box--medium" id="selectInverterBox">
-            {% for field_name, field in grouped_fields|getkey:"Inverter" %}
-            {% if field_name == "inverter_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
+            <div class="box box--medium" id="selectInverterBox">
+              {% for field_name, field in grouped_fields|getkey:"Inverter" %}
+              {% if field_name == "inverter_settings_is_selected" %}
+              <div class="box__header">
+                {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
                   <span class="grid-title" id="selectInverter">{{ field.label }}</span>
                 </div>
-            </div>
-            {% elif field_name == "inverter_settings_design" %}
-            <div class="row">
-            {{ field }}
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
               </div>
+              {% elif field_name == "inverter_settings_design" %}
+              <div class="row">
+                {{ field }}
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="input-group">
+                  <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                  {{ field|add_class:"form-control" }}
+                  <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+                </div>
+              </div>
+              {% for error in field.errors %}
+              <div class="row">
+                <p style="color:red"><b>{{ error }}</b></p>
+              </div>
+              {% endfor %}
+
+              {% endif %}
+              {% endfor %}
+
             </div>
-            {% endif %}
-            {% endfor %}
 
           </div>
+          <div class="col-md-8">
+            <div class="chart">
+              <div class="chart__header">
+                <div>
+                  <span class="title">Schematic of the Selected Off-Grid System</span>
+                </div>
+              </div>
+              <svg id="blockDiagram" width="850" height="450">
+                <!-- DEMAND -->
+                <g id="groupDemand" visibility="hidden">
+                  <g>
+                    <line id="lineDemand"></line>
+                    <polyline id="arrowOutDemand"></polyline>
+                    <polyline id="arrowInDemand"></polyline>
+                  </g>
+                  <rect id="blockDemand" />
+                  <text id="textDemand" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
+                    Demand
+                  </text>
+                  <text id="informationDemand" dominant-baseline="bottom">
+                    100% covered
+                  </text>
+                </g>
+                <!-- SHORTAGE -->
+                <g id="groupShortage" visibility="hidden">
+                  <g>
+                    <line id="lineShortage"></line>
+                    <polyline id="arrowOutShortage"></polyline>
+                    <polyline id="arrowInShortage"></polyline>
+                  </g>
+                  <rect id="blockShortage" />
+                  <text id="textShortage" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
+                    Shortage
+                  </text>
+                  <text id="informationShortage" dominant-baseline="bottom"></text>
+                  <text id="informationShortageSecondLine" dominant-baseline="bottom"></text>
+                </g>
+                <!-- SURPLUS -->
+                <g id="groupSurplus" visibility="hidden">
+                  <g>
+                    <line id="lineSurplus"></line>
+                    <polyline id="arrowOutSurplus"></polyline>
+                    <polyline id="arrowInSurplus"></polyline>
+                  </g>
+                  <rect id="blockSurplus" />
+                  <text id="textSurplus" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
+                    Surplus
+                  </text>
+                  <text id="informationSurplus" dominant-baseline="bottom"></text>
+                </g>
+                <!-- PV -->
+                <g id="groupPv" visibility="hidden">
+                  <g>
+                    <line id="linePv"></line>
+                    <polyline id="arrowOutPv"></polyline>
+                    <polyline id="arrowInPv"></polyline>
+                  </g>
+                  <rect id="blockPv" />
+                  <text id="textPv" dominant-baseline="middle" text-anchor="middle">
+                    PV
+                  </text>
+                  <text id="informationPv" dominant-baseline="bottom">
+                    design
+                  </text>
+                </g>
+                <!-- BATTERY -->
+                <g id="groupBattery" visibility="hidden">
+                  <g>
+                    <line id="lineBattery"></line>
+                    <polyline id="arrowOutBattery"></polyline>
+                    <polyline id="arrowInBattery"></polyline>
+                  </g>
+                  <rect id="blockBattery" />
+                  <text id="textBattery" dominant-baseline="middle" text-anchor="middle">
+                    Battery
+                  </text>
+                  <text id="informationBattery" dominant-baseline="bottom">
+                    design
+                  </text>
+                </g>
+                <!-- DIESEL GENSET -->
+                <g id="groupDiesel_genset" visibility="hidden">
+                  <g>
+                    <line id="lineDiesel_genset"></line>
+                    <polyline id="arrowOutDiesel_genset"></polyline>
+                    <polyline id="arrowInDiesel_genset"></polyline>
+                  </g>
+                  <rect id="blockDiesel_genset" />
+                  <text id="textDiesel_genset" dominant-baseline="middle" text-anchor="middle">
+                    Diesel Genset
+                  </text>
+                  <text id="informationDiesel_genset" dominant-baseline="bottom">
+                    design
+                  </text>
+                </g>
+                <!-- INVERTER -->
+                <g id="groupInverter" visibility="hidden">
+                  <g>
+                    <line id="lineInverter"></line>
+                    <polyline id="arrowOutInverter"></polyline>
+                    <polyline id="arrowInInverter"></polyline>
+                    <line id="lineInverter2"></line>
+                    <polyline id="arrowOutInverter2"></polyline>
+                    <polyline id="arrowInInverter2"></polyline>
+                  </g>
+                  <rect id="blockInverter" />
+                  <text id="textInverter" dominant-baseline="middle" text-anchor="middle">
+                    Inverter
+                  </text>
+                  <text id="informationInverter" dominant-baseline="bottom">
+                    design
+                  </text>
+                </g>
+                <!-- RECTIFIER -->
+                <g id="groupRectifier" visibility="hidden">
+                  <g>
+                    <line id="lineRectifier"></line>
+                    <polyline id="arrowOutRectifier"></polyline>
+                    <polyline id="arrowInRectifier"></polyline>
+                    <line id="lineRectifier2"></line>
+                    <polyline id="arrowOutRectifier2"></polyline>
+                    <polyline id="arrowInRectifier2"></polyline>
+                  </g>
+                  <rect id="blockRectifier" />
+                  <text id="textRectifier" dominant-baseline="middle" text-anchor="middle">
+                    Charger
+                  </text>
+                  <text id="informationRectifier" dominant-baseline="bottom">
+                    design
+                  </text>
+                </g>
+                <!-- AC BUS -->
+                <g id="groupAcBus" visibility="hidden">
+                  <rect id="blockAcBus" />
+                  <text id="textAcBus" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
+                    AC Bus
+                  </text>
+                </g>
+                <!-- DC BUS -->
+                <g id="groupDcBus" visibility="hidden">
+                  <rect id="blockDcBus" />
+                  <text id="textDcBus" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
+                    DC Bus
+                  </text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="box" id="selectBatteryBox">
+              {% for field_name, field in grouped_fields|getkey:"Battery" %}
+              {% if field_name == "battery_settings_is_selected" %}
+              <div class="box__header">
+                {{ field|add_class:"form-check-input" }}
+                <div class="form-check">
+                  <span class="grid-title" id="selectBattery">{{ field.label }}</span>
+                </div>
+              </div>
+              {% elif field_name == "battery_settings_design" %}
+              <div class="row">
+                {{ field }}
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="input-group">
+                  <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                  {{ field|add_class:"form-control" }}
+                  <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+                </div>
+              </div>
+              {% for error in field.errors %}
+              <div class="row">
+                <p style="color:red"><b>{{ error }}</b></p>
+              </div>
+              {% endfor %}
 
-        </div>
-        <div class="col-md-8">
-          <div class="chart">
-            <div class="chart__header">
-              <div>
-                <span class="title">Schematic of the Selected Off-Grid System</span>
-              </div>
+              {% endif %}
+              {% endfor %}
             </div>
-            <svg id="blockDiagram" width="850" height="450">
-              <!-- DEMAND -->
-              <g id="groupDemand" visibility="hidden">
-                <g>
-                  <line id="lineDemand"></line>
-                  <polyline id="arrowOutDemand"></polyline>
-                  <polyline id="arrowInDemand"></polyline>
-                </g>
-                <rect id="blockDemand" />
-                <text id="textDemand" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
-                  Demand
-                </text>
-                <text id="informationDemand" dominant-baseline="bottom">
-                  100% covered
-                </text>
-              </g>
-              <!-- SHORTAGE -->
-              <g id="groupShortage" visibility="hidden">
-                <g>
-                  <line id="lineShortage"></line>
-                  <polyline id="arrowOutShortage"></polyline>
-                  <polyline id="arrowInShortage"></polyline>
-                </g>
-                <rect id="blockShortage" />
-                <text id="textShortage" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
-                  Shortage
-                </text>
-                <text id="informationShortage" dominant-baseline="bottom"></text>
-                <text id="informationShortageSecondLine" dominant-baseline="bottom"></text>
-              </g>
-              <!-- SURPLUS -->
-              <g id="groupSurplus" visibility="hidden">
-                <g>
-                  <line id="lineSurplus"></line>
-                  <polyline id="arrowOutSurplus"></polyline>
-                  <polyline id="arrowInSurplus"></polyline>
-                </g>
-                <rect id="blockSurplus" />
-                <text id="textSurplus" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
-                  Surplus
-                </text>
-                <text id="informationSurplus" dominant-baseline="bottom"></text>
-              </g>
-              <!-- PV -->
-              <g id="groupPv" visibility="hidden">
-                <g>
-                  <line id="linePv"></line>
-                  <polyline id="arrowOutPv"></polyline>
-                  <polyline id="arrowInPv"></polyline>
-                </g>
-                <rect id="blockPv" />
-                <text id="textPv" dominant-baseline="middle" text-anchor="middle">
-                  PV
-                </text>
-                <text id="informationPv" dominant-baseline="bottom">
-                  design
-                </text>
-              </g>
-              <!-- BATTERY -->
-              <g id="groupBattery" visibility="hidden">
-                <g>
-                  <line id="lineBattery"></line>
-                  <polyline id="arrowOutBattery"></polyline>
-                  <polyline id="arrowInBattery"></polyline>
-                </g>
-                <rect id="blockBattery" />
-                <text id="textBattery" dominant-baseline="middle" text-anchor="middle">
-                  Battery
-                </text>
-                <text id="informationBattery" dominant-baseline="bottom">
-                  design
-                </text>
-              </g>
-              <!-- DIESEL GENSET -->
-              <g id="groupDiesel_genset" visibility="hidden">
-                <g>
-                  <line id="lineDiesel_genset"></line>
-                  <polyline id="arrowOutDiesel_genset"></polyline>
-                  <polyline id="arrowInDiesel_genset"></polyline>
-                </g>
-                <rect id="blockDiesel_genset" />
-                <text id="textDiesel_genset" dominant-baseline="middle" text-anchor="middle">
-                  Diesel Genset
-                </text>
-                <text id="informationDiesel_genset" dominant-baseline="bottom">
-                  design
-                </text>
-              </g>
-              <!-- INVERTER -->
-              <g id="groupInverter" visibility="hidden">
-                <g>
-                  <line id="lineInverter"></line>
-                  <polyline id="arrowOutInverter"></polyline>
-                  <polyline id="arrowInInverter"></polyline>
-                  <line id="lineInverter2"></line>
-                  <polyline id="arrowOutInverter2"></polyline>
-                  <polyline id="arrowInInverter2"></polyline>
-                </g>
-                <rect id="blockInverter" />
-                <text id="textInverter" dominant-baseline="middle" text-anchor="middle">
-                  Inverter
-                </text>
-                <text id="informationInverter" dominant-baseline="bottom">
-                  design
-                </text>
-              </g>
-              <!-- RECTIFIER -->
-              <g id="groupRectifier" visibility="hidden">
-                <g>
-                  <line id="lineRectifier"></line>
-                  <polyline id="arrowOutRectifier"></polyline>
-                  <polyline id="arrowInRectifier"></polyline>
-                  <line id="lineRectifier2"></line>
-                  <polyline id="arrowOutRectifier2"></polyline>
-                  <polyline id="arrowInRectifier2"></polyline>
-                </g>
-                <rect id="blockRectifier" />
-                <text id="textRectifier" dominant-baseline="middle" text-anchor="middle">
-                  Charger
-                </text>
-                <text id="informationRectifier" dominant-baseline="bottom">
-                  design
-                </text>
-              </g>
-              <!-- AC BUS -->
-              <g id="groupAcBus" visibility="hidden">
-                <rect id="blockAcBus" />
-                <text id="textAcBus" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
-                  AC Bus
-                </text>
-              </g>
-              <!-- DC BUS -->
-              <g id="groupDcBus" visibility="hidden">
-                <rect id="blockDcBus" />
-                <text id="textDcBus" class="components-text--design" dominant-baseline="middle" text-anchor="middle">
-                  DC Bus
-                </text>
-              </g>
-            </svg>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="box" id="selectBatteryBox">
-            {% for field_name, field in grouped_fields|getkey:"Battery" %}
-            {% if field_name == "battery_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
-              <div class="form-check">
-                <span class="grid-title" id="selectBattery">{{ field.label }}</span>
-              </div>
-            </div>
-            {% elif field_name == "battery_settings_design" %}
-            <div class="row">
-              {{ field }}
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
-              </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-        <div class="col-md-4">
-                    <div class="box" id="selectDiesel_gensetBox">
-            {% for field_name, field in grouped_fields|getkey:"Diesel Genset" %}
-            {% if field_name == "diesel_genset_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
+          <div class="col-md-4">
+            <div class="box" id="selectDiesel_gensetBox">
+              {% for field_name, field in grouped_fields|getkey:"Diesel Genset" %}
+              {% if field_name == "diesel_genset_settings_is_selected" %}
+              <div class="box__header">
+                {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
                   <span class="grid-title" id="selectDiesel_genset">{{ field.label }}</span>
                 </div>
-            </div>
-            {% elif field_name == "diesel_genset_settings_design" %}
-            <div class="row">
-            {{ field }}
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
               </div>
+              {% elif field_name == "diesel_genset_settings_design" %}
+              <div class="row">
+                {{ field }}
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="input-group">
+                  <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                  {{ field|add_class:"form-control" }}
+                  <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+                </div>
+              </div>
+              {% for error in field.errors %}
+              <div class="row">
+                <p style="color:red"><b>{{ error }}</b></p>
+              </div>
+              {% endfor %}
+
+              {% endif %}
+              {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
-            </div>
-        </div>
-        <div class="col-md-4">
-          <div class="box box--small" id="selectShortageBox">
-            {% for field_name, field in grouped_fields|getkey:"Shortage" %}
-            {% if field_name == "shortage_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
+          </div>
+          <div class="col-md-4">
+            <div class="box box--small" id="selectShortageBox">
+              {% for field_name, field in grouped_fields|getkey:"Shortage" %}
+              {% if field_name == "shortage_settings_is_selected" %}
+              <div class="box__header">
+                {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
                   <span class="grid-title" id="selectShortage">{{ field.label }}</span>
                 </div>
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
               </div>
+              {% else %}
+              <div class="row">
+                <div class="input-group">
+                  <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                  {{ field|add_class:"form-control" }}
+                  <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+                </div>
+              </div>
+              {% for error in field.errors %}
+              <div class="row">
+                <p style="color:red"><b>{{ error }}</b></p>
+              </div>
+              {% endfor %}
+
+              {% endif %}
+              {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-          <div class="box box--medium" id="selectRectifierBox">
-            {% for field_name, field in grouped_fields|getkey:"Charger" %}
-            {% if field_name == "rectifier_settings_is_selected" %}
-            <div class="box__header">
-              {{ field|add_class:"form-check-input" }}
+            <div class="box box--medium" id="selectRectifierBox">
+              {% for field_name, field in grouped_fields|getkey:"Charger" %}
+              {% if field_name == "rectifier_settings_is_selected" %}
+              <div class="box__header">
+                {{ field|add_class:"form-check-input" }}
                 <div class="form-check">
                   <span class="grid-title" id="selectRectifier">{{ field.label }}</span>
                 </div>
-            </div>
-            {% elif field_name == "rectifier_settings_design" %}
-            <div class="row">
-            {{ field }}
-            </div>
-            {% else %}
-            <div class="row">
-              <div class="input-group">
-                <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
-                {{ field|add_class:"form-control" }}
-                <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
               </div>
-            </div>
-            {% endif %}
-            {% endfor %}
+              {% elif field_name == "rectifier_settings_design" %}
+              <div class="row">
+                {{ field }}
+              </div>
+              {% else %}
+              <div class="row">
+                <div class="input-group">
+                  <span class="input-group-text" id="{{field.name}}_label">{{ field.label | safe }}</span>
+                  {{ field|add_class:"form-control" }}
+                  <span class="input-group-text" id="{{field.name}}_unit">{{ field.field.widget.attrs.unit }}</span>
+                </div>
+              </div>
+              {% for error in field.errors %}
+              <div class="row">
+                <p style="color:red"><b>{{ error }}</b></p>
+              </div>
+              {% endfor %}
 
+              {% endif %}
+              {% endfor %}
+
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <p style="font-size: 12px;">
-          Sources:
-          <br />
-          <a href="https://openknowledge.worldbank.org/server/api/core/bitstreams/32287154-1ccb-46ce-83af-08facf7a3b49/content">Mini
-            Grids for Half a Billion People: Market Outlook and Handbook for Decision Makers</a>, <i>ESMAP -
-          World Bank</i>, 2022
-          <br />
-          <a href="https://www.nrel.gov/docs/fy18osti/69044.pdf">Tariff Considerations for Micro-Grids in
-            Sub-Saharan Africa</a>, <i>National Renewable Energy Laboratory</i>, 2018
-          <br />
-          <a href="https://rmi.org/wp-content/uploads/2018/12/rmi-seeds-minigrid-report.pdf"> Minigrids in the
-            Money: Six Ways to Reduce Minigrid Costs by 60% for Rural Electrification</a>, <i>Rocky Mountain
-          Institute</i>, 2018
-          <br />
-          <a href="https://www.globalpetrolprices.com/Nigeria/diesel_prices/"> Nigeria Diesel prices, litre,
-            04-Sep-2023 </a>, <i>GlobalPetrolPrices.com - with +50% markup for logistics and
-          losses/theft</i>, September 2022
-          <br />
-          The PV modules are simulated via <a href="https://pvlib-python.readthedocs.io/en/">pvlib</a>,
-          incorporating the
-          <a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview">ERA5
-            radiation data</a>.
-        </p>
-      </div>
+        <div class="row">
+          <p style="font-size: 12px;">
+            Sources:
+            <br />
+            <a href="https://openknowledge.worldbank.org/server/api/core/bitstreams/32287154-1ccb-46ce-83af-08facf7a3b49/content">Mini
+              Grids for Half a Billion People: Market Outlook and Handbook for Decision Makers</a>, <i>ESMAP -
+            World Bank</i>, 2022
+            <br />
+            <a href="https://www.nrel.gov/docs/fy18osti/69044.pdf">Tariff Considerations for Micro-Grids in
+              Sub-Saharan Africa</a>, <i>National Renewable Energy Laboratory</i>, 2018
+            <br />
+            <a href="https://rmi.org/wp-content/uploads/2018/12/rmi-seeds-minigrid-report.pdf"> Minigrids in the
+              Money: Six Ways to Reduce Minigrid Costs by 60% for Rural Electrification</a>, <i>Rocky Mountain
+            Institute</i>, 2018
+            <br />
+            <a href="https://www.globalpetrolprices.com/Nigeria/diesel_prices/"> Nigeria Diesel prices, litre,
+              04-Sep-2023 </a>, <i>GlobalPetrolPrices.com - with +50% markup for logistics and
+            losses/theft</i>, September 2022
+            <br />
+            The PV modules are simulated via <a href="https://pvlib-python.readthedocs.io/en/">pvlib</a>,
+            incorporating the
+            <a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview">ERA5
+              radiation data</a>.
+          </p>
+        </div>
         <input type="submit" id="submitFormBtn" hidden>
       </form>
     </div>
