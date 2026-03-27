@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fix results processing if all consumers are assigned solar home systems
+- Fix form validation to avoid changing steps with empty fields
 
 ## [v1.1.6-moz.2.3] – 2026-03-23
 ### Changed
