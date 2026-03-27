@@ -197,6 +197,25 @@ def fetch_exploration_progress(exploration_id):
         return response.json()
 
 
+def fetch_demand_profiles(consumer_type):
+    """
+    Send a GET request to fetch the existing minigrids. When a new minigrid is planned, notify_existing_minigrids should
+    be called to include the new minigrid in the existing minigrid list.
+    """
+    request_url = MG_EXPLORER_API_HOST + f"/profiles/{consumer_type}"
+
+    try:
+        response = httpx.get(request_url, timeout=10)
+        response.raise_for_status()
+    except httpx.HTTPError as e:
+        logger.exception("HTTP error occurred")
+        msg = "An error occurred while fetching load profiles."
+        raise RuntimeError(msg) from e
+    else:
+        logger.info("Successfully fetched load profiles.")
+        return response.json()
+
+
 def fetch_existing_minigrids():
     """
     Send a GET request to fetch the existing minigrids. When a new minigrid is planned, notify_existing_minigrids should

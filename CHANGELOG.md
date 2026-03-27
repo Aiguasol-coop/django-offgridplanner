@@ -1,9 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Fetch load profiles from API on startup ([#26](https://github.com/Aiguasol-coop/django-offgridplanner/pull/26))
+
 ### Fixed
-- Fix results processing if all consumers are assigned solar home systems
-- Fix form validation to avoid changing steps with empty fields
+- Fix results processing if all consumers are assigned solar home systems ([#25](https://github.com/Aiguasol-coop/django-offgridplanner/pull/25))
+- Fix form validation to avoid changing steps with empty fields ([#25](https://github.com/Aiguasol-coop/django-offgridplanner/pull/25))
+- Fix pole positions being slightly off relative to cables ([#26](https://github.com/Aiguasol-coop/django-offgridplanner/pull/26))
 
 ## [v1.1.6-moz.2.3] – 2026-03-23
 ### Changed

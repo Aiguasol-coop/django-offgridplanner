@@ -3,12 +3,44 @@ import logging
 import pandas as pd
 from django.forms import model_to_dict
 
-from config.settings.base import FULL_PATH_PROFILES
+from offgridplanner.optimization.requests import fetch_demand_profiles
 
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-LOAD_PROFILES = pd.read_parquet(path=FULL_PATH_PROFILES, engine="pyarrow")
+
+def prepare_load_profiles_data():
+    demand_data_json = {}
+    for consumer_type in ["household", "enterprise", "public_service"]:
+        try:
+            demand_data_json[consumer_type] = fetch_demand_profiles(consumer_type)
+        except RuntimeError:
+            msg = f"Could not fetch load profiles for {consumer_type}"
+            logger.exception(msg)
+
+    dt_index = pd.date_range("2024-01-01", periods=8760, freq="h")
+    all_profiles = pd.DataFrame(index=dt_index)
+
+    for consumer_type, data in demand_data_json.items():
+        consumer_type_verbose = consumer_type.replace("_", " ").title()
+        df = pd.DataFrame(data)
+        ts = pd.DataFrame()
+        for _ix, row in df.iterrows():
+            label = (
+                f"{consumer_type_verbose}_{row.area_type}_{row.subcategory}"
+                if consumer_type_verbose == "Household"
+                else f"{consumer_type_verbose}_{row.subcategory}"
+            )
+            ts[label] = (
+                pd.Series(row.hourly_profile) * row.kwh_per_day * 1000
+            )  # change from kWh to Wh
+        full_year = pd.concat([ts] * 365)
+        full_year.index = dt_index
+        all_profiles = pd.concat([all_profiles, full_year], axis=1)
+    return all_profiles
+
+
+LOAD_PROFILES = prepare_load_profiles_data()
 
 PUBLIC_SERVICE_LIST = [
     profile.split("_", maxsplit=1)[1]
