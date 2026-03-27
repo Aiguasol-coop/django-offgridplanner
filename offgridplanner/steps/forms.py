@@ -7,6 +7,7 @@ from offgridplanner.projects.widgets import BatteryDesignWidget
 from offgridplanner.steps.models import CustomDemand
 from offgridplanner.steps.models import EnergySystemDesign
 from offgridplanner.steps.models import GridDesign
+from offgridplanner.steps.models import change_percentage_format
 
 
 def set_field_metadata(field, meta):
@@ -62,7 +63,7 @@ class CustomDemandForm(CustomModelForm):
         if instance is not None:
             for field in self.percentage_fields:
                 # Serve number to user in 0-100 format
-                initial[field] = self.change_percentage_format(
+                initial[field] = change_percentage_format(
                     getattr(instance, field),
                     upper_limit=100,
                 )
@@ -84,36 +85,18 @@ class CustomDemandForm(CustomModelForm):
         for field, value in self.cleaned_data.items():
             if field in self.percentage_fields:
                 # Save number to database in 0-1 format
-                self.cleaned_data[field] = self.change_percentage_format(
+                self.cleaned_data[field] = change_percentage_format(
                     value,
                     upper_limit=1,
                 )
 
         return cleaned_data
 
-    @staticmethod
-    def change_percentage_format(value, upper_limit=1):
-        # Changes the value from a percentage range 0-1 to 0-100 and viceversa
-        upper_limit_one = 1
-        upper_limit_hundred = 100
-        if upper_limit == upper_limit_one:
-            value /= 100.0
-        elif upper_limit == upper_limit_hundred:
-            value *= 100
-        else:
-            msg = "Upper limit must be either 1 or 100"
-            raise ValueError(msg)
-
-        return value
-
 
 class GridDesignForm(CustomModelForm):
     class Meta:
         model = GridDesign
         exclude = ["project"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -144,3 +127,31 @@ class EnergySystemDesignForm(CustomModelForm):
     class Meta:
         model = EnergySystemDesign
         exclude = ["project"]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        errors = {}
+        for field in cleaned_data:
+            if "_parameters_" not in field:
+                continue
+
+            component, parameter = field.split("_parameters_", 1)
+            design_field = f"{component}_settings_design"
+            capacity_field = f"{component}_parameters_nominal_capacity"
+
+            value = cleaned_data.get(field)
+
+            if field == capacity_field:
+                # capacity required only when settings_design is False
+                optimize_cap = cleaned_data.get(design_field)
+                if optimize_cap is False and value in (None, ""):
+                    errors[field] = (
+                        "Existing capacity is required when optimization is disabled."
+                    )
+            elif value in (None, ""):
+                errors[field] = "Please enter a number."
+
+        for field, msg in errors.items():
+            self.add_error(field, msg)
+
+        return cleaned_data
