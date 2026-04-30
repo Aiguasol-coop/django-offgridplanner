@@ -1,0 +1,752 @@
+# Translations for the Offgridplanner-Django project
+# Copyright (C) 2025 Reiner Lemoine Institute
+# Reiner Lemoine Institute <paula.preuss@rl-institut.com>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-30 10:46+0200\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\config\settings\base.py:35
+msgid "English"
+msgstr ""
+
+#: .\config\settings\base.py:36
+msgid "Portuguese"
+msgstr ""
+
+#: .\offgridplanner\projects\forms.py:33
+msgid "Demand estimation"
+msgstr ""
+
+#: .\offgridplanner\projects\forms.py:70
+msgid "Min. number of consumers"
+msgstr ""
+
+#: .\offgridplanner\projects\forms.py:71
+msgid "Max. minigrid network distance [m]"
+msgstr ""
+
+#: .\offgridplanner\projects\forms.py:72
+msgid "Min. distance from national grid [m]"
+msgstr ""
+
+#: .\offgridplanner\projects\forms.py:74
+msgid "Min. distance to an existing minigrid [m]"
+msgstr ""
+
+#: .\offgridplanner\projects\forms.py:76
+msgid "Province"
+msgstr ""
+
+#: .\offgridplanner\projects\models.py:36
+#: .\offgridplanner\templates\pages\monitoring.html:38
+msgid "Monitoring"
+msgstr ""
+
+#: .\offgridplanner\projects\models.py:37
+#: .\offgridplanner\templates\pages\monitoring.html:34
+msgid "Analyzing"
+msgstr ""
+
+#: .\offgridplanner\projects\models.py:38
+#: .\offgridplanner\templates\pages\monitoring.html:30
+msgid "Potential"
+msgstr ""
+
+#: .\offgridplanner\steps\models.py:11
+msgid "Rural peri-urban"
+msgstr ""
+
+#: .\offgridplanner\steps\models.py:12
+msgid "Rural isolated"
+msgstr ""
+
+#: .\offgridplanner\steps\views.py:41
+msgid "Project Setup"
+msgstr ""
+
+#: .\offgridplanner\steps\views.py:42
+msgid "Consumer Selection"
+msgstr ""
+
+#: .\offgridplanner\steps\views.py:43
+#: .\offgridplanner\templates\pages\landing_page.html:99
+msgid "Demand Estimation"
+msgstr ""
+
+#: .\offgridplanner\steps\views.py:44
+msgid "Grid Design"
+msgstr ""
+
+#: .\offgridplanner\steps\views.py:45
+msgid "Energy System Design"
+msgstr ""
+
+#: .\offgridplanner\steps\views.py:46
+msgid "Simulation Results"
+msgstr ""
+
+#: .\offgridplanner\templates\account\acc_active_email.html:3
+msgid "Hi"
+msgstr ""
+
+#: .\offgridplanner\templates\account\acc_active_email.html:5
+msgid "Please click on the link to confirm your registration"
+msgstr ""
+
+#: .\offgridplanner\templates\account\acc_active_email.html:9
+msgid "If you think, it's not you, then just ignore this email."
+msgstr ""
+
+#: .\offgridplanner\templates\account\login.html:7
+msgid "Log In"
+msgstr ""
+
+#: .\offgridplanner\templates\account\login.html:17
+#: .\offgridplanner\templates\account\login.html:22
+msgid "Login"
+msgstr ""
+
+#: .\offgridplanner\templates\account\login.html:29
+msgid "Do you not have an account yet?"
+msgstr ""
+
+#: .\offgridplanner\templates\account\login.html:30
+#: .\offgridplanner\templates\account\signup.html:28
+#: .\offgridplanner\templates\navbar.html:109
+msgid "Sign up"
+msgstr "Cadastro"
+
+#: .\offgridplanner\templates\account\password_reset.html:4
+#: .\offgridplanner\templates\account\password_reset.html:11
+msgid "Password Reset"
+msgstr "Redefinição de senha"
+
+#: .\offgridplanner\templates\account\password_reset.html:17
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"Esqueceu sua senha? Digite seu endereço de e-mail abaixo e enviaremos um e-"
+"mail permitindo que você o redefina."
+
+#: .\offgridplanner\templates\account\password_reset.html:29
+msgid "Reset My Password"
+msgstr "Redefinir minha senha"
+
+#: .\offgridplanner\templates\account\password_reset.html:34
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Entre em contato conosco se tiver algum problema para redefinir sua senha."
+
+#: .\offgridplanner\templates\account\signup.html:20
+msgid "Welcome to the Offgridplanner"
+msgstr ""
+
+#: .\offgridplanner\templates\account\signup.html:23
+msgid "Do you already have an account?"
+msgstr ""
+
+#: .\offgridplanner\templates\account\signup.html:23
+#: .\offgridplanner\templates\navbar.html:102
+#: .\offgridplanner\templates\navbar.html:103
+msgid "Log in"
+msgstr ""
+
+#: .\offgridplanner\templates\account\verification_sent.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Verifique seu endereço de e-mail"
+
+#: .\offgridplanner\templates\account\verification_sent.html:9
+msgid ""
+"We have sent an email to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification email in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification email within a few minutes."
+msgstr ""
+"Enviamos um e-mail para você para verificação. Siga o link fornecido para "
+"finalizar o processo de inscrição. Entre em contato conosco se você não "
+"recebê-lo dentro de alguns minutos."
+
+#: .\offgridplanner\templates\allauth\layouts\entrance.html:13
+#: .\offgridplanner\templates\base-cookiecutter.html:89
+msgid "Sign In"
+msgstr "Entrar"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:74
+msgid "My Profile"
+msgstr "Meu perfil"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:78
+msgid "Sign Out"
+msgstr "Sair"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:84
+msgid "Sign Up"
+msgstr "Cadastro"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:123
+#: .\offgridplanner\templates\base.html:82
+#: .\offgridplanner\templates\navbar.html:85
+#: .\offgridplanner\templates\pages\training_tasks.html:407
+msgid "Contact"
+msgstr ""
+
+#: .\offgridplanner\templates\base-cookiecutter.html:125
+msgid "License"
+msgstr ""
+
+#: .\offgridplanner\templates\base-cookiecutter.html:127
+#: .\offgridplanner\templates\base.html:85
+#: .\offgridplanner\templates\pages\training_tasks.html:410
+msgid "Imprint"
+msgstr ""
+
+#: .\offgridplanner\templates\base-cookiecutter.html:130
+#: .\offgridplanner\templates\base.html:88
+#: .\offgridplanner\templates\pages\training_tasks.html:413
+msgid "Privacy"
+msgstr ""
+
+#: .\offgridplanner\templates\base.html:91
+#, python-format
+msgid " Version %(APP_VERSION_NUMBER)s "
+msgstr ""
+
+#: .\offgridplanner\templates\navbar.html:34
+msgid "Methodology"
+msgstr ""
+
+#: .\offgridplanner\templates\navbar.html:75
+#: .\offgridplanner\templates\pages\simulation_results.html:173
+msgid "My Projects"
+msgstr ""
+
+#: .\offgridplanner\templates\navbar.html:78
+msgid "Training Tasks"
+msgstr ""
+
+#: .\offgridplanner\templates\navbar.html:82
+msgid "Model Description"
+msgstr ""
+
+#: .\offgridplanner\templates\navbar.html:94
+msgid "Log out"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\calculating.html:23
+msgid "Model Calculation"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\calculating.html:27
+#: .\offgridplanner\templates\pages\demand_estimation.html:226
+msgid "Status:"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\calculating.html:28
+msgid "Starting optimization..."
+msgstr ""
+
+#: .\offgridplanner\templates\pages\calculating.html:35
+msgid "Send email when calculation is finished."
+msgstr ""
+
+#: .\offgridplanner\templates\pages\calculating.html:43
+msgid "Abort Calculation"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\calculating.html:52
+#: .\offgridplanner\templates\pages\consumer_selection.html:298
+msgid "Warning"
+msgstr "Aviso"
+
+#: .\offgridplanner\templates\pages\calculating.html:54
+msgid "Go to Page with Missing Data"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:23
+msgid "Icon"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:44
+#: .\offgridplanner\templates\pages\demand_estimation.html:34
+msgid "Set Consumer Properties"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:54
+msgid "Consumer Type"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:55
+msgid "Consumer Category"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:56
+msgid "Latitude"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:57
+msgid "Longitude"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:59
+msgid "Grid-/SHS-Options"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:62
+msgid ""
+"The off-grid planning process identifies consumers for whom connection costs "
+"surpass a specified threshold during grid optimization. Economically, it may "
+"not be feasible to connect these consumers to the grid. Instead, equipping "
+"them with a solar home system is a more viable solution. Further details "
+"about this option are available on the Grid-Design page. Additionally, this "
+"page offers an option to adjust the threshold, ensuring all consumers can "
+"connect to the grid. On this very page, you also have the discretion to "
+"manually determine the connection status of specific consumers, such as "
+"schools and health centers. You can decide whether these entities should be "
+"mandatorily connected to the grid, or if the decision should be left to the "
+"optimizer based on the set threshold."
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:65
+msgid "Delete Consumer"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:73
+msgid "Household"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:80
+msgid "Enterprise"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:96
+#: .\offgridplanner\templates\pages\consumer_selection.html:111
+msgid "Degree"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:117
+msgid "Optimize"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:118
+msgid "Grid"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:130
+#: .\offgridplanner\templates\pages\user_projects.html:57
+#: .\offgridplanner\templates\pages\user_projects.html:60
+#: .\offgridplanner\templates\pages\user_projects.html:148
+msgid "Delete"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:145
+msgid "Number of Selected Households:"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:149
+msgid "Number of Selected Enterprises:"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:153
+msgid "Number of Selected Public Services:"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:173
+msgid "Import Consumers"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:183
+msgid "Export Consumers"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:191
+#: .\offgridplanner\templates\pages\demand_estimation.html:137
+msgid "File type: CSV"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:192
+#: .\offgridplanner\templates\pages\demand_estimation.html:138
+msgid "File type: XLSX"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:197
+#: .\offgridplanner\templates\pages\demand_estimation.html:223
+msgid ""
+"The first row of the CSV or Excel file should contain the column headers, "
+"with subsequent rows containing the respective values. The file must include "
+"a \\"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:243
+msgid "Number"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:274
+msgid "Search location"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:302
+#: .\offgridplanner\templates\pages\consumer_selection.html:323
+msgid "OK"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:313
+msgid "Video Tutorial"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:326
+msgid "Don't Show Again"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:338
+#: .\offgridplanner\templates\pages\demand_estimation.html:244
+#: .\offgridplanner\templates\pages\energy_system_design.html:411
+#: .\offgridplanner\templates\pages\grid_design.html:121
+#: .\offgridplanner\templates\pages\project_setup.html:89
+#: .\offgridplanner\templates\step_progression.html:74
+#: .\offgridplanner\templates\step_progression.html:80
+msgid "Next"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:36
+msgid "Use Custom Demand Time Series:"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:53
+#: .\offgridplanner\templates\pages\simulation_results.html:448
+msgid ""
+"Electricity Demand Profile Illustration: First Monday of Simulation Period"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:61
+msgid "Show Total Demand"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:66
+msgid "Show Single Household Profile"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:75
+msgid "Set Own Custom Shares of Households Allocated per Consumption Category"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:77
+msgid "You have entered"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:79
+#, python-format
+msgid "out of 100%%."
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:93
+#, python-format
+msgid "%%"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:111
+msgid "Reset"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:129
+msgid "Export Demand"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:142
+msgid "Activate Custom Calibration"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:162
+msgid "Set Custom Total Profile Calibration Values (Optional)"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:165
+msgid ""
+"These options will calibrate the total community demand profile to set value "
+"below <b>(including enterprises and any other non-household demands chosen "
+"previously)</b>. <br> They can be calibrated either by total annual mini-"
+"grid energy demand OR maximum peak demand over the year - both cannot be "
+"chosen together. <br> This is compatible with choosing custom percentage "
+"shares of consumption categories, but the total will be re-scaled "
+"accordingly."
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:220
+msgid "Import Demand"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:227
+msgid "No File Uploaded"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\monitoring.html:26
+msgid "Monitoring overview"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\monitoring.html:42
+msgid "Refresh"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\monitoring.html:55
+msgid "Status"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\monitoring.html:57
+msgid "Alarms"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\project_setup.html:54
+msgid "Planning Steps"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:45
+msgid "Grid Layout"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:57
+#: .\offgridplanner\templates\pages\simulation_results.html:414
+msgid "Export as .xls"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:60
+#: .\offgridplanner\templates\pages\simulation_results.html:417
+msgid "Export as PDF"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:73
+msgid "Summary of Results"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:147
+msgid "Download Results (xlsx-format)"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:156
+msgid "Download Results (PDF)"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:180
+#: .\offgridplanner\templates\pages\user_projects.html:164
+msgid "Results"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:184
+msgid "GRID"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:217
+msgid "ENERGY CONVERTERS"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:282
+msgid "DEMAND"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:316
+msgid "ECONOMIC DATA"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:394
+msgid "Optimal Capacity of Components"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:406
+msgid "Breakdown of the LCOE"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:433
+msgid "Sankey Diagram Representing the Energy Flow in the System"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:439
+msgid "*electricity surplus is not shown"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:462
+msgid "Demand Coverage by Renewable and Non-Renewable Resources"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:476
+msgid "Annual Energy Flows with 1-Hour Resolution"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:490
+msgid "Duration Curves for All Components"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:502
+msgid "Cumulative CO2 Emissions"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:529
+#: .\offgridplanner\templates\pages\simulation_results.html:557
+msgid "Close Modal"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:532
+msgid "No results"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:541
+msgid "Yes, start calculation"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:546
+msgid "No, go to project setup"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:551
+#: .\offgridplanner\templates\pages\user_projects.html:63
+msgid "Cancel"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:560
+msgid "Revoke pending calculation?"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:568
+msgid "Revoke"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\simulation_results.html:571
+msgid "Wait"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:17
+msgid "Project successfully moved to monitoring!"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:32
+msgid ""
+"Enter the monitoring ID that is used to track the mini-grid status on the "
+"FUNAE smart data system."
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:58
+msgid "Are you sure you want to delete the project?"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:103
+msgid "ID"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:104
+msgid "Project Name"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:105
+msgid "Creation Date"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:106
+msgid "Last Update"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:107
+msgid "Model Status"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:138
+msgid "Duplicate"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:155
+#: .\offgridplanner\templates\widgets\monitoring_table.html:47
+msgid "Edit"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:172
+msgid "You do not yet have any saved projects"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:196
+msgid "Create Example Model"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:197
+msgid ""
+"You have not created any projects yet. Would you like a sample project to be "
+"set up for you?"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:198
+msgid "Yes"
+msgstr ""
+
+#: .\offgridplanner\templates\pages\user_projects.html:201
+msgid "No"
+msgstr ""
+
+#: .\offgridplanner\templates\step_progression.html:9
+msgid "Scenario step"
+msgstr ""
+
+#: .\offgridplanner\templates\step_progression.html:18
+msgid "< My projects"
+msgstr ""
+
+#: .\offgridplanner\templates\step_progression.html:19
+msgid "< Map view"
+msgstr ""
+
+#: .\offgridplanner\templates\step_progression.html:25
+msgid "Scenario"
+msgstr ""
+
+#: .\offgridplanner\templates\step_progression.html:68
+msgid "Previous"
+msgstr ""
+
+#: .\offgridplanner\users\adapters.py:91
+msgid "Form - mail sending error:"
+msgstr ""
+
+#: .\offgridplanner\users\admin.py:24
+msgid "Personal info"
+msgstr "Informação pessoal"
+
+#: .\offgridplanner\users\admin.py:26
+msgid "Permissions"
+msgstr "Permissões"
+
+#: .\offgridplanner\users\admin.py:37
+msgid "Important dates"
+msgstr "Datas importantes"
+
+#: .\offgridplanner\users\apps.py:9
+msgid "Users"
+msgstr "Usuários"
+
+#: .\offgridplanner\users\forms.py:31
+#: .\offgridplanner\users\tests\test_forms.py:35
+msgid "This email has already been taken."
+msgstr ""
+
+#: .\offgridplanner\users\forms.py:55
+#, python-format
+msgid ""
+"I have read and accept the <a target='_blank' href='%(privacy_url)s'>privacy "
+"statement</a> from OffgridPlanner"
+msgstr ""
+
+#: .\offgridplanner\users\models.py:20
+msgid "Name of User"
+msgstr "Nome do Usuário"
+
+#: .\offgridplanner\users\models.py:23
+msgid "email address"
+msgstr ""
+
+#: .\offgridplanner\users\tests\test_views.py:73
+#: .\offgridplanner\users\views.py:28
+msgid "Information successfully updated"
+msgstr "Informação atualizada com sucesso"
