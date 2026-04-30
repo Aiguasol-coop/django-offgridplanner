@@ -23,3 +23,25 @@ msgstr ""
 
 msgid "Peak Demand"
 msgstr ""
+
+# random plot strings
+msgid "Total Demand"
+msgstr ""
+
+msgid "Demand of Enterprises"
+msgstr ""
+
+msgid "Demand of Public Services"
+msgstr ""
+
+msgid "Demand of Households"
+msgstr ""
+
+msgid "Low Consumption"
+msgstr ""
+
+msgid "Middle Consumption"
+msgstr ""
+
+msgid "High Consumption"
+msgstr ""
