@@ -750,3 +750,744 @@ msgstr ""
 #: .\offgridplanner\users\views.py:28
 msgid "Information successfully updated"
 msgstr "Informação atualizada com sucesso"
+
+
+# form_parameters.csv translation strings
+msgid "Project Name"
+msgstr ""
+
+msgid "Project Description"
+msgstr ""
+
+msgid "Project Lifetime"
+msgstr ""
+
+msgid "Simulation Period"
+msgstr ""
+
+msgid "Project Country"
+msgstr ""
+
+msgid "Set Total Annual Consumption"
+msgstr ""
+
+msgid "Set Peak Demand"
+msgstr ""
+
+msgid "Lifetime"
+msgstr ""
+
+msgid "CapEx"
+msgstr ""
+
+msgid "Max. Length"
+msgstr ""
+
+msgid "Max. Number of Connections"
+msgstr ""
+
+msgid "Connection Cost"
+msgstr ""
+
+msgid "Solar Home Systems"
+msgstr ""
+
+msgid "Max. Specific Grid Cost"
+msgstr ""
+
+msgid "Battery"
+msgstr ""
+
+msgid "Optimize Capacity"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "OpEx"
+msgstr ""
+
+msgid "Min. SOC"
+msgstr ""
+
+msgid "Max. SOC"
+msgstr ""
+
+msgid "C-Rate in"
+msgstr ""
+
+msgid "C-Rate out"
+msgstr ""
+
+msgid "Roundtrip Efficiency"
+msgstr ""
+
+msgid "Diesel Genset"
+msgstr ""
+
+msgid "Variable Cost"
+msgstr ""
+
+msgid "Fuel Cost"
+msgstr ""
+
+msgid "Fuel LHV"
+msgstr ""
+
+msgid "Min. Efficiency"
+msgstr ""
+
+msgid "Max. Efficiency"
+msgstr ""
+
+msgid "Min. Load"
+msgstr ""
+
+msgid "Max. Load"
+msgstr ""
+
+msgid "Inverter"
+msgstr ""
+
+msgid "Efficiency"
+msgstr ""
+
+msgid "PV"
+msgstr ""
+
+msgid "Charger"
+msgstr ""
+
+msgid "Shortage"
+msgstr ""
+
+msgid "Fuel"
+msgstr ""
+
+msgid "Max. Total Shortage"
+msgstr ""
+
+msgid "Max. Shortage Each Timestep"
+msgstr ""
+
+msgid "Shortage Penalty Cost"
+msgstr ""
+
+msgid "Project Name"
+msgstr ""
+
+msgid "Project Description"
+msgstr ""
+
+msgid "The interest rate in investment calculations signifies the cost of capital and the potential return from an alternative investment of similar risk. It helps express the time value of money, crucial for determining the present value of future cash flows. This assists in evaluating and comparing investment opportunities. Default value of 12.3% is taken from World Bank reported average lending interest rate data of 2022. Please make sure to check this value for your project."
+msgstr ""
+
+msgid "Project Lifetime"
+msgstr ""
+
+msgid "The period during which the system will be in operation. Components whose lifetime is below that of the project lifetime must be replaced during operation, which will be taken into account in the cost calculation. In addition, the residual value of the components is determined at the end of the project lifetime."
+msgstr ""
+
+msgid "Simulation Period"
+msgstr ""
+
+msgid "Number of days used for the modelling period. For economic calculations, the project lifetime will be used."
+msgstr ""
+
+msgid "Project Country"
+msgstr ""
+
+msgid "Country for the project. The country will be used to center map features on the correct location, but will have no impact on the default demand profiles used, which are specific to the base country of the tool."
+msgstr ""
+
+msgid "Assumed type of settlement (isolated or peri-urban)"
+msgstr ""
+
+msgid "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-urban: 0.6kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: 1.5kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-urban: 2.2kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with high demand (isolated: 2.4kWh/day / peri-urban: 2.9kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-urban: 3.4kWh/day)"
+msgstr ""
+
+msgid "Set Total Annual Consumption"
+msgstr ""
+
+msgid "The demand curve will be scaled to meet the given total demand"
+msgstr ""
+
+msgid "Set Peak Demand"
+msgstr ""
+
+msgid "The demand curve will be scaled to meet the given peak demand"
+msgstr ""
+
+msgid "Lifetime"
+msgstr ""
+
+msgid "Lifespan of the component, after expiration a replacement investment must be made"
+msgstr ""
+
+msgid "CapEx"
+msgstr ""
+
+msgid "Capital Expenditure (CapEx) is the money that has to be spent to purchase the component"
+msgstr ""
+
+msgid "Max. Length"
+msgstr ""
+
+msgid "Maximum allowed length of the distribution cable"
+msgstr ""
+
+msgid "Maximum allowed length of the connection cable"
+msgstr ""
+
+msgid "Max. Number of Connections"
+msgstr ""
+
+msgid "Maximum number of consumers that can be connected to one pole"
+msgstr ""
+
+msgid "Connection Cost"
+msgstr ""
+
+msgid "Costs that arise when connecting a consumer in addition to the material costs of the cable."
+msgstr ""
+
+msgid "Solar Home Systems"
+msgstr ""
+
+msgid "For each consumer, specific costs of grid connection are calculated and related to the consumer's consumption. If the threshold value is exceeded, a grid connection is forgone and instead a solar home system is recommended"
+msgstr ""
+
+msgid "Max. Specific Grid Cost"
+msgstr ""
+
+msgid "Battery"
+msgstr ""
+
+msgid "Optimize Capacity"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "OpEx"
+msgstr ""
+
+msgid "Operating Expense (OpEx) is the cost associated with the operation of the component"
+msgstr ""
+
+msgid "Min. SOC"
+msgstr ""
+
+msgid "Minimum State of Charge (SOC) of a battery refers to the lowest level at which the battery is allowed to discharge in order to prevent damage and prolong its lifespan"
+msgstr ""
+
+msgid "Max. SOC"
+msgstr ""
+
+msgid "Maximum State of Charge (SOC) of a battery refers to the highest level at which the battery can be safely charged to prevent overcharging and ensure longevity"
+msgstr ""
+
+msgid "C-Rate in"
+msgstr ""
+
+msgid "C-Rate out"
+msgstr ""
+
+msgid "Roundtrip Efficiency"
+msgstr ""
+
+msgid "Diesel Genset"
+msgstr ""
+
+msgid "Operating Expense (OpEx) refers to the fixed annual costs incurred in the operation of a component, specifically excluding fuel and other variable expenses"
+msgstr ""
+
+msgid "Variable Cost"
+msgstr ""
+
+msgid "Fuel Cost"
+msgstr ""
+
+msgid "Fuel LHV"
+msgstr ""
+
+msgid "Min. Efficiency"
+msgstr ""
+
+msgid "Max. Efficiency"
+msgstr ""
+
+msgid "Min. Load"
+msgstr ""
+
+msgid "Max. Load"
+msgstr ""
+
+msgid "Inverter"
+msgstr ""
+
+msgid "Efficiency"
+msgstr ""
+
+msgid "PV"
+msgstr ""
+
+msgid "Charger"
+msgstr ""
+
+msgid "Shortage"
+msgstr ""
+
+msgid "Max. Total Shortage"
+msgstr ""
+
+msgid "Max. Shortage Each Timestep"
+msgstr ""
+
+msgid "Shortage Penalty Cost"
+msgstr ""
+
+# output_kpis.csv translation strings
+msgid "Project Name"
+msgstr ""
+
+msgid "Project Description"
+msgstr ""
+
+msgid "Project Lifetime"
+msgstr ""
+
+msgid "Simulation Period"
+msgstr ""
+
+msgid "Project Country"
+msgstr ""
+
+msgid "Set Total Annual Consumption"
+msgstr ""
+
+msgid "Set Peak Demand"
+msgstr ""
+
+msgid "Lifetime"
+msgstr ""
+
+msgid "CapEx"
+msgstr ""
+
+msgid "Max. Length"
+msgstr ""
+
+msgid "Max. Number of Connections"
+msgstr ""
+
+msgid "Connection Cost"
+msgstr ""
+
+msgid "Solar Home Systems"
+msgstr ""
+
+msgid "Max. Specific Grid Cost"
+msgstr ""
+
+msgid "Battery"
+msgstr ""
+
+msgid "Optimize Capacity"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "OpEx"
+msgstr ""
+
+msgid "Min. SOC"
+msgstr ""
+
+msgid "Max. SOC"
+msgstr ""
+
+msgid "C-Rate in"
+msgstr ""
+
+msgid "C-Rate out"
+msgstr ""
+
+msgid "Roundtrip Efficiency"
+msgstr ""
+
+msgid "Diesel Genset"
+msgstr ""
+
+msgid "Variable Cost"
+msgstr ""
+
+msgid "Fuel Cost"
+msgstr ""
+
+msgid "Fuel LHV"
+msgstr ""
+
+msgid "Min. Efficiency"
+msgstr ""
+
+msgid "Max. Efficiency"
+msgstr ""
+
+msgid "Min. Load"
+msgstr ""
+
+msgid "Max. Load"
+msgstr ""
+
+msgid "Inverter"
+msgstr ""
+
+msgid "Efficiency"
+msgstr ""
+
+msgid "PV"
+msgstr ""
+
+msgid "Charger"
+msgstr ""
+
+msgid "Shortage"
+msgstr ""
+
+msgid "Max. Total Shortage"
+msgstr ""
+
+msgid "Max. Shortage Each Timestep"
+msgstr ""
+
+msgid "Shortage Penalty Cost"
+msgstr ""
+
+msgid "Project Name"
+msgstr ""
+
+msgid "Project Description"
+msgstr ""
+
+msgid "The interest rate in investment calculations signifies the cost of capital and the potential return from an alternative investment of similar risk. It helps express the time value of money, crucial for determining the present value of future cash flows. This assists in evaluating and comparing investment opportunities. Default value of 12.3% is taken from World Bank reported average lending interest rate data of 2022. Please make sure to check this value for your project."
+msgstr ""
+
+msgid "Project Lifetime"
+msgstr ""
+
+msgid "The period during which the system will be in operation. Components whose lifetime is below that of the project lifetime must be replaced during operation, which will be taken into account in the cost calculation. In addition, the residual value of the components is determined at the end of the project lifetime."
+msgstr ""
+
+msgid "Simulation Period"
+msgstr ""
+
+msgid "Number of days used for the modelling period. For economic calculations, the project lifetime will be used."
+msgstr ""
+
+msgid "Project Country"
+msgstr ""
+
+msgid "Country for the project. The country will be used to center map features on the correct location, but will have no impact on the default demand profiles used, which are specific to the base country of the tool."
+msgstr ""
+
+msgid "Assumed type of settlement (isolated or peri-urban)"
+msgstr ""
+
+msgid "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-urban: 0.6kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: 1.5kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-urban: 2.2kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with high demand (isolated: 2.4kWh/day / peri-urban: 2.9kWh/day)"
+msgstr ""
+
+msgid "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-urban: 3.4kWh/day)"
+msgstr ""
+
+msgid "Set Total Annual Consumption"
+msgstr ""
+
+msgid "The demand curve will be scaled to meet the given total demand"
+msgstr ""
+
+msgid "Set Peak Demand"
+msgstr ""
+
+msgid "The demand curve will be scaled to meet the given peak demand"
+msgstr ""
+
+msgid "Lifetime"
+msgstr ""
+
+msgid "Lifespan of the component, after expiration a replacement investment must be made"
+msgstr ""
+
+msgid "CapEx"
+msgstr ""
+
+msgid "Capital Expenditure (CapEx) is the money that has to be spent to purchase the component"
+msgstr ""
+
+msgid "Max. Length"
+msgstr ""
+
+msgid "Maximum allowed length of the distribution cable"
+msgstr ""
+
+msgid "Maximum allowed length of the connection cable"
+msgstr ""
+
+msgid "Max. Number of Connections"
+msgstr ""
+
+msgid "Maximum number of consumers that can be connected to one pole"
+msgstr ""
+
+msgid "Connection Cost"
+msgstr ""
+
+msgid "Costs that arise when connecting a consumer in addition to the material costs of the cable."
+msgstr ""
+
+msgid "Solar Home Systems"
+msgstr ""
+
+msgid "For each consumer, specific costs of grid connection are calculated and related to the consumer's consumption. If the threshold value is exceeded, a grid connection is forgone and instead a solar home system is recommended"
+msgstr ""
+
+msgid "Max. Specific Grid Cost"
+msgstr ""
+
+msgid "Battery"
+msgstr ""
+
+msgid "Optimize Capacity"
+msgstr ""
+
+msgid "Capacity"
+msgstr ""
+
+msgid "OpEx"
+msgstr ""
+
+msgid "Operating Expense (OpEx) is the cost associated with the operation of the component"
+msgstr ""
+
+msgid "Min. SOC"
+msgstr ""
+
+msgid "Minimum State of Charge (SOC) of a battery refers to the lowest level at which the battery is allowed to discharge in order to prevent damage and prolong its lifespan"
+msgstr ""
+
+msgid "Max. SOC"
+msgstr ""
+
+msgid "Maximum State of Charge (SOC) of a battery refers to the highest level at which the battery can be safely charged to prevent overcharging and ensure longevity"
+msgstr ""
+
+msgid "C-Rate in"
+msgstr ""
+
+msgid "C-Rate out"
+msgstr ""
+
+msgid "Roundtrip Efficiency"
+msgstr ""
+
+msgid "Diesel Genset"
+msgstr ""
+
+msgid "Operating Expense (OpEx) refers to the fixed annual costs incurred in the operation of a component, specifically excluding fuel and other variable expenses"
+msgstr ""
+
+msgid "Variable Cost"
+msgstr ""
+
+msgid "Fuel Cost"
+msgstr ""
+
+msgid "Fuel LHV"
+msgstr ""
+
+msgid "Min. Efficiency"
+msgstr ""
+
+msgid "Max. Efficiency"
+msgstr ""
+
+msgid "Min. Load"
+msgstr ""
+
+msgid "Max. Load"
+msgstr ""
+
+msgid "Inverter"
+msgstr ""
+
+msgid "Efficiency"
+msgstr ""
+
+msgid "PV"
+msgstr ""
+
+msgid "Charger"
+msgstr ""
+
+msgid "Shortage"
+msgstr ""
+
+msgid "Max. Total Shortage"
+msgstr ""
+
+msgid "Max. Shortage Each Timestep"
+msgstr ""
+
+msgid "Shortage Penalty Cost"
+msgstr ""
+
+msgid "Number of Poles"
+msgstr ""
+
+msgid "Number of grid-connected Consumers"
+msgstr ""
+
+msgid "Number of SHS Consumers"
+msgstr ""
+
+msgid "Distribution Cable Length"
+msgstr ""
+
+msgid "Average Length Distribution"
+msgstr ""
+
+msgid "Connection Cable Length"
+msgstr ""
+
+msgid "Average Length Connection"
+msgstr ""
+
+msgid "Grid's annualized Cost"
+msgstr ""
+
+msgid "Levelized Cost of Electricity (w/o SHS)"
+msgstr ""
+
+msgid "Share of Grid-Related Costs in the LCOE"
+msgstr ""
+
+msgid "Share of Generation-Related Costs in LCOE"
+msgstr ""
+
+msgid "Renewable Energy Share"
+msgstr ""
+
+msgid "Max. Voltage drop"
+msgstr ""
+
+msgid "Total annual Shortage"
+msgstr ""
+
+msgid "Total annual Surplus"
+msgstr ""
+
+msgid "Total simulation time"
+msgstr ""
+
+msgid "Annual CO2 savings"
+msgstr ""
+
+msgid "Total annual Consumption"
+msgstr ""
+
+msgid "Annual average Demand per Consumer"
+msgstr ""
+
+msgid "Grid upfront Investment Cost"
+msgstr ""
+
+msgid "Diesel Generator upfront Investment Cost"
+msgstr ""
+
+msgid "Inverter upfront Investment Cost"
+msgstr ""
+
+msgid "Rectifier upfront Investment Cost"
+msgstr ""
+
+msgid "Battery upfront Investment Cost"
+msgstr ""
+
+msgid "PV upfront Investment Cost"
+msgstr ""
+
+msgid "Total upfront Investment Cost"
+msgstr ""
+
+msgid "Capacity Battery"
+msgstr ""
+
+msgid "Capacity PV"
+msgstr ""
+
+msgid "Capacity Diesel Generator"
+msgstr ""
+
+msgid "Capacity Inverter"
+msgstr ""
+
+msgid "Capacity Rectifier"
+msgstr ""
+
+msgid "Annual CO2 Emissions"
+msgstr ""
+
+msgid "Annual Fuel Consumption"
+msgstr ""
+
+msgid "Peak Demand"
+msgstr ""
+
+msgid "Base Load"
+msgstr ""
+
+msgid "Max. Shortage per Time Step"
+msgstr ""
+
+msgid "Annual fuel cost"
+msgstr ""
+
+msgid "PV's annualized Cost"
+msgstr ""
+
+msgid "Diesel Generator's annualized Cost"
+msgstr ""
+
+msgid "Inverter's annualized Cost"
+msgstr ""
+
+msgid "Rectifier's annualized Cost"
+msgstr ""
+
+msgid "Battery's annualized Cost"
+msgstr ""
+
+msgid "Total annualized Cost"
+msgstr ""
