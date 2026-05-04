@@ -60,8 +60,6 @@ const lineLayers = {
 
 loadLegend();
 
-let shouldStop = false;
-
 document.addEventListener('DOMContentLoaded', () => {
   const refreshBtn = document.getElementById("refresh-btn");
   const monitoringTable = document.getElementById("monitoring-table");

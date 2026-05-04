@@ -102,7 +102,7 @@ const lineLayers = {
 
 loadLegend();
 
-let shouldStop = false;
+var shouldStop = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   const filterForm = document.getElementById("filter-form");

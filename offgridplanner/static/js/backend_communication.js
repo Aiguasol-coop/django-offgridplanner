@@ -442,8 +442,6 @@ async function remove_buildings_inside_boundary({boundariesCoordinates} = {}) {
     }
 }
 
-let hasRetried = false;
-
 async function load_results(project_id) {
     await db_nodes_to_js(markers_only=false);
     await db_roads_to_js(proj_id);
@@ -846,7 +844,7 @@ async function show_email_and_project_in_navbar(project_id = null) {
 }
 
 
-let shouldStop = false;
+var shouldStop = false;
 
 async function wait_for_both_results(project_id, token_supply, token_grid) {
     const [supplyRes, gridRes] = await Promise.all([
@@ -1223,10 +1221,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-const img = document.getElementById("captcha_img");
-const img2 = document.getElementById("captcha_img2");
-const img3 = document.getElementById("captcha_img3");
-let hashedCaptcha;
+var img = document.getElementById("captcha_img");
+var img2 = document.getElementById("captcha_img2");
+var img3 = document.getElementById("captcha_img3");
+var hashedCaptcha;
 
 function get_captcha() {
     fetch(getCaptchaUrl)
