@@ -322,7 +322,7 @@ function generateImages(plotIds) {
     return Promise.all(imagePromises);
 }
 
-
+L.Browser.any3d = false;
 function generateMapImage(map) {
     return new Promise((resolve, reject) => {
         if (!map || typeof map.getContainer !== 'function') {
@@ -332,15 +332,15 @@ function generateMapImage(map) {
 
         const mapContainer = map.getContainer();
 
-        // Select elements you want to hide (adjust selectors as needed)
-        const zoomControl = document.querySelector('.leaflet-control-zoom');
-        const layerControl = document.querySelector('.leaflet-control-layers');
-        const customZoomButton = document.querySelector('.leaflet-control-custom');
+        // Hide map tools for export image
+        const mapTools = document.querySelectorAll('.leaflet-control:not(.legend)');
 
         // Hide elements before capturing
-        if (zoomControl) zoomControl.style.display = 'none';
-        if (layerControl) layerControl.style.display = 'none';
-        if (customZoomButton) customZoomButton.style.display = 'none';
+        if (mapTools) {
+            mapTools.forEach(tool => {
+                tool.style.display = 'none';
+            })
+        }
 
         const fixedWidth = 1600;
         const fixedHeight = 800;
@@ -361,18 +361,22 @@ function generateMapImage(map) {
             resolve(imgData);
 
             // Restore the visibility of hidden elements after capturing
-            if (zoomControl) zoomControl.style.display = '';
-            if (layerControl) layerControl.style.display = '';
-            if (customZoomButton) customZoomButton.style.display = '';
+            if (mapTools) {
+            mapTools.forEach(tool => {
+                tool.style.display = '';
+            })
+        }
         })
         .catch(err => {
             console.error('Fehler beim Generieren des Kartenbildes mit html2canvas:', err);
             reject(err);
 
             // Restore visibility if there's an error
-            if (zoomControl) zoomControl.style.display = '';
-            if (layerControl) layerControl.style.display = '';
-            if (customZoomButton) customZoomButton.style.display = '';
+            if (mapTools) {
+            mapTools.forEach(tool => {
+                tool.style.display = '';
+            })
+            }
         });
     });
 }
