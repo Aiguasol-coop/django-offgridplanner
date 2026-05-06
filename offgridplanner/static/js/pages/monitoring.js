@@ -2,7 +2,11 @@ const map = L.map('map').setView([-18.7845718, 34.499664], 5);
 
 const osm = L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  { maxZoom: 18 }
+  {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  referrerPolicy: 'origin-when-cross-origin',
+  maxZoom: 18
+  }
 );
 
 const satellite = L.tileLayer(
@@ -55,8 +59,6 @@ const lineLayers = {
 };
 
 loadLegend();
-
-let shouldStop = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   const refreshBtn = document.getElementById("refresh-btn");
