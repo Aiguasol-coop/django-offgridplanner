@@ -8,16 +8,18 @@ from raw OpenStreetMap data.
 """
 
 import datetime
-import json
 import logging
 import math
 import time
-import urllib.request
 from urllib.error import HTTPError
 
+import httpx
 import numpy as np
 from shapely import geometry
 
+from config.settings.base import APP_VERSION_NUMBER
+from config.settings.base import OVERPASS_API_HOST
+from config.settings.base import OVERPASS_REFERER
 from offgridplanner.optimization.requests import fetch_buildings_data
 
 logger = logging.getLogger(__name__)
@@ -25,25 +27,30 @@ logger = logging.getLogger(__name__)
 
 def _fetch_overpass(bbox, timeout=2500):
     lat_min, lon_min, lat_max, lon_max = bbox
-    base = "https://www.overpass-api.de/api/interpreter"
     query = (
         f"[out:json][timeout:{timeout}][bbox:{lat_min},{lon_min},{lat_max},{lon_max}];"
         f'way["building"="yes"];(._;>;);out;'
     )
-    url_str = f"{base}?data={query}".replace(" ", "+")
-    if not url_str.startswith(("http:", "https:")):
-        err = "URL must start with 'http:' or 'https:'"
-        raise ValueError(err)
 
-    with urllib.request.urlopen(url_str) as resp:  # noqa: S310 (validated above)
-        raw = resp.read().decode()
-    if not raw:
-        err = "Overpass did not return any data."
-        raise RuntimeError(err)
-    data = json.loads(raw)
-    if "elements" not in data or not data["elements"]:
-        err = "Overpass did not return any building data."
-        raise RuntimeError(err)
+    headers = {
+        "User-Agent": f"offgridplanner/{APP_VERSION_NUMBER} (offgridplanner@rl-institut.de)",
+        "Referer": OVERPASS_REFERER,
+    }
+
+    try:
+        resp = httpx.get(
+            OVERPASS_API_HOST, params={"data": query}, headers=headers, timeout=30
+        )
+        resp.raise_for_status()
+
+        if resp.content:
+            data = resp.json()
+        else:
+            return None, None
+
+    except (httpx.HTTPError, httpx.ReadTimeout) as exc:
+        err = f"Overpass request failed: {exc}"
+        raise RuntimeError(err) from exc
     return data
 
 

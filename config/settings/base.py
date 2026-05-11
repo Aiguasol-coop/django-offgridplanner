@@ -384,6 +384,12 @@ APP_VERSION_NUMBER = "1.1.6-moz.2.4"
 # Assumed country based on timeseries data (used for map settings and user warning if a different country is selected)
 DEFAULT_COUNTRY = ("MZ", "Mozambique")
 
+# OVERPASS (OPENSTREETMAP API)
+OVERPASS_API_HOST = os.getenv(
+    "OVERPASS_API_HOST", "https://overpass-api.de/api/interpreter"
+)
+OVERPASS_REFERER = os.getenv("OVERPASS_REFERER", "http://localhost:8000")
+
 # SIMULATION
 # ------------------------------------------------------------------------------
 SIM_API_HOST = os.getenv("SIM_API_HOST")
