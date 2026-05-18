@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load statici18n %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -73,6 +74,7 @@
   const alarms_table = {{ alarms_table | safe }};
   const grid_network = {{ grid_network | safe }};
 </script>
+<script src="{% statici18n LANGUAGE_CODE %}"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script src="{% static 'js/pages/monitoring.js' %}"></script>

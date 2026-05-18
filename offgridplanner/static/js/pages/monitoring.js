@@ -171,7 +171,7 @@ function loadLegend() {
   const labels = [
     {
       img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
-      text: 'Monitored minigrid'
+      text: gettext('Monitored minigrid')
     },
   ];
 
@@ -205,7 +205,7 @@ function loadLegend() {
         swatch.style.borderTop = `3px solid ${lineColors[key]}`;
 
         const label = document.createElement('span');
-        label.textContent = key + " line";
+        label.textContent = gettext(key + " line");
 
         row.appendChild(swatch);
         row.appendChild(label);
