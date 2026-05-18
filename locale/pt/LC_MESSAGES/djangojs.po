@@ -9,39 +9,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Annual CO2 Savings"
-msgstr ""
+msgid "Annual CO2 Emissions"
+msgstr "Emissões anuais de CO2"
 
-msgid "Capacity in kW"
-msgstr ""
-
-msgid "Annual CO2 Savings"
-msgstr ""
-
-msgid "Capacity in kWh"
-msgstr ""
+msgid "Annual Fuel Consumption"
+msgstr "Consumo anual de combustível"
 
 msgid "Peak Demand"
-msgstr ""
+msgstr "Procura máxima"
+
+msgid "Base Load"
+msgstr "Carga base"
+
+msgid "Max. Shortage per Time Step"
+msgstr "Falta máxima por etapa de tempo"
+
+msgid "Annual fuel cost"
+msgstr "Custo anual de combustível"
+
+msgid "PV's annualized Cost"
+msgstr "Custo anualizado do PV"
+
+msgid "Diesel Generator's annualized Cost"
+msgstr "Custo anualizado do gerador a diesel"
+
+msgid "Inverter's annualized Cost"
+msgstr "Custo anualizado do inversor"
+
+msgid "Rectifier's annualized Cost"
+msgstr "Custo anualizado do rectificador"
+
+msgid "Battery's annualized Cost"
+msgstr "Custo anual da bateria"
+
+msgid "Total annualized Cost"
+msgstr "Custo total anualizado"
+
+msgid "Capacity in kW"
+msgstr "Capacidade em kW"
+
+msgid "Capacity in kWh"
+msgstr "Capacidade em kWh"
 
 # random plot strings
 msgid "Total Demand"
-msgstr ""
+msgstr "Procura total"
 
 msgid "Demand of Enterprises"
-msgstr ""
+msgstr "Procura das Empresas"
 
 msgid "Demand of Public Services"
-msgstr ""
+msgstr "Procura por serviços públicos"
 
 msgid "Demand of Households"
-msgstr ""
+msgstr "Procura das famílias"
 
 msgid "Low Consumption"
-msgstr ""
+msgstr "Baixo consumo"
 
 msgid "Middle Consumption"
-msgstr ""
+msgstr "Consumo médio"
 
 msgid "High Consumption"
-msgstr ""
+msgstr "Alto consumo"

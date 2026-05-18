@@ -16,108 +16,108 @@ msgstr ""
 
 #: .\config\settings\base.py:35
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 #: .\config\settings\base.py:36
 msgid "Portuguese"
-msgstr ""
+msgstr "Português"
 
 #: .\offgridplanner\projects\forms.py:33
 msgid "Demand estimation"
-msgstr ""
+msgstr "Estimativa de procura"
 
 #: .\offgridplanner\projects\forms.py:70
 msgid "Min. number of consumers"
-msgstr ""
+msgstr "Número mínimo de consumidores"
 
 #: .\offgridplanner\projects\forms.py:71
 msgid "Max. minigrid network distance [m]"
-msgstr ""
+msgstr "Distância máxima da mini rede [m]"
 
 #: .\offgridplanner\projects\forms.py:72
 msgid "Min. distance from national grid [m]"
-msgstr ""
+msgstr "Distância mínima da rede nacional [m]"
 
 #: .\offgridplanner\projects\forms.py:74
 msgid "Min. distance to an existing minigrid [m]"
-msgstr ""
+msgstr "Distância mínima a uma mini-rede existente [m]"
 
 #: .\offgridplanner\projects\forms.py:76
 msgid "Province"
-msgstr ""
+msgstr "Província"
 
 #: .\offgridplanner\projects\models.py:36
 #: .\offgridplanner\templates\pages\monitoring.html:38
 msgid "Monitoring"
-msgstr ""
+msgstr "Monitoramento"
 
 #: .\offgridplanner\projects\models.py:37
 #: .\offgridplanner\templates\pages\monitoring.html:34
 msgid "Analyzing"
-msgstr ""
+msgstr "Analisando"
 
 #: .\offgridplanner\projects\models.py:38
 #: .\offgridplanner\templates\pages\monitoring.html:30
 msgid "Potential"
-msgstr ""
+msgstr "Potencial"
 
 #: .\offgridplanner\steps\models.py:11
 msgid "Rural peri-urban"
-msgstr ""
+msgstr "Zona rural periurbana"
 
 #: .\offgridplanner\steps\models.py:12
 msgid "Rural isolated"
-msgstr ""
+msgstr "Zona rural isolada"
 
 #: .\offgridplanner\steps\views.py:41
 msgid "Project Setup"
-msgstr ""
+msgstr "Configuração do projeto"
 
 #: .\offgridplanner\steps\views.py:42
 msgid "Consumer Selection"
-msgstr ""
+msgstr "Seleção do consumidor"
 
 #: .\offgridplanner\steps\views.py:43
 #: .\offgridplanner\templates\pages\landing_page.html:99
 msgid "Demand Estimation"
-msgstr ""
+msgstr "Estimativa de procura"
 
 #: .\offgridplanner\steps\views.py:44
 msgid "Grid Design"
-msgstr ""
+msgstr "Design da rede"
 
 #: .\offgridplanner\steps\views.py:45
 msgid "Energy System Design"
-msgstr ""
+msgstr "Projeto de Sistemas de Energia"
 
 #: .\offgridplanner\steps\views.py:46
 msgid "Simulation Results"
-msgstr ""
+msgstr "Resultados da simulação"
 
 #: .\offgridplanner\templates\account\acc_active_email.html:3
 msgid "Hi"
-msgstr ""
+msgstr "Olá"
 
 #: .\offgridplanner\templates\account\acc_active_email.html:5
 msgid "Please click on the link to confirm your registration"
-msgstr ""
+msgstr "Por favor, clique no link para confirmar a sua inscrição."
 
 #: .\offgridplanner\templates\account\acc_active_email.html:9
 msgid "If you think, it's not you, then just ignore this email."
-msgstr ""
+msgstr "Se acha que o problema não é consigo, simplesmente ignore este e-mail."
 
 #: .\offgridplanner\templates\account\login.html:7
 msgid "Log In"
-msgstr ""
+msgstr "Conecte-se"
 
 #: .\offgridplanner\templates\account\login.html:17
 #: .\offgridplanner\templates\account\login.html:22
 msgid "Login"
-msgstr ""
+msgstr "Conecte-se"
 
 #: .\offgridplanner\templates\account\login.html:29
 msgid "Do you not have an account yet?"
-msgstr ""
+msgstr "Ainda não tem uma conta?"
 
 #: .\offgridplanner\templates\account\login.html:30
 #: .\offgridplanner\templates\account\signup.html:28
@@ -149,17 +149,17 @@ msgstr ""
 
 #: .\offgridplanner\templates\account\signup.html:20
 msgid "Welcome to the Offgridplanner"
-msgstr ""
+msgstr "Bem-vindo ao OffGridPlanner"
 
 #: .\offgridplanner\templates\account\signup.html:23
 msgid "Do you already have an account?"
-msgstr ""
+msgstr "Já possui uma conta?"
 
 #: .\offgridplanner\templates\account\signup.html:23
 #: .\offgridplanner\templates\navbar.html:102
 #: .\offgridplanner\templates\navbar.html:103
 msgid "Log in"
-msgstr ""
+msgstr "Conecte-se"
 
 #: .\offgridplanner\templates\account\verification_sent.html:8
 msgid "Verify Your E-mail Address"
@@ -198,70 +198,70 @@ msgstr "Cadastro"
 #: .\offgridplanner\templates\navbar.html:85
 #: .\offgridplanner\templates\pages\training_tasks.html:407
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: .\offgridplanner\templates\base-cookiecutter.html:125
 msgid "License"
-msgstr ""
+msgstr "Licença"
 
 #: .\offgridplanner\templates\base-cookiecutter.html:127
 #: .\offgridplanner\templates\base.html:85
 #: .\offgridplanner\templates\pages\training_tasks.html:410
 msgid "Imprint"
-msgstr ""
+msgstr "Impressum"
 
 #: .\offgridplanner\templates\base-cookiecutter.html:130
 #: .\offgridplanner\templates\base.html:88
 #: .\offgridplanner\templates\pages\training_tasks.html:413
 msgid "Privacy"
-msgstr ""
+msgstr "Privacidade"
 
 #: .\offgridplanner\templates\base.html:91
 #, python-format
 msgid " Version %(APP_VERSION_NUMBER)s "
-msgstr ""
+msgstr "Versão %(APP_VERSION_NUMBER)s"
 
 #: .\offgridplanner\templates\navbar.html:34
 msgid "Methodology"
-msgstr ""
+msgstr "Metodologia"
 
 #: .\offgridplanner\templates\navbar.html:75
 #: .\offgridplanner\templates\pages\simulation_results.html:173
 msgid "My Projects"
-msgstr ""
+msgstr "Os meus projetos"
 
 #: .\offgridplanner\templates\navbar.html:78
 msgid "Training Tasks"
-msgstr ""
+msgstr "Tarefas de treino"
 
 #: .\offgridplanner\templates\navbar.html:82
 msgid "Model Description"
-msgstr ""
+msgstr "Descrição do modelo"
 
 #: .\offgridplanner\templates\navbar.html:94
 msgid "Log out"
-msgstr ""
+msgstr "Sair"
 
 #: .\offgridplanner\templates\pages\calculating.html:23
 msgid "Model Calculation"
-msgstr ""
+msgstr "Cálculo do modelo"
 
 #: .\offgridplanner\templates\pages\calculating.html:27
 #: .\offgridplanner\templates\pages\demand_estimation.html:226
 msgid "Status:"
-msgstr ""
+msgstr "Estado:"
 
 #: .\offgridplanner\templates\pages\calculating.html:28
 msgid "Starting optimization..."
-msgstr ""
+msgstr "Iniciando a otimização..."
 
 #: .\offgridplanner\templates\pages\calculating.html:35
 msgid "Send email when calculation is finished."
-msgstr ""
+msgstr "Enviar e-mail quando o cálculo estiver concluído."
 
 #: .\offgridplanner\templates\pages\calculating.html:43
 msgid "Abort Calculation"
-msgstr ""
+msgstr "Cancelar cálculo"
 
 #: .\offgridplanner\templates\pages\calculating.html:52
 #: .\offgridplanner\templates\pages\consumer_selection.html:298
@@ -270,36 +270,36 @@ msgstr "Aviso"
 
 #: .\offgridplanner\templates\pages\calculating.html:54
 msgid "Go to Page with Missing Data"
-msgstr ""
+msgstr "Aceda à página com dados em falta."
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:23
 msgid "Icon"
-msgstr ""
+msgstr "Ícone"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:44
 #: .\offgridplanner\templates\pages\demand_estimation.html:34
 msgid "Set Consumer Properties"
-msgstr ""
+msgstr "Definir as propriedades do consumidor"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:54
 msgid "Consumer Type"
-msgstr ""
+msgstr "Tipo de consumidor"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:55
 msgid "Consumer Category"
-msgstr ""
+msgstr "Categoria de Consumo"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:56
 msgid "Latitude"
-msgstr ""
+msgstr "Latitude"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:57
 msgid "Longitude"
-msgstr ""
+msgstr "Longitude"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:59
 msgid "Grid-/SHS-Options"
-msgstr ""
+msgstr "Opções de grelha/SHS"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:62
 msgid ""
@@ -315,68 +315,79 @@ msgid ""
 "mandatorily connected to the grid, or if the decision should be left to the "
 "optimizer based on the set threshold."
 msgstr ""
+"O processo de planeamento off-grid identifica consumidores para os quais os custos de ligação "
+"ultrapassam um determinado limiar durante a otimização da rede. Do ponto de vista económico, "
+"pode não ser viável ligar estes consumidores à rede. Em vez disso, equipá-los "
+"com um sistema solar doméstico é uma solução mais viável. Mais detalhes "
+"sobre esta opção estão disponíveis na página de Grid-Design. Além disso, esta "
+"página oferece uma opção para ajustar o limiar, garantindo que todos os consumidores possam "
+"ligar-se à rede. Nesta mesma página, também tem a possibilidade de "
+"determinar manualmente o estado de ligação de consumidores específicos, como "
+"escolas e centros de saúde. Pode decidir se estas entidades devem ser "
+"obrigatoriamente ligadas à rede ou se a decisão deve ser deixada ao "
+"otimizador com base no limiar definido."
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:65
 msgid "Delete Consumer"
-msgstr ""
+msgstr "Eliminar consumidor"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:73
 msgid "Household"
-msgstr ""
+msgstr "Agregado familiar"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:80
 msgid "Enterprise"
-msgstr ""
+msgstr "Empresa"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:96
 #: .\offgridplanner\templates\pages\consumer_selection.html:111
 msgid "Degree"
-msgstr ""
+msgstr "Grau"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:117
 msgid "Optimize"
-msgstr ""
+msgstr "Otimizar"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:118
 msgid "Grid"
-msgstr ""
+msgstr "Rede"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:130
 #: .\offgridplanner\templates\pages\user_projects.html:57
 #: .\offgridplanner\templates\pages\user_projects.html:60
 #: .\offgridplanner\templates\pages\user_projects.html:148
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:145
 msgid "Number of Selected Households:"
-msgstr ""
+msgstr "Número de domicílios selecionados"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:149
 msgid "Number of Selected Enterprises:"
-msgstr ""
+msgstr "Número de empresas selecionadas:"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:153
 msgid "Number of Selected Public Services:"
-msgstr ""
+msgstr "Número de serviços públicos selecionados:"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:173
 msgid "Import Consumers"
-msgstr ""
+msgstr "Importar consumidores"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:183
 msgid "Export Consumers"
-msgstr ""
+msgstr "Exportar consumidores"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:191
 #: .\offgridplanner\templates\pages\demand_estimation.html:137
 msgid "File type: CSV"
-msgstr ""
+msgstr "Tipo de ficheiro: CSV"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:192
 #: .\offgridplanner\templates\pages\demand_estimation.html:138
 msgid "File type: XLSX"
-msgstr ""
+msgstr "Tipo de ficheiro: XLSX"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:197
 #: .\offgridplanner\templates\pages\demand_estimation.html:223
@@ -385,27 +396,30 @@ msgid ""
 "with subsequent rows containing the respective values. The file must include "
 "a \\"
 msgstr ""
+"A primeira linha do ficheiro CSV ou Excel deve conter os cabeçalhos das colunas, "
+"com as linhas subsequentes contendo os respectivos valores. O ficheiro deve incluir "
+"uma \\"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:243
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:274
 msgid "Search location"
-msgstr ""
+msgstr "Localização da pesquisa"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:302
 #: .\offgridplanner\templates\pages\consumer_selection.html:323
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:313
 msgid "Video Tutorial"
-msgstr ""
+msgstr "Tutorial em vídeo"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:326
 msgid "Don't Show Again"
-msgstr ""
+msgstr "Não mostrar novamente"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:338
 #: .\offgridplanner\templates\pages\demand_estimation.html:244
@@ -415,59 +429,59 @@ msgstr ""
 #: .\offgridplanner\templates\step_progression.html:74
 #: .\offgridplanner\templates\step_progression.html:80
 msgid "Next"
-msgstr ""
+msgstr "Seguinte"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:36
 msgid "Use Custom Demand Time Series:"
-msgstr ""
+msgstr "Utilizar séries temporais de procura personalizadas:"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:53
 #: .\offgridplanner\templates\pages\simulation_results.html:448
 msgid ""
 "Electricity Demand Profile Illustration: First Monday of Simulation Period"
-msgstr ""
+msgstr "Ilustração do perfil da procura de eletricidade: primeira segunda-feira do período de simulação"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:61
 msgid "Show Total Demand"
-msgstr ""
+msgstr "Mostrar a procura total"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:66
 msgid "Show Single Household Profile"
-msgstr ""
+msgstr "Visualizar perfil de uma única família"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:75
 msgid "Set Own Custom Shares of Households Allocated per Consumption Category"
-msgstr ""
+msgstr "Defina as suas próprias quotas personalizadas de famílias alocadas por categoria de consumo."
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:77
 msgid "You have entered"
-msgstr ""
+msgstr "Introduziu"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:79
 #, python-format
 msgid "out of 100%%."
-msgstr ""
+msgstr "de 100%."
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:93
 #, python-format
 msgid "%%"
-msgstr ""
+msgstr "%%"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:111
 msgid "Reset"
-msgstr ""
+msgstr "Reiniciar"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:129
 msgid "Export Demand"
-msgstr ""
+msgstr "Exportar procura"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:142
 msgid "Activate Custom Calibration"
-msgstr ""
+msgstr "Ativar Calibração Personalizada"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:162
 msgid "Set Custom Total Profile Calibration Values (Optional)"
-msgstr ""
+msgstr "Defina valores personalizados de calibração do perfil total (opcional)"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:165
 msgid ""
@@ -478,237 +492,239 @@ msgid ""
 "chosen together. <br> This is compatible with choosing custom percentage "
 "shares of consumption categories, but the total will be re-scaled "
 "accordingly."
-msgstr ""
+msgstr "Estas opções irão calibrar o perfil da procura total da comunidade para definir o valor."
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:220
 msgid "Import Demand"
-msgstr ""
+msgstr "Importar procura"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:227
 msgid "No File Uploaded"
-msgstr ""
+msgstr "Nenhum ficheiro enviado"
 
 #: .\offgridplanner\templates\pages\monitoring.html:26
 msgid "Monitoring overview"
-msgstr ""
+msgstr "Visão geral da monitorização"
 
 #: .\offgridplanner\templates\pages\monitoring.html:42
 msgid "Refresh"
-msgstr ""
+msgstr "Atualizar"
 
 #: .\offgridplanner\templates\pages\monitoring.html:55
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: .\offgridplanner\templates\pages\monitoring.html:57
 msgid "Alarms"
-msgstr ""
+msgstr "Alarmes"
 
 #: .\offgridplanner\templates\pages\project_setup.html:54
 msgid "Planning Steps"
-msgstr ""
+msgstr "Etapas de planeamento"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:45
 msgid "Grid Layout"
-msgstr ""
+msgstr "Layout da rede"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:57
 #: .\offgridplanner\templates\pages\simulation_results.html:414
 msgid "Export as .xls"
-msgstr ""
+msgstr "Exportar como .xls"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:60
 #: .\offgridplanner\templates\pages\simulation_results.html:417
 msgid "Export as PDF"
-msgstr ""
+msgstr "Exportar como PDF"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:73
 msgid "Summary of Results"
-msgstr ""
+msgstr "Resumo dos Resultados"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:147
 msgid "Download Results (xlsx-format)"
-msgstr ""
+msgstr "Descarregar resultados (formato xlsx)"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:156
 msgid "Download Results (PDF)"
-msgstr ""
+msgstr "Descarregar resultados (PDF)"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:180
 #: .\offgridplanner\templates\pages\user_projects.html:164
 msgid "Results"
-msgstr ""
+msgstr "Resultados"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:184
 msgid "GRID"
-msgstr ""
+msgstr "REDE"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:217
 msgid "ENERGY CONVERTERS"
-msgstr ""
+msgstr "CONVERSORES DE ENERGIA"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:282
 msgid "DEMAND"
-msgstr ""
+msgstr "PROCURA"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:316
 msgid "ECONOMIC DATA"
-msgstr ""
+msgstr "DADOS ECONÓMICOS"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:394
 msgid "Optimal Capacity of Components"
-msgstr ""
+msgstr "Capacidade ideal dos componentes"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:406
 msgid "Breakdown of the LCOE"
-msgstr ""
+msgstr "Análise detalhada do LCOE (custo nivelado de energia)."
 
 #: .\offgridplanner\templates\pages\simulation_results.html:433
 msgid "Sankey Diagram Representing the Energy Flow in the System"
-msgstr ""
+msgstr "Diagrama de Sankey que representa o fluxo de energia no sistema."
 
 #: .\offgridplanner\templates\pages\simulation_results.html:439
 msgid "*electricity surplus is not shown"
-msgstr ""
+msgstr "*O excedente de eletricidade não é apresentado"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:462
 msgid "Demand Coverage by Renewable and Non-Renewable Resources"
-msgstr ""
+msgstr "Cobertura da procura de recursos renováveis ​​e não renováveis"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:476
 msgid "Annual Energy Flows with 1-Hour Resolution"
-msgstr ""
+msgstr "Fluxos de energia anuais com resolução de 1 hora"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:490
 msgid "Duration Curves for All Components"
-msgstr ""
+msgstr "Curvas de duração para todos os componentes"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:502
 msgid "Cumulative CO2 Emissions"
-msgstr ""
+msgstr "Emissões cumulativas de CO2"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:529
 #: .\offgridplanner\templates\pages\simulation_results.html:557
 msgid "Close Modal"
-msgstr ""
+msgstr "Fechar janela"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:532
 msgid "No results"
-msgstr ""
+msgstr "Nenhum resultado"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:541
 msgid "Yes, start calculation"
-msgstr ""
+msgstr "Sim, inicie o cálculo"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:546
 msgid "No, go to project setup"
-msgstr ""
+msgstr "Não, aceda à configuração do projeto."
 
 #: .\offgridplanner\templates\pages\simulation_results.html:551
 #: .\offgridplanner\templates\pages\user_projects.html:63
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:560
 msgid "Revoke pending calculation?"
-msgstr ""
+msgstr "Revogar cálculo pendente?"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:568
 msgid "Revoke"
-msgstr ""
+msgstr "Revogar"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:571
 msgid "Wait"
-msgstr ""
+msgstr "Espera"
 
 #: .\offgridplanner\templates\pages\user_projects.html:17
 msgid "Project successfully moved to monitoring!"
-msgstr ""
+msgstr "O projeto foi transferido com sucesso para a fase de monitorização!"
 
 #: .\offgridplanner\templates\pages\user_projects.html:32
 msgid ""
 "Enter the monitoring ID that is used to track the mini-grid status on the "
 "FUNAE smart data system."
-msgstr ""
+msgstr "Introduza o ID de monitorização utilizado para acompanhar o estado da mini-rede no sistema de dados inteligentes "
+"FUNAE."
 
 #: .\offgridplanner\templates\pages\user_projects.html:58
 msgid "Are you sure you want to delete the project?"
-msgstr ""
+msgstr "Tem a certeza de que pretende eliminar o projeto?"
 
 #: .\offgridplanner\templates\pages\user_projects.html:103
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: .\offgridplanner\templates\pages\user_projects.html:104
 msgid "Project Name"
-msgstr ""
+msgstr "Nome do projeto"
 
 #: .\offgridplanner\templates\pages\user_projects.html:105
 msgid "Creation Date"
-msgstr ""
+msgstr "Data de criação"
 
 #: .\offgridplanner\templates\pages\user_projects.html:106
 msgid "Last Update"
-msgstr ""
+msgstr "Última atualização"
 
 #: .\offgridplanner\templates\pages\user_projects.html:107
 msgid "Model Status"
-msgstr ""
+msgstr "Estado do modelo"
 
 #: .\offgridplanner\templates\pages\user_projects.html:138
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicar"
 
 #: .\offgridplanner\templates\pages\user_projects.html:155
 #: .\offgridplanner\templates\widgets\monitoring_table.html:47
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: .\offgridplanner\templates\pages\user_projects.html:172
 msgid "You do not yet have any saved projects"
-msgstr ""
+msgstr "Ainda não tem nenhum projeto guardado."
 
 #: .\offgridplanner\templates\pages\user_projects.html:196
 msgid "Create Example Model"
-msgstr ""
+msgstr "Criar modelo de exemplo"
 
 #: .\offgridplanner\templates\pages\user_projects.html:197
 msgid ""
 "You have not created any projects yet. Would you like a sample project to be "
 "set up for you?"
-msgstr ""
+msgstr "Ainda não criou nenhum projeto. Gostaria que um projeto de exemplo fosse "
+"configurado para si?"
 
 #: .\offgridplanner\templates\pages\user_projects.html:198
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: .\offgridplanner\templates\pages\user_projects.html:201
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: .\offgridplanner\templates\step_progression.html:9
 msgid "Scenario step"
-msgstr ""
+msgstr "Etapa do cenário"
 
 #: .\offgridplanner\templates\step_progression.html:18
 msgid "< My projects"
-msgstr ""
+msgstr "< Os meus projetos"
 
 #: .\offgridplanner\templates\step_progression.html:19
 msgid "< Map view"
-msgstr ""
+msgstr "< Visualização do mapa"
 
 #: .\offgridplanner\templates\step_progression.html:25
 msgid "Scenario"
-msgstr ""
+msgstr "Cenário"
 
 #: .\offgridplanner\templates\step_progression.html:68
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: .\offgridplanner\users\adapters.py:91
 msgid "Form - mail sending error:"
-msgstr ""
+msgstr "Formulário - erro no envio de e-mail:"
 
 #: .\offgridplanner\users\admin.py:24
 msgid "Personal info"
@@ -724,12 +740,12 @@ msgstr "Datas importantes"
 
 #: .\offgridplanner\users\apps.py:9
 msgid "Users"
-msgstr "Usuários"
+msgstr "Utilizadores"
 
 #: .\offgridplanner\users\forms.py:31
 #: .\offgridplanner\users\tests\test_forms.py:35
 msgid "This email has already been taken."
-msgstr ""
+msgstr "Este endereço de e-mail já está em uso."
 
 #: .\offgridplanner\users\forms.py:55
 #, python-format
@@ -737,14 +753,16 @@ msgid ""
 "I have read and accept the <a target='_blank' href='%(privacy_url)s'>privacy "
 "statement</a> from OffgridPlanner"
 msgstr ""
+"Li e aceito a <a target='_blank' href='%(privacy_url)s'>declaração de "
+"privacidade</a> do OffgridPlanner"
 
 #: .\offgridplanner\users\models.py:20
 msgid "Name of User"
-msgstr "Nome do Usuário"
+msgstr "Nome do utilizador"
 
 #: .\offgridplanner\users\models.py:23
 msgid "email address"
-msgstr ""
+msgstr "endereço de e-mail"
 
 #: .\offgridplanner\users\tests\test_views.py:73
 #: .\offgridplanner\users\views.py:28
@@ -754,768 +772,768 @@ msgstr "Informação atualizada com sucesso"
 
 # form_parameters.csv translation strings
 msgid "Project Name"
-msgstr ""
+msgstr "Nome do projeto"
 
 msgid "Project Description"
-msgstr ""
+msgstr "Descrição do projeto"
 
 msgid "Project Lifetime"
-msgstr ""
+msgstr "Vida útil do projeto"
 
 msgid "Simulation Period"
-msgstr ""
+msgstr "Período de simulação"
 
 msgid "Project Country"
-msgstr ""
+msgstr "País do Projeto"
 
 msgid "Set Total Annual Consumption"
-msgstr ""
+msgstr "Definir o consumo anual total"
 
 msgid "Set Peak Demand"
-msgstr ""
+msgstr "Definir procura máxima"
 
 msgid "Lifetime"
-msgstr ""
+msgstr "Vida útil"
 
 msgid "CapEx"
-msgstr ""
+msgstr "CapEx"
 
 msgid "Max. Length"
-msgstr ""
+msgstr "Comprimento máximo"
 
 msgid "Max. Number of Connections"
-msgstr ""
+msgstr "Número máximo de ligações"
 
 msgid "Connection Cost"
-msgstr ""
+msgstr "Custo de ligação"
 
 msgid "Solar Home Systems"
-msgstr ""
+msgstr "Sistemas solares residenciais"
 
 msgid "Max. Specific Grid Cost"
-msgstr ""
+msgstr "Custo máximo específico da grelha"
 
 msgid "Battery"
-msgstr ""
+msgstr "Bateria"
 
 msgid "Optimize Capacity"
-msgstr ""
+msgstr "Otimizar a capacidade"
 
 msgid "Capacity"
-msgstr ""
+msgstr "Capacidade"
 
 msgid "OpEx"
-msgstr ""
+msgstr "OpEx"
 
 msgid "Min. SOC"
-msgstr ""
+msgstr "Min. SOC"
 
 msgid "Max. SOC"
-msgstr ""
+msgstr "Max. SOC"
 
 msgid "C-Rate in"
-msgstr ""
+msgstr "C-Rate in"
 
 msgid "C-Rate out"
-msgstr ""
+msgstr "C-Rate out"
 
 msgid "Roundtrip Efficiency"
-msgstr ""
+msgstr "Eficiência de ida e volta"
 
 msgid "Diesel Genset"
-msgstr ""
+msgstr "Grupo gerador a diesel"
 
 msgid "Variable Cost"
-msgstr ""
+msgstr "Custo variável"
 
 msgid "Fuel Cost"
-msgstr ""
+msgstr "Custo do combustível"
 
 msgid "Fuel LHV"
-msgstr ""
+msgstr "Combustível LHV"
 
 msgid "Min. Efficiency"
-msgstr ""
+msgstr "Eficiência mínima"
 
 msgid "Max. Efficiency"
-msgstr ""
+msgstr "Eficiência máxima"
 
 msgid "Min. Load"
-msgstr ""
+msgstr "Carga mínima"
 
 msgid "Max. Load"
-msgstr ""
+msgstr "Carga máxima"
 
 msgid "Inverter"
-msgstr ""
+msgstr "Inversor"
 
 msgid "Efficiency"
-msgstr ""
+msgstr "Eficiência"
 
 msgid "PV"
-msgstr ""
+msgstr "PV"
 
 msgid "Charger"
-msgstr ""
+msgstr "Carregador"
 
 msgid "Shortage"
-msgstr ""
+msgstr "Escassez"
 
 msgid "Fuel"
-msgstr ""
+msgstr "Combustível"
 
 msgid "Max. Total Shortage"
-msgstr ""
+msgstr "Escassez máxima total"
 
 msgid "Max. Shortage Each Timestep"
-msgstr ""
+msgstr "Escassez máxima a cada intervalo de tempo"
 
 msgid "Shortage Penalty Cost"
-msgstr ""
+msgstr "Custo da penalização por falta de fundos"
 
 msgid "Project Name"
-msgstr ""
+msgstr "Nome do projeto"
 
 msgid "Project Description"
-msgstr ""
+msgstr "Descrição do projeto"
 
 msgid "The interest rate in investment calculations signifies the cost of capital and the potential return from an alternative investment of similar risk. It helps express the time value of money, crucial for determining the present value of future cash flows. This assists in evaluating and comparing investment opportunities. Default value of 12.3% is taken from World Bank reported average lending interest rate data of 2022. Please make sure to check this value for your project."
-msgstr ""
+msgstr "A taxa de juro nos cálculos de investimento representa o custo de capital e o potencial retorno de um investimento alternativo com risco semelhante. Ajuda a expressar o valor do dinheiro no tempo, crucial para determinar o valor presente dos fluxos de caixa futuros. Este auxilia na avaliação e comparação de oportunidades de investimento. O valor padrão de 12,3% foi obtido a partir dos dados da taxa de juro média para empréstimos divulgados pelo Banco Mundial em 2022. Certifique-se de que verifica este valor para o seu projeto."
 
 msgid "Project Lifetime"
-msgstr ""
+msgstr "Vida útil do projeto"
 
 msgid "The period during which the system will be in operation. Components whose lifetime is below that of the project lifetime must be replaced during operation, which will be taken into account in the cost calculation. In addition, the residual value of the components is determined at the end of the project lifetime."
-msgstr ""
+msgstr "O período durante o qual o sistema estará em funcionamento. Os componentes cuja vida útil seja inferior à vida útil do projeto deverão ser substituídos durante a operação, o que será considerado no cálculo dos custos. Além disso, o valor residual dos componentes é determinado no final da vida útil do projeto."
 
 msgid "Simulation Period"
-msgstr ""
+msgstr "Período de simulação"
 
 msgid "Number of days used for the modelling period. For economic calculations, the project lifetime will be used."
-msgstr ""
+msgstr "Número de dias utilizados para o período de modelação. Para os cálculos económicos, será utilizado o tempo de vida útil do projeto."
 
 msgid "Project Country"
-msgstr ""
+msgstr "País do projeto"
 
 msgid "Country for the project. The country will be used to center map features on the correct location, but will have no impact on the default demand profiles used, which are specific to the base country of the tool."
-msgstr ""
+msgstr "País do projeto. O país será utilizado para centrar os elementos do mapa na localização correta, mas não terá impacto nos perfis de procura padrão utilizados, que são específicos para o país base da ferramenta."
 
 msgid "Assumed type of settlement (isolated or peri-urban)"
-msgstr ""
+msgstr "Tipo de assentamento presumível (isolado ou periurbano)"
 
 msgid "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-urban: 0.6kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com uma procura muito baixa (isolados: 0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
 
 msgid "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: 1.5kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/dia / periurbanos: 1,5 kWh/dia)"
 
 msgid "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-urban: 2.2kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/dia / periurbanos: 2,2 kWh/dia)"
 
 msgid "Percentage of households with high demand (isolated: 2.4kWh/day / peri-urban: 2.9kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/dia / periurbanos: 2,9 kWh/dia)"
 
 msgid "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-urban: 3.4kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com uma procura muito elevada (isolados: 2,9 kWh/dia / periurbanos: 3,4 kWh/dia)"
 
 msgid "Set Total Annual Consumption"
-msgstr ""
+msgstr "Definir o consumo anual total"
 
 msgid "The demand curve will be scaled to meet the given total demand"
-msgstr ""
+msgstr "A curva da procura será dimensionada para satisfazer a procura total fornecida."
 
 msgid "Set Peak Demand"
-msgstr ""
+msgstr "Definir procura máxima"
 
 msgid "The demand curve will be scaled to meet the given peak demand"
-msgstr ""
+msgstr "A curva da procura será dimensionada para satisfazer a procura máxima especificada."
 
 msgid "Lifetime"
-msgstr ""
+msgstr "Vida útil"
 
 msgid "Lifespan of the component, after expiration a replacement investment must be made"
-msgstr ""
+msgstr "Vida útil do componente; após o vencimento, é necessário fazer um investimento para o substituir."
 
 msgid "CapEx"
-msgstr ""
+msgstr "Despesas de capital"
 
 msgid "Capital Expenditure (CapEx) is the money that has to be spent to purchase the component"
-msgstr ""
+msgstr "As despesas de capital (CapEx) são os recursos financeiros necessários para adquirir um componente."
 
 msgid "Max. Length"
-msgstr ""
+msgstr "Comprimento máximo"
 
 msgid "Maximum allowed length of the distribution cable"
-msgstr ""
+msgstr "Comprimento máximo permitido do cabo de distribuição"
 
 msgid "Maximum allowed length of the connection cable"
-msgstr ""
+msgstr "Comprimento máximo permitido do cabo de ligação"
 
 msgid "Max. Number of Connections"
-msgstr ""
+msgstr "Número máximo de ligações"
 
 msgid "Maximum number of consumers that can be connected to one pole"
-msgstr ""
+msgstr "Número máximo de consumidores que podem ser ligados a um poste."
 
 msgid "Connection Cost"
-msgstr ""
+msgstr "Custo de ligação"
 
 msgid "Costs that arise when connecting a consumer in addition to the material costs of the cable."
-msgstr ""
+msgstr "Custos que surgem ao ligar um consumidor, para além dos custos do material do cabo."
 
 msgid "Solar Home Systems"
-msgstr ""
+msgstr "Sistemas solares residenciais"
 
 msgid "For each consumer, specific costs of grid connection are calculated and related to the consumer's consumption. If the threshold value is exceeded, a grid connection is forgone and instead a solar home system is recommended"
-msgstr ""
+msgstr "Para cada consumidor, os custos específicos de ligação à rede elétrica são calculados e relacionados com o seu consumo. Se o valor limite for excedido, a ligação à rede é dispensada e, em vez disso, é recomendado um sistema de energia solar residencial."
 
 msgid "Max. Specific Grid Cost"
-msgstr ""
+msgstr "Custo máximo específico da grelha"
 
 msgid "Battery"
-msgstr ""
+msgstr "Bateria"
 
 msgid "Optimize Capacity"
-msgstr ""
+msgstr "Otimizar a capacidade"
 
 msgid "Capacity"
-msgstr ""
+msgstr "Capacidade"
 
 msgid "OpEx"
-msgstr ""
+msgstr "OpEx"
 
 msgid "Operating Expense (OpEx) is the cost associated with the operation of the component"
-msgstr ""
+msgstr "A despesa operacional (OpEx) é o custo associado à operação do componente."
 
 msgid "Min. SOC"
-msgstr ""
+msgstr "Min. SOC"
 
 msgid "Minimum State of Charge (SOC) of a battery refers to the lowest level at which the battery is allowed to discharge in order to prevent damage and prolong its lifespan"
-msgstr ""
+msgstr "O Estado Mínimo de Carga (SOC) de uma bateria refere-se ao nível mais baixo a que a bateria pode ser descarregada para evitar danos e prolongar a sua vida útil."
 
 msgid "Max. SOC"
-msgstr ""
+msgstr "Max. SOC"
 
 msgid "Maximum State of Charge (SOC) of a battery refers to the highest level at which the battery can be safely charged to prevent overcharging and ensure longevity"
-msgstr ""
+msgstr "O Estado Máximo de Carga (SOC) de uma bateria refere-se ao nível mais elevado a que a bateria pode ser carregada em segurança para evitar a sobrecarga e garantir a sua longevidade."
 
 msgid "C-Rate in"
-msgstr ""
+msgstr "C-Rate in"
 
 msgid "C-Rate out"
-msgstr ""
+msgstr "C-Rate out"
 
 msgid "Roundtrip Efficiency"
-msgstr ""
+msgstr "Eficiência de ida e volta"
 
 msgid "Diesel Genset"
-msgstr ""
+msgstr "Grupo gerador a diesel"
 
 msgid "Operating Expense (OpEx) refers to the fixed annual costs incurred in the operation of a component, specifically excluding fuel and other variable expenses"
-msgstr ""
+msgstr "As despesas operacionais (OpEx) referem-se aos custos fixos anuais incorridos na operação de um componente, excluindo especificamente o combustível e outras despesas variáveis."
 
 msgid "Variable Cost"
-msgstr ""
+msgstr "Custo variável"
 
 msgid "Fuel Cost"
-msgstr ""
+msgstr "Custo do combustível"
 
 msgid "Fuel LHV"
-msgstr ""
+msgstr "Combustível LHV"
 
 msgid "Min. Efficiency"
-msgstr ""
+msgstr "Eficiência mínima"
 
 msgid "Max. Efficiency"
-msgstr ""
+msgstr "Eficiência máxima"
 
 msgid "Min. Load"
-msgstr ""
+msgstr "Carga mínima"
 
 msgid "Max. Load"
-msgstr ""
+msgstr "Carga máxima"
 
 msgid "Inverter"
-msgstr ""
+msgstr "Inversor"
 
 msgid "Efficiency"
-msgstr ""
+msgstr "Eficiência"
 
 msgid "PV"
-msgstr ""
+msgstr "PV"
 
 msgid "Charger"
-msgstr ""
+msgstr "Carregador"
 
 msgid "Shortage"
-msgstr ""
+msgstr "Escassez"
 
 msgid "Max. Total Shortage"
-msgstr ""
+msgstr "Escassez máxima total"
 
 msgid "Max. Shortage Each Timestep"
-msgstr ""
+msgstr "Escassez máxima a cada intervalo de tempo"
 
 msgid "Shortage Penalty Cost"
-msgstr ""
+msgstr "Custo da penalização por falta de fundos"
 
 # output_kpis.csv translation strings
 msgid "Project Name"
-msgstr ""
+msgstr "Nome do projeto"
 
 msgid "Project Description"
-msgstr ""
+msgstr "Descrição do projeto"
 
 msgid "Project Lifetime"
-msgstr ""
+msgstr "Vida útil do projeto"
 
 msgid "Simulation Period"
-msgstr ""
+msgstr "Período de simulação"
 
 msgid "Project Country"
-msgstr ""
+msgstr "País do Projeto"
 
 msgid "Set Total Annual Consumption"
-msgstr ""
+msgstr "Definir o consumo anual total"
 
 msgid "Set Peak Demand"
-msgstr ""
+msgstr "Definir procura máxima"
 
 msgid "Lifetime"
-msgstr ""
+msgstr "Vida útil"
 
 msgid "CapEx"
-msgstr ""
+msgstr "CapEx"
 
 msgid "Max. Length"
-msgstr ""
+msgstr "Comprimento máximo"
 
 msgid "Max. Number of Connections"
-msgstr ""
+msgstr "Número máximo de ligações"
 
 msgid "Connection Cost"
-msgstr ""
+msgstr "Custo de ligação"
 
 msgid "Solar Home Systems"
-msgstr ""
+msgstr "Sistemas solares residenciais"
 
 msgid "Max. Specific Grid Cost"
-msgstr ""
+msgstr "Custo máximo específico da grelha"
 
 msgid "Battery"
-msgstr ""
+msgstr "Bateria"
 
 msgid "Optimize Capacity"
-msgstr ""
+msgstr "Otimizar a capacidade"
 
 msgid "Capacity"
-msgstr ""
+msgstr "Capacidade"
 
 msgid "OpEx"
-msgstr ""
+msgstr "OpEx"
 
 msgid "Min. SOC"
-msgstr ""
+msgstr "Mín. SOC"
 
 msgid "Max. SOC"
-msgstr ""
+msgstr "Max. SOC"
 
 msgid "C-Rate in"
-msgstr ""
+msgstr "C-Rate in"
 
 msgid "C-Rate out"
-msgstr ""
+msgstr "C-Rate out"
 
 msgid "Roundtrip Efficiency"
-msgstr ""
+msgstr "Eficiência de ida e volta"
 
 msgid "Diesel Genset"
-msgstr ""
+msgstr "Grupo gerador a diesel"
 
 msgid "Variable Cost"
-msgstr ""
+msgstr "Custo variável"
 
 msgid "Fuel Cost"
-msgstr ""
+msgstr "Custo do combustível"
 
 msgid "Fuel LHV"
-msgstr ""
+msgstr "Combustível LHV"
 
 msgid "Min. Efficiency"
-msgstr ""
+msgstr "Eficiência mínima"
 
 msgid "Max. Efficiency"
-msgstr ""
+msgstr "Eficiência máxima"
 
 msgid "Min. Load"
-msgstr ""
+msgstr "Carga mínima"
 
 msgid "Max. Load"
-msgstr ""
+msgstr "Carga máxima"
 
 msgid "Inverter"
-msgstr ""
+msgstr "Inversor"
 
 msgid "Efficiency"
-msgstr ""
+msgstr "Eficiência"
 
 msgid "PV"
-msgstr ""
+msgstr "PV"
 
 msgid "Charger"
-msgstr ""
+msgstr "Carregador"
 
 msgid "Shortage"
-msgstr ""
+msgstr "Escassez"
 
 msgid "Max. Total Shortage"
-msgstr ""
+msgstr "Escassez máxima total"
 
 msgid "Max. Shortage Each Timestep"
-msgstr ""
+msgstr "Escassez máxima a cada intervalo de tempo"
 
 msgid "Shortage Penalty Cost"
-msgstr ""
+msgstr "Custo da penalização por falta de fundos"
 
 msgid "Project Name"
-msgstr ""
+msgstr "Nome do projeto"
 
 msgid "Project Description"
-msgstr ""
+msgstr "Descrição do projeto"
 
 msgid "The interest rate in investment calculations signifies the cost of capital and the potential return from an alternative investment of similar risk. It helps express the time value of money, crucial for determining the present value of future cash flows. This assists in evaluating and comparing investment opportunities. Default value of 12.3% is taken from World Bank reported average lending interest rate data of 2022. Please make sure to check this value for your project."
-msgstr ""
+msgstr "A taxa de juro nos cálculos de investimento representa o custo de capital e o potencial retorno de um investimento alternativo com risco semelhante. Ajuda a expressar o valor do dinheiro no tempo, crucial para determinar o valor presente dos fluxos de caixa futuros. Este auxilia na avaliação e comparação de oportunidades de investimento. O valor padrão de 12,3% foi obtido a partir dos dados da taxa de juro média para empréstimos divulgados pelo Banco Mundial em 2022. Certifique-se de que verifica este valor para o seu projeto."
 
 msgid "Project Lifetime"
-msgstr ""
+msgstr "Vida útil do projeto"
 
 msgid "The period during which the system will be in operation. Components whose lifetime is below that of the project lifetime must be replaced during operation, which will be taken into account in the cost calculation. In addition, the residual value of the components is determined at the end of the project lifetime."
-msgstr ""
+msgstr "O período durante o qual o sistema estará em funcionamento. Os componentes cuja vida útil seja inferior à vida útil do projeto deverão ser substituídos durante a operação, o que será considerado no cálculo dos custos. Além disso, o valor residual dos componentes é determinado no final da vida útil do projeto."
 
 msgid "Simulation Period"
-msgstr ""
+msgstr "Período de simulação"
 
 msgid "Number of days used for the modelling period. For economic calculations, the project lifetime will be used."
-msgstr ""
+msgstr "Número de dias utilizados para o período de modelação. Para os cálculos económicos, será utilizado o tempo de vida útil do projeto."
 
 msgid "Project Country"
-msgstr ""
+msgstr "País do Projeto"
 
 msgid "Country for the project. The country will be used to center map features on the correct location, but will have no impact on the default demand profiles used, which are specific to the base country of the tool."
-msgstr ""
+msgstr "País do projeto. O país será utilizado para centrar os elementos do mapa na localização correta, mas não terá impacto nos perfis de procura padrão utilizados, que são específicos para o país base da ferramenta."
 
 msgid "Assumed type of settlement (isolated or peri-urban)"
-msgstr ""
+msgstr "Tipo de assentamento presumível (isolado ou periurbano)"
 
 msgid "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-urban: 0.6kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com uma procura muito baixa (isolados: 0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
 
 msgid "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: 1.5kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/dia / periurbanos: 1,5 kWh/dia)"
 
 msgid "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-urban: 2.2kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/dia / periurbanos: 2,2 kWh/dia)"
 
 msgid "Percentage of households with high demand (isolated: 2.4kWh/day / peri-urban: 2.9kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/dia / periurbanos: 2,9 kWh/dia)"
 
 msgid "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-urban: 3.4kWh/day)"
-msgstr ""
+msgstr "Percentagem de agregados familiares com uma procura muito elevada (isolados: 2,9 kWh/dia / periurbanos: 3,4 kWh/dia)"
 
 msgid "Set Total Annual Consumption"
-msgstr ""
+msgstr "Definir o consumo anual total"
 
 msgid "The demand curve will be scaled to meet the given total demand"
-msgstr ""
+msgstr "A curva da procura será dimensionada para satisfazer a procura total fornecida."
 
 msgid "Set Peak Demand"
-msgstr ""
+msgstr "Definir procura máxima"
 
 msgid "The demand curve will be scaled to meet the given peak demand"
-msgstr ""
+msgstr "A curva da procura será dimensionada para satisfazer a procura máxima especificada."
 
 msgid "Lifetime"
-msgstr ""
+msgstr "Vida útil"
 
 msgid "Lifespan of the component, after expiration a replacement investment must be made"
-msgstr ""
+msgstr "Vida útil do componente; após o vencimento, é necessário fazer um investimento para o substituir."
 
 msgid "CapEx"
-msgstr ""
+msgstr "CapEx"
 
 msgid "Capital Expenditure (CapEx) is the money that has to be spent to purchase the component"
-msgstr ""
+msgstr "As despesas de capital (CapEx) são os recursos financeiros necessários para adquirir um componente."
 
 msgid "Max. Length"
-msgstr ""
+msgstr "Comprimento máximo"
 
 msgid "Maximum allowed length of the distribution cable"
-msgstr ""
+msgstr "Comprimento máximo permitido do cabo de distribuição"
 
 msgid "Maximum allowed length of the connection cable"
-msgstr ""
+msgstr "Comprimento máximo permitido do cabo de ligação"
 
 msgid "Max. Number of Connections"
-msgstr ""
+msgstr "Número máximo de ligações"
 
 msgid "Maximum number of consumers that can be connected to one pole"
-msgstr ""
+msgstr "Número máximo de consumidores que podem ser ligados a um poste."
 
 msgid "Connection Cost"
-msgstr ""
+msgstr "Custo de ligação"
 
 msgid "Costs that arise when connecting a consumer in addition to the material costs of the cable."
-msgstr ""
+msgstr "Custos que surgem ao ligar um consumidor, para além dos custos do material do cabo."
 
 msgid "Solar Home Systems"
-msgstr ""
+msgstr "Sistemas solares residenciais"
 
 msgid "For each consumer, specific costs of grid connection are calculated and related to the consumer's consumption. If the threshold value is exceeded, a grid connection is forgone and instead a solar home system is recommended"
-msgstr ""
+msgstr "Para cada consumidor, os custos específicos de ligação à rede elétrica são calculados e relacionados com o seu consumo. Se o valor limite for excedido, a ligação à rede é dispensada e, em vez disso, é recomendado um sistema de energia solar residencial."
 
 msgid "Max. Specific Grid Cost"
-msgstr ""
+msgstr "Custo máximo específico da grelha"
 
 msgid "Battery"
-msgstr ""
+msgstr "Bateria"
 
 msgid "Optimize Capacity"
-msgstr ""
+msgstr "Otimizar a capacidade"
 
 msgid "Capacity"
-msgstr ""
+msgstr "Capacidade"
 
 msgid "OpEx"
-msgstr ""
+msgstr "OpEx"
 
 msgid "Operating Expense (OpEx) is the cost associated with the operation of the component"
-msgstr ""
+msgstr "A despesa operacional (OpEx) é o custo associado à operação do componente."
 
 msgid "Min. SOC"
-msgstr ""
+msgstr "Mín. SOC"
 
 msgid "Minimum State of Charge (SOC) of a battery refers to the lowest level at which the battery is allowed to discharge in order to prevent damage and prolong its lifespan"
-msgstr ""
+msgstr "O Estado Mínimo de Carga (SOC) de uma bateria refere-se ao nível mais baixo a que a bateria pode ser descarregada para evitar danos e prolongar a sua vida útil."
 
 msgid "Max. SOC"
-msgstr ""
+msgstr "Máx. SOC"
 
 msgid "Maximum State of Charge (SOC) of a battery refers to the highest level at which the battery can be safely charged to prevent overcharging and ensure longevity"
-msgstr ""
+msgstr "O Estado Máximo de Carga (SOC) de uma bateria refere-se ao nível mais elevado a que a bateria pode ser carregada em segurança para evitar a sobrecarga e garantir a sua longevidade."
 
 msgid "C-Rate in"
-msgstr ""
+msgstr "C-Rate in"
 
 msgid "C-Rate out"
-msgstr ""
+msgstr "C-Rate out"
 
 msgid "Roundtrip Efficiency"
-msgstr ""
+msgstr "Eficiência de ida e volta"
 
 msgid "Diesel Genset"
-msgstr ""
+msgstr "Grupo gerador a diesel"
 
 msgid "Operating Expense (OpEx) refers to the fixed annual costs incurred in the operation of a component, specifically excluding fuel and other variable expenses"
-msgstr ""
+msgstr "As despesas operacionais (OpEx) referem-se aos custos fixos anuais incorridos na operação de um componente, excluindo especificamente o combustível e outras despesas variáveis."
 
 msgid "Variable Cost"
-msgstr ""
+msgstr "Custo variável"
 
 msgid "Fuel Cost"
-msgstr ""
+msgstr "Custo do combustível"
 
 msgid "Fuel LHV"
-msgstr ""
+msgstr "Combustível LHV"
 
 msgid "Min. Efficiency"
-msgstr ""
+msgstr "Eficiência mínima"
 
 msgid "Max. Efficiency"
-msgstr ""
+msgstr "Eficiência máxima"
 
 msgid "Min. Load"
-msgstr ""
+msgstr "Carga mínima"
 
 msgid "Max. Load"
-msgstr ""
+msgstr "Carga máxima"
 
 msgid "Inverter"
-msgstr ""
+msgstr "Inversor"
 
 msgid "Efficiency"
-msgstr ""
+msgstr "Eficiência"
 
 msgid "PV"
-msgstr ""
+msgstr "PV"
 
 msgid "Charger"
-msgstr ""
+msgstr "Carregador"
 
 msgid "Shortage"
-msgstr ""
+msgstr "Escassez"
 
 msgid "Max. Total Shortage"
-msgstr ""
+msgstr "Escassez máxima total"
 
 msgid "Max. Shortage Each Timestep"
-msgstr ""
+msgstr "Escassez máxima a cada intervalo de tempo"
 
 msgid "Shortage Penalty Cost"
-msgstr ""
+msgstr "Custo da penalização por falta de fundos"
 
 msgid "Number of Poles"
-msgstr ""
+msgstr "Número de pólos"
 
 msgid "Number of grid-connected Consumers"
-msgstr ""
+msgstr "Número de consumidores ligados à rede"
 
 msgid "Number of SHS Consumers"
-msgstr ""
+msgstr "Número de consumidores de SHS"
 
 msgid "Distribution Cable Length"
-msgstr ""
+msgstr "Comprimento do cabo de distribuição"
 
 msgid "Average Length Distribution"
-msgstr ""
+msgstr "Distribuição do comprimento médio"
 
 msgid "Connection Cable Length"
-msgstr ""
+msgstr "Comprimento do cabo de ligação"
 
 msgid "Average Length Connection"
-msgstr ""
+msgstr "Ligação de comprimento médio"
 
 msgid "Grid's annualized Cost"
-msgstr ""
+msgstr "Custo anualizado da rede"
 
 msgid "Levelized Cost of Electricity (w/o SHS)"
-msgstr ""
+msgstr "Custo Nivelado da Eletricidade (sem SHS)"
 
 msgid "Share of Grid-Related Costs in the LCOE"
-msgstr ""
+msgstr "Participação dos custos relacionados com a rede elétrica no LCOE (custo nivelado de energia)."
 
 msgid "Share of Generation-Related Costs in LCOE"
-msgstr ""
+msgstr "Participação dos custos relacionados com a geração no LCOE (custo nivelado de energia)."
 
 msgid "Renewable Energy Share"
-msgstr ""
+msgstr "Participação em Energias Renováveis"
 
 msgid "Max. Voltage drop"
-msgstr ""
+msgstr "Queda de tensão máxima"
 
 msgid "Total annual Shortage"
-msgstr ""
+msgstr "Escassez anual total"
 
 msgid "Total annual Surplus"
-msgstr ""
+msgstr "Superávit anual total"
 
 msgid "Total simulation time"
-msgstr ""
+msgstr "Tempo total de simulação"
 
 msgid "Annual CO2 savings"
-msgstr ""
+msgstr "Economia anual de CO2"
 
 msgid "Total annual Consumption"
-msgstr ""
+msgstr "Consumo anual total"
 
 msgid "Annual average Demand per Consumer"
-msgstr ""
+msgstr "Procura média anual por consumidor"
 
 msgid "Grid upfront Investment Cost"
-msgstr ""
+msgstr "Custo inicial de investimento na rede elétrica"
 
 msgid "Diesel Generator upfront Investment Cost"
-msgstr ""
+msgstr "Custo de investimento inicial do gerador a diesel"
 
 msgid "Inverter upfront Investment Cost"
-msgstr ""
+msgstr "Custo de investimento inicial do inversor"
 
 msgid "Rectifier upfront Investment Cost"
-msgstr ""
+msgstr "Custo de investimento inicial do retificador"
 
 msgid "Battery upfront Investment Cost"
-msgstr ""
+msgstr "Custo de investimento inicial da bateria"
 
 msgid "PV upfront Investment Cost"
-msgstr ""
+msgstr "Custo de investimento inicial em energia fotovoltaica"
 
 msgid "Total upfront Investment Cost"
-msgstr ""
+msgstr "Custo total do investimento inicial"
 
 msgid "Capacity Battery"
-msgstr ""
+msgstr "Capacidade da bateria"
 
 msgid "Capacity PV"
-msgstr ""
+msgstr "Capacidade PV"
 
 msgid "Capacity Diesel Generator"
-msgstr ""
+msgstr "Capacidade do gerador a diesel"
 
 msgid "Capacity Inverter"
-msgstr ""
+msgstr "Capacidade do inversor"
 
 msgid "Capacity Rectifier"
-msgstr ""
+msgstr "Capacidade do retificador"
 
 msgid "Annual CO2 Emissions"
-msgstr ""
+msgstr "Emissões anuais de CO2"
 
 msgid "Annual Fuel Consumption"
-msgstr ""
+msgstr "Consumo anual de combustível"
 
 msgid "Peak Demand"
-msgstr ""
+msgstr "Procura máxima"
 
 msgid "Base Load"
-msgstr ""
+msgstr "Carga base"
 
 msgid "Max. Shortage per Time Step"
-msgstr ""
+msgstr "Falta máxima por etapa de tempo"
 
 msgid "Annual fuel cost"
-msgstr ""
+msgstr "Custo anual de combustível"
 
 msgid "PV's annualized Cost"
-msgstr ""
+msgstr "Custo anualizado do PV"
 
 msgid "Diesel Generator's annualized Cost"
-msgstr ""
+msgstr "Custo anualizado do gerador a diesel"
 
 msgid "Inverter's annualized Cost"
-msgstr ""
+msgstr "Custo anualizado do inversor"
 
 msgid "Rectifier's annualized Cost"
-msgstr ""
+msgstr "Custo anualizado do rectificador"
 
 msgid "Battery's annualized Cost"
-msgstr ""
+msgstr "Custo anual da bateria"
 
 msgid "Total annualized Cost"
-msgstr ""
+msgstr "Custo total anualizado"
 
 msgid "Capacity in kW"
-msgstr ""
+msgstr "Capacidade em kW"
 
 msgid "Capacity in kWh"
-msgstr ""
+msgstr "Capacidade em kWh"
 
 # random plot strings
 msgid "Total Demand"
-msgstr ""
+msgstr "Procura total"
 
 msgid "Demand of Enterprises"
-msgstr ""
+msgstr "Procura das Empresas"
 
 msgid "Demand of Public Services"
-msgstr ""
+msgstr "Procura por serviços públicos"
 
 msgid "Demand of Households"
-msgstr ""
+msgstr "Procura das famílias"
 
 msgid "Low Consumption"
-msgstr ""
+msgstr "Baixo consumo"
 
 msgid "Middle Consumption"
-msgstr ""
+msgstr "Consumo médio"
 
 msgid "High Consumption"
-msgstr ""
+msgstr "Alto consumo"
