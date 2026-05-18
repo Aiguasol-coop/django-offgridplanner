@@ -338,15 +338,15 @@ function loadLegend() {
   const labels = [
     {
       img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-      text: 'Existing minigrid'
+      text: gettext('Existing minigrid')
     },
     {
       img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-      text: 'Potential site'
+      text: gettext('Potential site')
     },
     {
       img: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
-      text: 'Analysis site'
+      text: gettext('Analysis site')
     }
   ];
 

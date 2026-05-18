@@ -91,3 +91,4 @@ class SiteExplorationForm(ModelForm):
         province_choices = [(prov, prov) for prov in provinces]
         self.fields["province"].choices = province_choices
         self.fields["province"].initial = "All"
+        self.fields["province"].label = _("Province")

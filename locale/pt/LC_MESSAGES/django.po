@@ -1429,3 +1429,33 @@ msgstr "currency/kW/ano"
 
 msgid "currency/kWh/year"
 msgstr "currency/kWh/ano"
+
+msgid "Consumers"
+msgstr "Consumidores"
+
+msgid "Grid Dist. [km]"
+msgstr "Dist. rede [km]"
+
+msgid "Road Dist. [km]"
+msgstr "Dist. estrada [km]"
+
+msgid "LCOE [ct/kWh]"
+msgstr "LCOE [ct/kWh]"
+
+msgid "RES [%]"
+msgstr "FER [%]"
+
+msgid "CAPEX [USD]"
+msgstr "CAPEX [USD]"
+
+msgid "CO2 Savings [t/a]"
+msgstr "Poupança de CO2 [t/a]"
+
+msgid "Total consumption [kWh/a]"
+msgstr "Consumo total [kWh/a]"
+
+msgid "Run Exploration"
+msgstr "Iniciar exploração"
+
+msgid "Potential project sites"
+msgstr "Locais potenciais para o projeto"

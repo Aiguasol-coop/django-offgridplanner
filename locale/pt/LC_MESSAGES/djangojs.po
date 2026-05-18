@@ -183,3 +183,21 @@ msgstr "Procura (kW)"
 
 msgid "Hour of the day"
 msgstr "Hora do dia"
+
+msgid "Existing minigrid"
+msgstr "Mini-rede existente"
+
+msgid "Potential site"
+msgstr "Local potencial"
+
+msgid "Analysis site"
+msgstr "Local em análise"
+
+msgid "Existing line"
+msgstr "Linha existente"
+
+msgid "Planned line"
+msgstr "Linha planeada"
+
+msgid "Unknown line"
+msgstr "Linha de estado desconhecido"
