@@ -187,6 +187,9 @@ msgstr "Hora do dia"
 msgid "Existing minigrid"
 msgstr "Mini-rede existente"
 
+msgid "Monitored minigrid"
+msgstr "Mini-rede monitorizada"
+
 msgid "Potential site"
 msgstr "Local potencial"
 
