@@ -2,6 +2,7 @@
 
 {% load crispy_forms_tags %}
 {% load static %}
+{% load statici18n %}
 {% load i18n %}
 
 {% block head_block %}
@@ -344,6 +345,7 @@
       // url of API urls
       const csrfToken = '{{ csrf_token }}';
       //const project_id = {{ proj_id }};
+      const consumer_list = {{ consumer_list | safe }};
       const public_service_list = {{ public_service_list | safe }};
       const enterprise_list = {{ enterprise_list | safe }};
       const large_load_list = {{ large_load_list | safe }};
@@ -368,6 +370,7 @@
         //update_wizards_and_buttons_based_on_planning_step_selection({{proj_id}}, 'consumer_selection');
       };
     </script>
+    <script src="{% statici18n LANGUAGE_CODE %}"></script>
     <script src="{% static 'js/integrate_map.js' %}"></script>
     <script src="{% static 'js/add_drawing_tools_to_map.js' %}"></script>
     <script src="{% static 'js/pages/consumer_selection.js' %}"></script>

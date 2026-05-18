@@ -16,11 +16,6 @@
  */
 
 
-let consumer_list = {
-    'H': 'Household',
-    'E': 'Enterprise',
-    'P': 'Public Service',
-};
 let consumer_type = "H";
 
 (function () {

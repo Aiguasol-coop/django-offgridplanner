@@ -189,13 +189,13 @@ function initializePlot() {
         font: { size: 14 },
         autosize: true,
         xaxis: {
-            title: 'Hour of the day',
+            title: gettext('Hour of the day'),
             hoverformat: '.1f',
             titlefont: { size: 16 },
             tickfont: { size: 14 },
         },
         yaxis: {
-            title: 'Demand (kW)',
+            title: gettext('Demand (kW)'),
             hoverformat: '.1f',
             titlefont: { size: 16 },
             tickfont: { size: 14 },
@@ -252,7 +252,7 @@ function plotDemandData() {
                 x: x,
                 y: Total_Demand,
                 mode: 'lines',
-                name: 'Total Demand',
+                name: gettext('Total Demand'),
                 line: { color: 'black', width: 3, shape: 'spline' },
                 visible: true, // Initially visible
                 legendrank: 0
@@ -263,7 +263,7 @@ function plotDemandData() {
                 y: households,
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Demand of Households',
+                name: gettext('Demand of Households'),
                 stackgroup: 'one',
                 fill: 'tonexty',
                 hoverinfo: 'x+y',
@@ -277,7 +277,7 @@ function plotDemandData() {
                 y: enterprises,
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Demand of Enterprises',
+                name: gettext('Demand of Enterprises'),
                 stackgroup: 'one',
                 fill: 'tonexty',
                 hoverinfo: 'x+y',
@@ -291,7 +291,7 @@ function plotDemandData() {
                 y: public_services,
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Demand of Public Services',
+                name: gettext('Demand of Public Services'),
                 stackgroup: 'one',
                 fill: 'tonexty',
                 hoverinfo: 'x+y',
@@ -304,7 +304,7 @@ function plotDemandData() {
                 x: x,
                 y: Average,
                 mode: 'lines',
-                name: 'Average Household Profile',
+                name: gettext('Average Household Profile'),
                 line: { color: 'black', width: 2, shape: 'spline' },
                 visible: false, // Initially hidden
                 legendrank: 4
@@ -314,7 +314,7 @@ function plotDemandData() {
                 x: x,
                 y: Very_High,
                 mode: 'lines',
-                name: 'Very High Consumption',
+                name: gettext('Very High Consumption'),
                 line: { color: 'blue', width: 1, shape: 'spline' },
                 visible: 'legendonly',
                 legendrank: 5
@@ -324,7 +324,7 @@ function plotDemandData() {
                 x: x,
                 y: High,
                 mode: 'lines',
-                name: 'High Consumption',
+                name: gettext('High Consumption'),
                 line: { color: 'green', width: 1, shape: 'spline' },
                 visible: 'legendonly',
                 legendrank: 6
@@ -334,7 +334,7 @@ function plotDemandData() {
                 x: x,
                 y: Middle,
                 mode: 'lines',
-                name: 'Middle Consumption',
+                name: gettext('Middle Consumption'),
                 line: { color: 'black', width: 1, shape: 'spline' },
                 visible: 'legendonly',
                 legendrank: 7
@@ -344,7 +344,7 @@ function plotDemandData() {
                 x: x,
                 y: Low,
                 mode: 'lines',
-                name: 'Low Consumption',
+                name: gettext('Low Consumption'),
                 line: { color: 'orange', width: 1, shape: 'spline' },
                 visible: 'legendonly',
                 legendrank: 8
@@ -354,7 +354,7 @@ function plotDemandData() {
                 x: x,
                 y: Very_Low,
                 mode: 'lines',
-                name: 'Very Low Consumption',
+                name: gettext('Very Low Consumption'),
                 line: { color: 'red', width: 1, shape: 'spline' },
                 visible: 'legendonly',
                 legendrank: 9

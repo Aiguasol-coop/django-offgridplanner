@@ -77,22 +77,22 @@
           <div class="radio-inputs" id="status_header" >
             <label class="radio">
               <input type="radio" name="radio">
-              <a class="name" href="{% url 'projects:projects_list' 'potential' %}">Potential</a>
+              <a class="name" href="{% url 'projects:projects_list' 'potential' %}">{% translate "Potential" %}</a>
             </label>
             <label class="radio">
               <input type="radio" name="radio" {% if status == "analyzing" %}checked{% endif %}>
-              <a class="name" href="{% url 'projects:projects_list' 'analyzing' %}">Analyzing</a>
+              <a class="name" href="{% url 'projects:projects_list' 'analyzing' %}">{% translate "Analyzing" %}</a>
             </label>
             <label class="radio">
               <input type="radio" name="radio" {% if status == "monitoring" %}checked{% endif %}>
-              <a class="name" href="{% url 'projects:projects_list' 'monitoring' %}">Monitoring</a>
+              <a class="name" href="{% url 'projects:projects_list' 'monitoring' %}">{% translate "Monitoring" %}</a>
             </label>
           </div>
 
           <span style="float:right;">
           {% if status == "analyzing" %}<a>
                     <a href="{% url 'steps:project_setup' %}"
-                       class="btn btn--long text-right">New Project</a>
+                       class="btn btn--long text-right">{% translate "New Project" %}</a>
                   </a>
           {% endif %}
           </span>
@@ -121,8 +121,8 @@
                         <td>{{ project.simulation.status }}</td>
                         <td>
               <select class="status-select" data-proj-id="{{ project.id }}" data-original-status="{{ project.status }}">
-                <option value="monitoring" {% if project.status == "monitoring" %}selected{% endif %}>Monitoring</option>
-                <option value="analyzing" {% if project.status == "analyzing" %}selected{% endif %}>Analyzing</option>
+                <option value="monitoring" {% if project.status == "monitoring" %}selected{% endif %}>{% translate "Monitoring" %}</option>
+                <option value="analyzing" {% if project.status == "analyzing" %}selected{% endif %}>{% translate "Analyzing" %}</option>
               </select>
             </td>
 

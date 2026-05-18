@@ -129,6 +129,12 @@ def consumer_selection(request, proj_id=None):
             for ix, machine in enumerate(sorted(LARGE_LOAD_LIST), 1)
         }
 
+        consumer_list = {
+            "H": _("Household"),
+            "E": _("Enterprise"),
+            "P": _("Public Service"),
+        }
+
         country_bounds = get_country_bounds(proj_id)
 
         country = project.country
@@ -141,6 +147,7 @@ def consumer_selection(request, proj_id=None):
             messages.add_message(request, messages.WARNING, timeseries_warning)
 
         context = {
+            "consumer_list": consumer_list,
             "public_service_list": public_service_list,
             "enterprise_list": enterprise_list,
             "large_load_list": large_load_list,
@@ -237,7 +244,7 @@ def grid_design(request, proj_id=None):
     else:
         project = get_object_or_404(Project, id=proj_id)
 
-        grid_design, _ = GridDesign.objects.get_or_create(
+        grid_design, created = GridDesign.objects.get_or_create(
             project=project, defaults=get_param_from_metadata("default", "GridDesign")
         )
 
@@ -261,9 +268,9 @@ def grid_design(request, proj_id=None):
         }
         for component in list(grouped_fields):
             clean_name = (
-                component_name_mapping[component]
+                _(component_name_mapping[component])
                 if component in component_name_mapping
-                else component.title().replace("_", " ")
+                else _(component.title().replace("_", " "))
             )
             grouped_fields[clean_name] = grouped_fields.pop(component)
 
@@ -287,7 +294,7 @@ def energy_system_design(request, proj_id=None):
     if proj_id is not None:
         project = get_object_or_404(Project, id=proj_id)
 
-    esd, _ = EnergySystemDesign.objects.get_or_create(
+    esd, created = EnergySystemDesign.objects.get_or_create(
         project=project,
         defaults=get_param_from_metadata("default", "EnergySystemDesign"),
     )

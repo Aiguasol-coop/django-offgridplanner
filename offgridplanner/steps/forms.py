@@ -18,7 +18,7 @@ def set_field_metadata(field, meta):
     field.label = label + question_icon if meta.get("help_text") != "" else label
     field.help_text = _(meta.get("help_text", ""))  # Set help text
     # TODO change hard coded unit to customizable in the future
-    field.widget.attrs["unit"] = meta.get("unit", "").replace(
+    field.widget.attrs["unit"] = _(meta.get("unit", "")).replace(
         "currency", "USD"
     )  # Store unit as an attribute
 

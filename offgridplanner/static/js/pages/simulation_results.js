@@ -524,7 +524,7 @@ function plot_bar_chart(data) {
             side: 'top'
         },
         xaxis2: {
-            title: 'Capacity in kWh',
+            title: gettext('Capacity in kWh'),
             showgrid: false,
             zeroline: false,
             titlefont: {
