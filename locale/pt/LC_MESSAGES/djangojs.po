@@ -48,6 +48,12 @@ msgstr "Custo total anualizado"
 msgid "Capacity in kW"
 msgstr "Capacidade em kW"
 
+msgid "Demand in kW"
+msgstr "Procura em kW"
+
+msgid "Demand"
+msgstr "Procura"
+
 msgid "Capacity in kWh"
 msgstr "Capacidade em kWh"
 
@@ -64,11 +70,116 @@ msgstr "Procura por serviços públicos"
 msgid "Demand of Households"
 msgstr "Procura das famílias"
 
+msgid "Very Low Consumption"
+msgstr "Consumo muito baixo"
+
 msgid "Low Consumption"
-msgstr "Baixo consumo"
+msgstr "Consumo baixo"
 
 msgid "Middle Consumption"
 msgstr "Consumo médio"
 
 msgid "High Consumption"
-msgstr "Alto consumo"
+msgstr "Consumo alto"
+
+msgid "Very High Consumption"
+msgstr "Consumo muito alto"
+
+msgid "Battery"
+msgstr "Bateria"
+
+msgid "Inverter"
+msgstr "Inversor"
+
+msgid "Rectifier"
+msgstr "Retificador"
+
+msgid "Diesel Genset"
+msgstr "Grupo gerador a diesel"
+
+msgid "Max. Surplus"
+msgstr "Max. excedente de eletricidade"
+
+msgid "Surplus"
+msgstr "Excedente de eletricidade"
+
+msgid "Fuel"
+msgstr "Combustível"
+
+msgid "Grid"
+msgstr "Rede"
+
+msgid "Renewable Assets"
+msgstr "Componentes renováveis"
+
+msgid "Non-Renewable Assets"
+msgstr "Componentes não renováveis"
+
+msgid "Renewable"
+msgstr "Renovável"
+
+msgid "Non-Renewable"
+msgstr "não renovável"
+
+msgid "Battery Content"
+msgstr "Conteúdo da bateria"
+
+msgid "Battery Content in kWh"
+msgstr "Conteúdo da bateria em kWh"
+
+msgid "Battery In-/Output"
+msgstr "Entrada/saída da bateria"
+
+msgid "Battery - Charging"
+msgstr "Carga da bateria"
+
+msgid "Battery - Discharging"
+msgstr "Descarga da bateria"
+
+msgid "Energy Flow in kW"
+msgstr "Fluxo de energia em kW"
+
+msgid "Percentage of Operation in %%"
+msgstr "percentagem de funcionamento em %%"
+
+msgid "Time in hours"
+msgstr "Tempo em horas"
+
+msgid "Load Center"
+msgstr "Central de energia"
+
+msgid "Household"
+msgstr "Agregado familiar"
+
+msgid "Enterprise"
+msgstr "Empresa"
+
+msgid "Public Service"
+msgstr "Serviço público"
+
+msgid "Pole"
+msgstr "Poste"
+
+msgid "Edited Pole"
+msgstr "Poste editado"
+
+msgid "Solar Home System"
+msgstr "Sistema solar residencial"
+
+msgid "Distribution"
+msgstr "Distribuição"
+
+msgid "Connection"
+msgstr "Ligação"
+
+msgid "Road"
+msgstr "Estrada"
+
+msgid "Average"
+msgstr "Média"
+
+msgid "Demand (kW)"
+msgstr "Procura (kW)"
+
+msgid "Hour of the day"
+msgstr "Hora do dia"

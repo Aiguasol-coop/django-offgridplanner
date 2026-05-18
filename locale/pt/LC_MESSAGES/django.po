@@ -340,6 +340,10 @@ msgstr "Agregado familiar"
 msgid "Enterprise"
 msgstr "Empresa"
 
+#: .\offgridplanner\templates\pages\consumer_selection.html:80
+msgid "Public Service"
+msgstr "Serviço público"
+
 #: .\offgridplanner\templates\pages\consumer_selection.html:96
 #: .\offgridplanner\templates\pages\consumer_selection.html:111
 msgid "Degree"
@@ -582,11 +586,11 @@ msgstr "Capacidade ideal dos componentes"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:406
 msgid "Breakdown of the LCOE"
-msgstr "Análise detalhada do LCOE (custo nivelado de energia)."
+msgstr "Análise detalhada do LCOE (custo nivelado de energia)"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:433
 msgid "Sankey Diagram Representing the Energy Flow in the System"
-msgstr "Diagrama de Sankey que representa o fluxo de energia no sistema."
+msgstr "Diagrama de Sankey que representa o fluxo de energia no sistema"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:439
 msgid "*electricity surplus is not shown"
@@ -594,7 +598,7 @@ msgstr "*O excedente de eletricidade não é apresentado"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:462
 msgid "Demand Coverage by Renewable and Non-Renewable Resources"
-msgstr "Cobertura da procura de recursos renováveis ​​e não renováveis"
+msgstr "Cobertura da procura de recursos renováveis e não renováveis"
 
 #: .\offgridplanner\templates\pages\simulation_results.html:476
 msgid "Annual Energy Flows with 1-Hour Resolution"
@@ -781,6 +785,9 @@ msgstr "endereço de e-mail"
 #: .\offgridplanner\users\views.py:28
 msgid "Information successfully updated"
 msgstr "Informação atualizada com sucesso"
+
+msgid "Interest Rate"
+msgstr "Taxa de juro"
 
 msgid "Project Description"
 msgstr "Descrição do projeto"
@@ -973,6 +980,9 @@ msgstr ""
 "Número de dias utilizados para o período de modelação. Para os cálculos "
 "económicos, será utilizado o tempo de vida útil do projeto."
 
+msgid "Country Project"
+msgstr "País do projeto"
+
 msgid ""
 "Country for the project. The country will be used to center map features on "
 "the correct location, but will have no impact on the default demand profiles "
@@ -985,12 +995,21 @@ msgstr ""
 msgid "Assumed type of settlement (isolated or peri-urban)"
 msgstr "Tipo de assentamento presumível (isolado ou periurbano)"
 
+msgid "Settlement Type"
+msgstr "Tipo de assentamento"
+
+msgid "Very Low"
+msgstr "Muito baixo"
+
 msgid ""
 "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-"
 "urban: 0.6kWh/day)"
 msgstr ""
 "Percentagem de agregados familiares com uma procura muito baixa (isolados: "
 "0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
+
+msgid "Low"
+msgstr "Baixo"
 
 msgid ""
 "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: "
@@ -999,6 +1018,9 @@ msgstr ""
 "Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/"
 "dia / periurbanos: 1,5 kWh/dia)"
 
+msgid "Middle"
+msgstr "Médio"
+
 msgid ""
 "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-"
 "urban: 2.2kWh/day)"
@@ -1006,12 +1028,18 @@ msgstr ""
 "Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/"
 "dia / periurbanos: 2,2 kWh/dia)"
 
+msgid "High"
+msgstr "Elevado"
+
 msgid ""
 "Percentage of households with high demand (isolated: 2.4kWh/day / peri-"
 "urban: 2.9kWh/day)"
 msgstr ""
 "Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/"
 "dia / periurbanos: 2,9 kWh/dia)"
+
+msgid "Very High"
+msgstr "Muito elevado"
 
 msgid ""
 "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-"
@@ -1044,14 +1072,26 @@ msgstr ""
 "As despesas de capital (CapEx) são os recursos financeiros necessários para "
 "adquirir um componente."
 
+msgid "Distribution Line"
+msgstr "Cabo de distribuição"
+
 msgid "Maximum allowed length of the distribution cable"
 msgstr "Comprimento máximo permitido do cabo de distribuição"
+
+msgid "Connection Cable"
+msgstr "Cabo de ligação"
 
 msgid "Maximum allowed length of the connection cable"
 msgstr "Comprimento máximo permitido do cabo de ligação"
 
+msgid "Pole"
+msgstr "Poste"
+
 msgid "Maximum number of consumers that can be connected to one pole"
 msgstr "Número máximo de consumidores que podem ser ligados a um poste."
+
+msgid "Connection Costs"
+msgstr "Custos de ligação"
 
 msgid ""
 "Costs that arise when connecting a consumer in addition to the material "
@@ -1133,12 +1173,12 @@ msgstr "Custo Nivelado da Eletricidade (sem SHS)"
 msgid "Share of Grid-Related Costs in the LCOE"
 msgstr ""
 "Participação dos custos relacionados com a rede elétrica no LCOE (custo "
-"nivelado de energia)."
+"nivelado de energia)"
 
 msgid "Share of Generation-Related Costs in LCOE"
 msgstr ""
 "Participação dos custos relacionados com a geração no LCOE (custo nivelado "
-"de energia)."
+"de energia)"
 
 msgid "Renewable Energy Share"
 msgstr "Participação em Energias Renováveis"
@@ -1263,3 +1303,129 @@ msgstr "Consumo médio"
 
 msgid "High Consumption"
 msgstr "Alto consumo"
+
+msgid "New Project"
+msgstr "Novo projeto"
+
+msgid "Food_Groceries"
+msgstr "Alimentação_Mercearia"
+
+msgid "Retail_Kiosk"
+msgstr "Retalho_Quiosque"
+
+msgid "Food_Restaurant"
+msgstr "Alimentação_Restaurante"
+
+msgid "Food_Bar"
+msgstr "Alimentação_Bar"
+
+msgid "Food_Fish"
+msgstr "Alimentação_Peixe"
+
+msgid "Trades_Tailoring"
+msgstr "Ofícios_Alfaiataria"
+
+msgid "Trades_Beauty or Hair"
+msgstr "Ofícios_Beleza ou Cabeleireiro"
+
+msgid "Trades_Metalworks"
+msgstr "Ofícios_Serralharia"
+
+msgid "Trades_Car or Motorbike Repair"
+msgstr "Ofícios_Reparação de Automóveis ou Motos"
+
+msgid "Trades_Carpentry"
+msgstr "Ofícios_Carpintaria"
+
+msgid "Trades_Laundry"
+msgstr "Ofícios_Lavandaria"
+
+msgid "Trades_Hotel"
+msgstr "Ofícios_Hotel"
+
+msgid "Retail_Pharmacy"
+msgstr "Retalho_Farmácia"
+
+msgid "Retail_Electronics"
+msgstr "Retalho_Eletrónica"
+
+msgid "Retail_Agricultural"
+msgstr "Retalho_Agrícola"
+
+msgid "Digital_Cybercafé"
+msgstr "Digital_Cibercafé"
+
+msgid "Digital_Cinema or Betting"
+msgstr "Digital_Cinema ou Apostas"
+
+msgid "Retail_Other"
+msgstr "Retalho_Outros"
+
+msgid "Agricultural_Cold Room"
+msgstr "Agrícola_Câmara Fria"
+
+msgid "Health_Health Centre"
+msgstr "Saúde_Centro de Saúde"
+
+msgid "Health_Clinic"
+msgstr "Saúde_Clínica"
+
+msgid "Health_CHPS"
+msgstr "Saúde_CHPS"
+
+msgid "Education_Primary School"
+msgstr "Educação_Escola Primária"
+
+msgid "Education_Secondary School"
+msgstr "Educação_Escola Secundária"
+
+msgid "Education_Trade School"
+msgstr "Educação_Escola Profissional"
+
+msgid "Education_School_noICT"
+msgstr "Educação_Escola_sem_TIC"
+
+msgid "Public_Police Station"
+msgstr "Público_Esquadra de Polícia"
+
+msgid "Public_Military Barrack"
+msgstr "Público_Quartel Militar"
+
+msgid "Public_Administration Office"
+msgstr "Público_Gabinete Administrativo"
+
+msgid "Public_Community Hall or Youth Center"
+msgstr "Público_Salão Comunitário ou Centro Juvenil"
+
+msgid "Public_Pump Station"
+msgstr "Público_Estação de Bombeamento"
+
+msgid "Public_Lighting"
+msgstr "Público_Iluminação Pública"
+
+msgid "Public_Church"
+msgstr "Público_Igreja"
+
+msgid "Public_Mosque"
+msgstr "Público_Mesquita"
+
+msgid "Public_Telecommunications"
+msgstr "Público_Telecomunicações"
+
+msgid "Watch video tutorial for further explanation of this parameter"
+msgstr "Veja o tutorial em vídeo para obter mais explicações sobre este parâmetro"
+
+msgid "Years"
+msgstr "anos"
+
+msgid "currency/pole"
+msgstr "currency/poste"
+
+msgid "currency/con"
+msgstr "currency/ligação"
+
+msgid "currency/kW/year"
+msgstr "currency/kW/ano"
+
+msgid "currency/kWh/year"
+msgstr "currency/kWh/ano"
