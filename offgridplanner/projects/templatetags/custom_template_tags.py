@@ -39,6 +39,14 @@ def has_field(form, key):
 
 
 @register.filter
+def custom_redir_lang(url_fullpath):
+    # see https://stackoverflow.com/questions/67234400/django-i18n-language-switcher-not-working-on-deploy-at-subdirectory
+    ls_urls = url_fullpath.split("/")
+    del ls_urls[1]
+    return "/".join(ls_urls)
+
+
+@register.filter
 def divide(value, arg):
     try:
         return float(value) / float(arg)
