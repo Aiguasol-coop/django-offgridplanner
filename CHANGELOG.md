@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Portuguese translations
+
+### Fixed
+- PDF Export issues
+- Default parameters
 
 ## [v1.1.6-moz.2.4] – 2026-03-27
 ### Changed
