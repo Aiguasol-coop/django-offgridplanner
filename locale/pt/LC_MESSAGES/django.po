@@ -315,17 +315,18 @@ msgid ""
 "mandatorily connected to the grid, or if the decision should be left to the "
 "optimizer based on the set threshold."
 msgstr ""
-"O processo de planeamento off-grid identifica consumidores para os quais os custos de ligação "
-"ultrapassam um determinado limiar durante a otimização da rede. Do ponto de vista económico, "
-"pode não ser viável ligar estes consumidores à rede. Em vez disso, equipá-los "
-"com um sistema solar doméstico é uma solução mais viável. Mais detalhes "
-"sobre esta opção estão disponíveis na página de Grid-Design. Além disso, esta "
-"página oferece uma opção para ajustar o limiar, garantindo que todos os consumidores possam "
-"ligar-se à rede. Nesta mesma página, também tem a possibilidade de "
-"determinar manualmente o estado de ligação de consumidores específicos, como "
-"escolas e centros de saúde. Pode decidir se estas entidades devem ser "
-"obrigatoriamente ligadas à rede ou se a decisão deve ser deixada ao "
-"otimizador com base no limiar definido."
+"O processo de planeamento off-grid identifica consumidores para os quais os "
+"custos de ligação ultrapassam um determinado limiar durante a otimização da "
+"rede. Do ponto de vista económico, pode não ser viável ligar estes "
+"consumidores à rede. Em vez disso, equipá-los com um sistema solar doméstico "
+"é uma solução mais viável. Mais detalhes sobre esta opção estão disponíveis "
+"na página de Grid-Design. Além disso, esta página oferece uma opção para "
+"ajustar o limiar, garantindo que todos os consumidores possam ligar-se à "
+"rede. Nesta mesma página, também tem a possibilidade de determinar "
+"manualmente o estado de ligação de consumidores específicos, como escolas e "
+"centros de saúde. Pode decidir se estas entidades devem ser obrigatoriamente "
+"ligadas à rede ou se a decisão deve ser deixada ao otimizador com base no "
+"limiar definido."
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:65
 msgid "Delete Consumer"
@@ -396,9 +397,9 @@ msgid ""
 "with subsequent rows containing the respective values. The file must include "
 "a \\"
 msgstr ""
-"A primeira linha do ficheiro CSV ou Excel deve conter os cabeçalhos das colunas, "
-"com as linhas subsequentes contendo os respectivos valores. O ficheiro deve incluir "
-"uma \\"
+"A primeira linha do ficheiro CSV ou Excel deve conter os cabeçalhos das "
+"colunas, com as linhas subsequentes contendo os respectivos valores. O "
+"ficheiro deve incluir uma \\"
 
 #: .\offgridplanner\templates\pages\consumer_selection.html:243
 msgid "Number"
@@ -439,7 +440,9 @@ msgstr "Utilizar séries temporais de procura personalizadas:"
 #: .\offgridplanner\templates\pages\simulation_results.html:448
 msgid ""
 "Electricity Demand Profile Illustration: First Monday of Simulation Period"
-msgstr "Ilustração do perfil da procura de eletricidade: primeira segunda-feira do período de simulação"
+msgstr ""
+"Ilustração do perfil da procura de eletricidade: primeira segunda-feira do "
+"período de simulação"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:61
 msgid "Show Total Demand"
@@ -451,7 +454,9 @@ msgstr "Visualizar perfil de uma única família"
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:75
 msgid "Set Own Custom Shares of Households Allocated per Consumption Category"
-msgstr "Defina as suas próprias quotas personalizadas de famílias alocadas por categoria de consumo."
+msgstr ""
+"Defina as suas próprias quotas personalizadas de famílias alocadas por "
+"categoria de consumo."
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:77
 msgid "You have entered"
@@ -460,7 +465,7 @@ msgstr "Introduziu"
 #: .\offgridplanner\templates\pages\demand_estimation.html:79
 #, python-format
 msgid "out of 100%%."
-msgstr "de 100%."
+msgstr "de 100%%."
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:93
 #, python-format
@@ -492,7 +497,9 @@ msgid ""
 "chosen together. <br> This is compatible with choosing custom percentage "
 "shares of consumption categories, but the total will be re-scaled "
 "accordingly."
-msgstr "Estas opções irão calibrar o perfil da procura total da comunidade para definir o valor."
+msgstr ""
+"Estas opções irão calibrar o perfil da procura total da comunidade para "
+"definir o valor."
 
 #: .\offgridplanner\templates\pages\demand_estimation.html:220
 msgid "Import Demand"
@@ -643,8 +650,9 @@ msgstr "O projeto foi transferido com sucesso para a fase de monitorização!"
 msgid ""
 "Enter the monitoring ID that is used to track the mini-grid status on the "
 "FUNAE smart data system."
-msgstr "Introduza o ID de monitorização utilizado para acompanhar o estado da mini-rede no sistema de dados inteligentes "
-"FUNAE."
+msgstr ""
+"Introduza o ID de monitorização utilizado para acompanhar o estado da mini-"
+"rede no sistema de dados inteligentes FUNAE."
 
 #: .\offgridplanner\templates\pages\user_projects.html:58
 msgid "Are you sure you want to delete the project?"
@@ -654,6 +662,10 @@ msgstr "Tem a certeza de que pretende eliminar o projeto?"
 msgid "ID"
 msgstr "ID"
 
+# #-#-#-#-#  django.po (0.1.0)  #-#-#-#-#
+# form_parameters.csv translation strings
+# #-#-#-#-#  django.po (0.1.0)  #-#-#-#-#
+# output_kpis.csv translation strings
 #: .\offgridplanner\templates\pages\user_projects.html:104
 msgid "Project Name"
 msgstr "Nome do projeto"
@@ -691,7 +703,8 @@ msgstr "Criar modelo de exemplo"
 msgid ""
 "You have not created any projects yet. Would you like a sample project to be "
 "set up for you?"
-msgstr "Ainda não criou nenhum projeto. Gostaria que um projeto de exemplo fosse "
+msgstr ""
+"Ainda não criou nenhum projeto. Gostaria que um projeto de exemplo fosse "
 "configurado para si?"
 
 #: .\offgridplanner\templates\pages\user_projects.html:198
@@ -769,11 +782,6 @@ msgstr "endereço de e-mail"
 msgid "Information successfully updated"
 msgstr "Informação atualizada com sucesso"
 
-
-# form_parameters.csv translation strings
-msgid "Project Name"
-msgstr "Nome do projeto"
-
 msgid "Project Description"
 msgstr "Descrição do projeto"
 
@@ -783,8 +791,17 @@ msgstr "Vida útil do projeto"
 msgid "Simulation Period"
 msgstr "Período de simulação"
 
+#, fuzzy
 msgid "Project Country"
-msgstr "País do Projeto"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do Projeto\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do projeto\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do Projeto\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do Projeto"
 
 msgid "Set Total Annual Consumption"
 msgstr "Definir o consumo anual total"
@@ -795,8 +812,17 @@ msgstr "Definir procura máxima"
 msgid "Lifetime"
 msgstr "Vida útil"
 
+#, fuzzy
 msgid "CapEx"
-msgstr "CapEx"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"CapEx\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Despesas de capital\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"CapEx\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"CapEx"
 
 msgid "Max. Length"
 msgstr "Comprimento máximo"
@@ -825,11 +851,29 @@ msgstr "Capacidade"
 msgid "OpEx"
 msgstr "OpEx"
 
+#, fuzzy
 msgid "Min. SOC"
-msgstr "Min. SOC"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Min. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Min. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Mín. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Mín. SOC"
 
+#, fuzzy
 msgid "Max. SOC"
-msgstr "Max. SOC"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Max. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Max. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Max. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Máx. SOC"
 
 msgid "C-Rate in"
 msgstr "C-Rate in"
@@ -891,77 +935,114 @@ msgstr "Escassez máxima a cada intervalo de tempo"
 msgid "Shortage Penalty Cost"
 msgstr "Custo da penalização por falta de fundos"
 
-msgid "Project Name"
-msgstr "Nome do projeto"
+msgid ""
+"The interest rate in investment calculations signifies the cost of capital "
+"and the potential return from an alternative investment of similar risk. It "
+"helps express the time value of money, crucial for determining the present "
+"value of future cash flows. This assists in evaluating and comparing "
+"investment opportunities. Default value of 12.3% is taken from World Bank "
+"reported average lending interest rate data of 2022. Please make sure to "
+"check this value for your project."
+msgstr ""
+"A taxa de juro nos cálculos de investimento representa o custo de capital e "
+"o potencial retorno de um investimento alternativo com risco semelhante. "
+"Ajuda a expressar o valor do dinheiro no tempo, crucial para determinar o "
+"valor presente dos fluxos de caixa futuros. Este auxilia na avaliação e "
+"comparação de oportunidades de investimento. O valor padrão de 12,3% foi "
+"obtido a partir dos dados da taxa de juro média para empréstimos divulgados "
+"pelo Banco Mundial em 2022. Certifique-se de que verifica este valor para o "
+"seu projeto."
 
-msgid "Project Description"
-msgstr "Descrição do projeto"
+msgid ""
+"The period during which the system will be in operation. Components whose "
+"lifetime is below that of the project lifetime must be replaced during "
+"operation, which will be taken into account in the cost calculation. In "
+"addition, the residual value of the components is determined at the end of "
+"the project lifetime."
+msgstr ""
+"O período durante o qual o sistema estará em funcionamento. Os componentes "
+"cuja vida útil seja inferior à vida útil do projeto deverão ser substituídos "
+"durante a operação, o que será considerado no cálculo dos custos. Além "
+"disso, o valor residual dos componentes é determinado no final da vida útil "
+"do projeto."
 
-msgid "The interest rate in investment calculations signifies the cost of capital and the potential return from an alternative investment of similar risk. It helps express the time value of money, crucial for determining the present value of future cash flows. This assists in evaluating and comparing investment opportunities. Default value of 12.3% is taken from World Bank reported average lending interest rate data of 2022. Please make sure to check this value for your project."
-msgstr "A taxa de juro nos cálculos de investimento representa o custo de capital e o potencial retorno de um investimento alternativo com risco semelhante. Ajuda a expressar o valor do dinheiro no tempo, crucial para determinar o valor presente dos fluxos de caixa futuros. Este auxilia na avaliação e comparação de oportunidades de investimento. O valor padrão de 12,3% foi obtido a partir dos dados da taxa de juro média para empréstimos divulgados pelo Banco Mundial em 2022. Certifique-se de que verifica este valor para o seu projeto."
+msgid ""
+"Number of days used for the modelling period. For economic calculations, the "
+"project lifetime will be used."
+msgstr ""
+"Número de dias utilizados para o período de modelação. Para os cálculos "
+"económicos, será utilizado o tempo de vida útil do projeto."
 
-msgid "Project Lifetime"
-msgstr "Vida útil do projeto"
-
-msgid "The period during which the system will be in operation. Components whose lifetime is below that of the project lifetime must be replaced during operation, which will be taken into account in the cost calculation. In addition, the residual value of the components is determined at the end of the project lifetime."
-msgstr "O período durante o qual o sistema estará em funcionamento. Os componentes cuja vida útil seja inferior à vida útil do projeto deverão ser substituídos durante a operação, o que será considerado no cálculo dos custos. Além disso, o valor residual dos componentes é determinado no final da vida útil do projeto."
-
-msgid "Simulation Period"
-msgstr "Período de simulação"
-
-msgid "Number of days used for the modelling period. For economic calculations, the project lifetime will be used."
-msgstr "Número de dias utilizados para o período de modelação. Para os cálculos económicos, será utilizado o tempo de vida útil do projeto."
-
-msgid "Project Country"
-msgstr "País do projeto"
-
-msgid "Country for the project. The country will be used to center map features on the correct location, but will have no impact on the default demand profiles used, which are specific to the base country of the tool."
-msgstr "País do projeto. O país será utilizado para centrar os elementos do mapa na localização correta, mas não terá impacto nos perfis de procura padrão utilizados, que são específicos para o país base da ferramenta."
+msgid ""
+"Country for the project. The country will be used to center map features on "
+"the correct location, but will have no impact on the default demand profiles "
+"used, which are specific to the base country of the tool."
+msgstr ""
+"País do projeto. O país será utilizado para centrar os elementos do mapa na "
+"localização correta, mas não terá impacto nos perfis de procura padrão "
+"utilizados, que são específicos para o país base da ferramenta."
 
 msgid "Assumed type of settlement (isolated or peri-urban)"
 msgstr "Tipo de assentamento presumível (isolado ou periurbano)"
 
-msgid "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-urban: 0.6kWh/day)"
-msgstr "Percentagem de agregados familiares com uma procura muito baixa (isolados: 0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
+msgid ""
+"Percentage of households with very low demand (isolated: 0.3kWh/day / peri-"
+"urban: 0.6kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com uma procura muito baixa (isolados: "
+"0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
 
-msgid "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: 1.5kWh/day)"
-msgstr "Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/dia / periurbanos: 1,5 kWh/dia)"
+msgid ""
+"Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: "
+"1.5kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/"
+"dia / periurbanos: 1,5 kWh/dia)"
 
-msgid "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-urban: 2.2kWh/day)"
-msgstr "Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/dia / periurbanos: 2,2 kWh/dia)"
+msgid ""
+"Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-"
+"urban: 2.2kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/"
+"dia / periurbanos: 2,2 kWh/dia)"
 
-msgid "Percentage of households with high demand (isolated: 2.4kWh/day / peri-urban: 2.9kWh/day)"
-msgstr "Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/dia / periurbanos: 2,9 kWh/dia)"
+msgid ""
+"Percentage of households with high demand (isolated: 2.4kWh/day / peri-"
+"urban: 2.9kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/"
+"dia / periurbanos: 2,9 kWh/dia)"
 
-msgid "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-urban: 3.4kWh/day)"
-msgstr "Percentagem de agregados familiares com uma procura muito elevada (isolados: 2,9 kWh/dia / periurbanos: 3,4 kWh/dia)"
-
-msgid "Set Total Annual Consumption"
-msgstr "Definir o consumo anual total"
+msgid ""
+"Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-"
+"urban: 3.4kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com uma procura muito elevada (isolados: "
+"2,9 kWh/dia / periurbanos: 3,4 kWh/dia)"
 
 msgid "The demand curve will be scaled to meet the given total demand"
-msgstr "A curva da procura será dimensionada para satisfazer a procura total fornecida."
-
-msgid "Set Peak Demand"
-msgstr "Definir procura máxima"
+msgstr ""
+"A curva da procura será dimensionada para satisfazer a procura total "
+"fornecida."
 
 msgid "The demand curve will be scaled to meet the given peak demand"
-msgstr "A curva da procura será dimensionada para satisfazer a procura máxima especificada."
+msgstr ""
+"A curva da procura será dimensionada para satisfazer a procura máxima "
+"especificada."
 
-msgid "Lifetime"
-msgstr "Vida útil"
+msgid ""
+"Lifespan of the component, after expiration a replacement investment must be "
+"made"
+msgstr ""
+"Vida útil do componente; após o vencimento, é necessário fazer um "
+"investimento para o substituir."
 
-msgid "Lifespan of the component, after expiration a replacement investment must be made"
-msgstr "Vida útil do componente; após o vencimento, é necessário fazer um investimento para o substituir."
-
-msgid "CapEx"
-msgstr "Despesas de capital"
-
-msgid "Capital Expenditure (CapEx) is the money that has to be spent to purchase the component"
-msgstr "As despesas de capital (CapEx) são os recursos financeiros necessários para adquirir um componente."
-
-msgid "Max. Length"
-msgstr "Comprimento máximo"
+msgid ""
+"Capital Expenditure (CapEx) is the money that has to be spent to purchase "
+"the component"
+msgstr ""
+"As despesas de capital (CapEx) são os recursos financeiros necessários para "
+"adquirir um componente."
 
 msgid "Maximum allowed length of the distribution cable"
 msgstr "Comprimento máximo permitido do cabo de distribuição"
@@ -969,417 +1050,58 @@ msgstr "Comprimento máximo permitido do cabo de distribuição"
 msgid "Maximum allowed length of the connection cable"
 msgstr "Comprimento máximo permitido do cabo de ligação"
 
-msgid "Max. Number of Connections"
-msgstr "Número máximo de ligações"
-
 msgid "Maximum number of consumers that can be connected to one pole"
 msgstr "Número máximo de consumidores que podem ser ligados a um poste."
 
-msgid "Connection Cost"
-msgstr "Custo de ligação"
-
-msgid "Costs that arise when connecting a consumer in addition to the material costs of the cable."
-msgstr "Custos que surgem ao ligar um consumidor, para além dos custos do material do cabo."
-
-msgid "Solar Home Systems"
-msgstr "Sistemas solares residenciais"
-
-msgid "For each consumer, specific costs of grid connection are calculated and related to the consumer's consumption. If the threshold value is exceeded, a grid connection is forgone and instead a solar home system is recommended"
-msgstr "Para cada consumidor, os custos específicos de ligação à rede elétrica são calculados e relacionados com o seu consumo. Se o valor limite for excedido, a ligação à rede é dispensada e, em vez disso, é recomendado um sistema de energia solar residencial."
-
-msgid "Max. Specific Grid Cost"
-msgstr "Custo máximo específico da grelha"
-
-msgid "Battery"
-msgstr "Bateria"
-
-msgid "Optimize Capacity"
-msgstr "Otimizar a capacidade"
-
-msgid "Capacity"
-msgstr "Capacidade"
-
-msgid "OpEx"
-msgstr "OpEx"
-
-msgid "Operating Expense (OpEx) is the cost associated with the operation of the component"
-msgstr "A despesa operacional (OpEx) é o custo associado à operação do componente."
-
-msgid "Min. SOC"
-msgstr "Min. SOC"
-
-msgid "Minimum State of Charge (SOC) of a battery refers to the lowest level at which the battery is allowed to discharge in order to prevent damage and prolong its lifespan"
-msgstr "O Estado Mínimo de Carga (SOC) de uma bateria refere-se ao nível mais baixo a que a bateria pode ser descarregada para evitar danos e prolongar a sua vida útil."
-
-msgid "Max. SOC"
-msgstr "Max. SOC"
-
-msgid "Maximum State of Charge (SOC) of a battery refers to the highest level at which the battery can be safely charged to prevent overcharging and ensure longevity"
-msgstr "O Estado Máximo de Carga (SOC) de uma bateria refere-se ao nível mais elevado a que a bateria pode ser carregada em segurança para evitar a sobrecarga e garantir a sua longevidade."
-
-msgid "C-Rate in"
-msgstr "C-Rate in"
-
-msgid "C-Rate out"
-msgstr "C-Rate out"
-
-msgid "Roundtrip Efficiency"
-msgstr "Eficiência de ida e volta"
-
-msgid "Diesel Genset"
-msgstr "Grupo gerador a diesel"
-
-msgid "Operating Expense (OpEx) refers to the fixed annual costs incurred in the operation of a component, specifically excluding fuel and other variable expenses"
-msgstr "As despesas operacionais (OpEx) referem-se aos custos fixos anuais incorridos na operação de um componente, excluindo especificamente o combustível e outras despesas variáveis."
-
-msgid "Variable Cost"
-msgstr "Custo variável"
-
-msgid "Fuel Cost"
-msgstr "Custo do combustível"
-
-msgid "Fuel LHV"
-msgstr "Combustível LHV"
-
-msgid "Min. Efficiency"
-msgstr "Eficiência mínima"
-
-msgid "Max. Efficiency"
-msgstr "Eficiência máxima"
-
-msgid "Min. Load"
-msgstr "Carga mínima"
-
-msgid "Max. Load"
-msgstr "Carga máxima"
-
-msgid "Inverter"
-msgstr "Inversor"
-
-msgid "Efficiency"
-msgstr "Eficiência"
-
-msgid "PV"
-msgstr "PV"
-
-msgid "Charger"
-msgstr "Carregador"
-
-msgid "Shortage"
-msgstr "Escassez"
-
-msgid "Max. Total Shortage"
-msgstr "Escassez máxima total"
-
-msgid "Max. Shortage Each Timestep"
-msgstr "Escassez máxima a cada intervalo de tempo"
-
-msgid "Shortage Penalty Cost"
-msgstr "Custo da penalização por falta de fundos"
-
-# output_kpis.csv translation strings
-msgid "Project Name"
-msgstr "Nome do projeto"
-
-msgid "Project Description"
-msgstr "Descrição do projeto"
-
-msgid "Project Lifetime"
-msgstr "Vida útil do projeto"
-
-msgid "Simulation Period"
-msgstr "Período de simulação"
-
-msgid "Project Country"
-msgstr "País do Projeto"
-
-msgid "Set Total Annual Consumption"
-msgstr "Definir o consumo anual total"
-
-msgid "Set Peak Demand"
-msgstr "Definir procura máxima"
-
-msgid "Lifetime"
-msgstr "Vida útil"
-
-msgid "CapEx"
-msgstr "CapEx"
-
-msgid "Max. Length"
-msgstr "Comprimento máximo"
-
-msgid "Max. Number of Connections"
-msgstr "Número máximo de ligações"
-
-msgid "Connection Cost"
-msgstr "Custo de ligação"
-
-msgid "Solar Home Systems"
-msgstr "Sistemas solares residenciais"
-
-msgid "Max. Specific Grid Cost"
-msgstr "Custo máximo específico da grelha"
-
-msgid "Battery"
-msgstr "Bateria"
-
-msgid "Optimize Capacity"
-msgstr "Otimizar a capacidade"
-
-msgid "Capacity"
-msgstr "Capacidade"
-
-msgid "OpEx"
-msgstr "OpEx"
-
-msgid "Min. SOC"
-msgstr "Mín. SOC"
-
-msgid "Max. SOC"
-msgstr "Max. SOC"
-
-msgid "C-Rate in"
-msgstr "C-Rate in"
-
-msgid "C-Rate out"
-msgstr "C-Rate out"
-
-msgid "Roundtrip Efficiency"
-msgstr "Eficiência de ida e volta"
-
-msgid "Diesel Genset"
-msgstr "Grupo gerador a diesel"
-
-msgid "Variable Cost"
-msgstr "Custo variável"
-
-msgid "Fuel Cost"
-msgstr "Custo do combustível"
-
-msgid "Fuel LHV"
-msgstr "Combustível LHV"
-
-msgid "Min. Efficiency"
-msgstr "Eficiência mínima"
-
-msgid "Max. Efficiency"
-msgstr "Eficiência máxima"
-
-msgid "Min. Load"
-msgstr "Carga mínima"
-
-msgid "Max. Load"
-msgstr "Carga máxima"
-
-msgid "Inverter"
-msgstr "Inversor"
-
-msgid "Efficiency"
-msgstr "Eficiência"
-
-msgid "PV"
-msgstr "PV"
-
-msgid "Charger"
-msgstr "Carregador"
-
-msgid "Shortage"
-msgstr "Escassez"
-
-msgid "Max. Total Shortage"
-msgstr "Escassez máxima total"
-
-msgid "Max. Shortage Each Timestep"
-msgstr "Escassez máxima a cada intervalo de tempo"
-
-msgid "Shortage Penalty Cost"
-msgstr "Custo da penalização por falta de fundos"
-
-msgid "Project Name"
-msgstr "Nome do projeto"
-
-msgid "Project Description"
-msgstr "Descrição do projeto"
-
-msgid "The interest rate in investment calculations signifies the cost of capital and the potential return from an alternative investment of similar risk. It helps express the time value of money, crucial for determining the present value of future cash flows. This assists in evaluating and comparing investment opportunities. Default value of 12.3% is taken from World Bank reported average lending interest rate data of 2022. Please make sure to check this value for your project."
-msgstr "A taxa de juro nos cálculos de investimento representa o custo de capital e o potencial retorno de um investimento alternativo com risco semelhante. Ajuda a expressar o valor do dinheiro no tempo, crucial para determinar o valor presente dos fluxos de caixa futuros. Este auxilia na avaliação e comparação de oportunidades de investimento. O valor padrão de 12,3% foi obtido a partir dos dados da taxa de juro média para empréstimos divulgados pelo Banco Mundial em 2022. Certifique-se de que verifica este valor para o seu projeto."
-
-msgid "Project Lifetime"
-msgstr "Vida útil do projeto"
-
-msgid "The period during which the system will be in operation. Components whose lifetime is below that of the project lifetime must be replaced during operation, which will be taken into account in the cost calculation. In addition, the residual value of the components is determined at the end of the project lifetime."
-msgstr "O período durante o qual o sistema estará em funcionamento. Os componentes cuja vida útil seja inferior à vida útil do projeto deverão ser substituídos durante a operação, o que será considerado no cálculo dos custos. Além disso, o valor residual dos componentes é determinado no final da vida útil do projeto."
-
-msgid "Simulation Period"
-msgstr "Período de simulação"
-
-msgid "Number of days used for the modelling period. For economic calculations, the project lifetime will be used."
-msgstr "Número de dias utilizados para o período de modelação. Para os cálculos económicos, será utilizado o tempo de vida útil do projeto."
-
-msgid "Project Country"
-msgstr "País do Projeto"
-
-msgid "Country for the project. The country will be used to center map features on the correct location, but will have no impact on the default demand profiles used, which are specific to the base country of the tool."
-msgstr "País do projeto. O país será utilizado para centrar os elementos do mapa na localização correta, mas não terá impacto nos perfis de procura padrão utilizados, que são específicos para o país base da ferramenta."
-
-msgid "Assumed type of settlement (isolated or peri-urban)"
-msgstr "Tipo de assentamento presumível (isolado ou periurbano)"
-
-msgid "Percentage of households with very low demand (isolated: 0.3kWh/day / peri-urban: 0.6kWh/day)"
-msgstr "Percentagem de agregados familiares com uma procura muito baixa (isolados: 0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
-
-msgid "Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: 1.5kWh/day)"
-msgstr "Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/dia / periurbanos: 1,5 kWh/dia)"
-
-msgid "Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-urban: 2.2kWh/day)"
-msgstr "Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/dia / periurbanos: 2,2 kWh/dia)"
-
-msgid "Percentage of households with high demand (isolated: 2.4kWh/day / peri-urban: 2.9kWh/day)"
-msgstr "Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/dia / periurbanos: 2,9 kWh/dia)"
-
-msgid "Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-urban: 3.4kWh/day)"
-msgstr "Percentagem de agregados familiares com uma procura muito elevada (isolados: 2,9 kWh/dia / periurbanos: 3,4 kWh/dia)"
-
-msgid "Set Total Annual Consumption"
-msgstr "Definir o consumo anual total"
-
-msgid "The demand curve will be scaled to meet the given total demand"
-msgstr "A curva da procura será dimensionada para satisfazer a procura total fornecida."
-
-msgid "Set Peak Demand"
-msgstr "Definir procura máxima"
-
-msgid "The demand curve will be scaled to meet the given peak demand"
-msgstr "A curva da procura será dimensionada para satisfazer a procura máxima especificada."
-
-msgid "Lifetime"
-msgstr "Vida útil"
-
-msgid "Lifespan of the component, after expiration a replacement investment must be made"
-msgstr "Vida útil do componente; após o vencimento, é necessário fazer um investimento para o substituir."
-
-msgid "CapEx"
-msgstr "CapEx"
-
-msgid "Capital Expenditure (CapEx) is the money that has to be spent to purchase the component"
-msgstr "As despesas de capital (CapEx) são os recursos financeiros necessários para adquirir um componente."
-
-msgid "Max. Length"
-msgstr "Comprimento máximo"
-
-msgid "Maximum allowed length of the distribution cable"
-msgstr "Comprimento máximo permitido do cabo de distribuição"
-
-msgid "Maximum allowed length of the connection cable"
-msgstr "Comprimento máximo permitido do cabo de ligação"
-
-msgid "Max. Number of Connections"
-msgstr "Número máximo de ligações"
-
-msgid "Maximum number of consumers that can be connected to one pole"
-msgstr "Número máximo de consumidores que podem ser ligados a um poste."
-
-msgid "Connection Cost"
-msgstr "Custo de ligação"
-
-msgid "Costs that arise when connecting a consumer in addition to the material costs of the cable."
-msgstr "Custos que surgem ao ligar um consumidor, para além dos custos do material do cabo."
-
-msgid "Solar Home Systems"
-msgstr "Sistemas solares residenciais"
-
-msgid "For each consumer, specific costs of grid connection are calculated and related to the consumer's consumption. If the threshold value is exceeded, a grid connection is forgone and instead a solar home system is recommended"
-msgstr "Para cada consumidor, os custos específicos de ligação à rede elétrica são calculados e relacionados com o seu consumo. Se o valor limite for excedido, a ligação à rede é dispensada e, em vez disso, é recomendado um sistema de energia solar residencial."
-
-msgid "Max. Specific Grid Cost"
-msgstr "Custo máximo específico da grelha"
-
-msgid "Battery"
-msgstr "Bateria"
-
-msgid "Optimize Capacity"
-msgstr "Otimizar a capacidade"
-
-msgid "Capacity"
-msgstr "Capacidade"
-
-msgid "OpEx"
-msgstr "OpEx"
-
-msgid "Operating Expense (OpEx) is the cost associated with the operation of the component"
-msgstr "A despesa operacional (OpEx) é o custo associado à operação do componente."
-
-msgid "Min. SOC"
-msgstr "Mín. SOC"
-
-msgid "Minimum State of Charge (SOC) of a battery refers to the lowest level at which the battery is allowed to discharge in order to prevent damage and prolong its lifespan"
-msgstr "O Estado Mínimo de Carga (SOC) de uma bateria refere-se ao nível mais baixo a que a bateria pode ser descarregada para evitar danos e prolongar a sua vida útil."
-
-msgid "Max. SOC"
-msgstr "Máx. SOC"
-
-msgid "Maximum State of Charge (SOC) of a battery refers to the highest level at which the battery can be safely charged to prevent overcharging and ensure longevity"
-msgstr "O Estado Máximo de Carga (SOC) de uma bateria refere-se ao nível mais elevado a que a bateria pode ser carregada em segurança para evitar a sobrecarga e garantir a sua longevidade."
-
-msgid "C-Rate in"
-msgstr "C-Rate in"
-
-msgid "C-Rate out"
-msgstr "C-Rate out"
-
-msgid "Roundtrip Efficiency"
-msgstr "Eficiência de ida e volta"
-
-msgid "Diesel Genset"
-msgstr "Grupo gerador a diesel"
-
-msgid "Operating Expense (OpEx) refers to the fixed annual costs incurred in the operation of a component, specifically excluding fuel and other variable expenses"
-msgstr "As despesas operacionais (OpEx) referem-se aos custos fixos anuais incorridos na operação de um componente, excluindo especificamente o combustível e outras despesas variáveis."
-
-msgid "Variable Cost"
-msgstr "Custo variável"
-
-msgid "Fuel Cost"
-msgstr "Custo do combustível"
-
-msgid "Fuel LHV"
-msgstr "Combustível LHV"
-
-msgid "Min. Efficiency"
-msgstr "Eficiência mínima"
-
-msgid "Max. Efficiency"
-msgstr "Eficiência máxima"
-
-msgid "Min. Load"
-msgstr "Carga mínima"
-
-msgid "Max. Load"
-msgstr "Carga máxima"
-
-msgid "Inverter"
-msgstr "Inversor"
-
-msgid "Efficiency"
-msgstr "Eficiência"
-
-msgid "PV"
-msgstr "PV"
-
-msgid "Charger"
-msgstr "Carregador"
-
-msgid "Shortage"
-msgstr "Escassez"
-
-msgid "Max. Total Shortage"
-msgstr "Escassez máxima total"
-
-msgid "Max. Shortage Each Timestep"
-msgstr "Escassez máxima a cada intervalo de tempo"
-
-msgid "Shortage Penalty Cost"
-msgstr "Custo da penalização por falta de fundos"
+msgid ""
+"Costs that arise when connecting a consumer in addition to the material "
+"costs of the cable."
+msgstr ""
+"Custos que surgem ao ligar um consumidor, para além dos custos do material "
+"do cabo."
+
+msgid ""
+"For each consumer, specific costs of grid connection are calculated and "
+"related to the consumer's consumption. If the threshold value is exceeded, a "
+"grid connection is forgone and instead a solar home system is recommended"
+msgstr ""
+"Para cada consumidor, os custos específicos de ligação à rede elétrica são "
+"calculados e relacionados com o seu consumo. Se o valor limite for excedido, "
+"a ligação à rede é dispensada e, em vez disso, é recomendado um sistema de "
+"energia solar residencial."
+
+msgid ""
+"Operating Expense (OpEx) is the cost associated with the operation of the "
+"component"
+msgstr ""
+"A despesa operacional (OpEx) é o custo associado à operação do componente."
+
+msgid ""
+"Minimum State of Charge (SOC) of a battery refers to the lowest level at "
+"which the battery is allowed to discharge in order to prevent damage and "
+"prolong its lifespan"
+msgstr ""
+"O Estado Mínimo de Carga (SOC) de uma bateria refere-se ao nível mais baixo "
+"a que a bateria pode ser descarregada para evitar danos e prolongar a sua "
+"vida útil."
+
+msgid ""
+"Maximum State of Charge (SOC) of a battery refers to the highest level at "
+"which the battery can be safely charged to prevent overcharging and ensure "
+"longevity"
+msgstr ""
+"O Estado Máximo de Carga (SOC) de uma bateria refere-se ao nível mais "
+"elevado a que a bateria pode ser carregada em segurança para evitar a "
+"sobrecarga e garantir a sua longevidade."
+
+msgid ""
+"Operating Expense (OpEx) refers to the fixed annual costs incurred in the "
+"operation of a component, specifically excluding fuel and other variable "
+"expenses"
+msgstr ""
+"As despesas operacionais (OpEx) referem-se aos custos fixos anuais "
+"incorridos na operação de um componente, excluindo especificamente o "
+"combustível e outras despesas variáveis."
 
 msgid "Number of Poles"
 msgstr "Número de pólos"
@@ -1409,10 +1131,14 @@ msgid "Levelized Cost of Electricity (w/o SHS)"
 msgstr "Custo Nivelado da Eletricidade (sem SHS)"
 
 msgid "Share of Grid-Related Costs in the LCOE"
-msgstr "Participação dos custos relacionados com a rede elétrica no LCOE (custo nivelado de energia)."
+msgstr ""
+"Participação dos custos relacionados com a rede elétrica no LCOE (custo "
+"nivelado de energia)."
 
 msgid "Share of Generation-Related Costs in LCOE"
-msgstr "Participação dos custos relacionados com a geração no LCOE (custo nivelado de energia)."
+msgstr ""
+"Participação dos custos relacionados com a geração no LCOE (custo nivelado "
+"de energia)."
 
 msgid "Renewable Energy Share"
 msgstr "Participação em Energias Renováveis"
