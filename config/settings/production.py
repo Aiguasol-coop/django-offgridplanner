@@ -169,7 +169,7 @@ LOGGING = {
 }
 
 # Set to True to see full traceback in prod logs
-DEBUG_PROPAGATE_EXCEPTIONS = False
+DEBUG_PROPAGATE_EXCEPTIONS = env.bool("DEBUG_PROPAGATE_EXCEPTIONS", default=False)
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
