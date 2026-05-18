@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.3.0] – 2026-05-18
 ### Added
 - Portuguese translations
 
