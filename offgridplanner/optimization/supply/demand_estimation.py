@@ -2,6 +2,7 @@ import logging
 
 import pandas as pd
 from django.forms import model_to_dict
+from django.utils.translation import gettext_lazy as _
 
 from offgridplanner.optimization.requests import fetch_demand_profiles
 
@@ -43,12 +44,12 @@ def prepare_load_profiles_data():
 LOAD_PROFILES = prepare_load_profiles_data()
 
 PUBLIC_SERVICE_LIST = [
-    profile.split("_", maxsplit=1)[1]
+    _(profile.split("_", maxsplit=1)[1])
     for profile in LOAD_PROFILES.columns
     if profile.split("_", maxsplit=1)[0] == "Public Service"
 ]
 ENTERPRISE_LIST = [
-    profile.split("_", maxsplit=1)[1]
+    _(profile.split("_", maxsplit=1)[1])
     for profile in LOAD_PROFILES.columns
     if (
         profile.split("_", maxsplit=1)[0] == "Enterprise"
@@ -56,7 +57,7 @@ ENTERPRISE_LIST = [
     )
 ]
 LARGE_LOAD_LIST = [
-    profile.split("_")[2]
+    _(profile.split("_")[2])
     for profile in LOAD_PROFILES.columns
     if (
         profile.split("_", maxsplit=1)[0] == "Enterprise"

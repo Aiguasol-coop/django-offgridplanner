@@ -1,0 +1,1461 @@
+# Translations for the Offgridplanner-Django project
+# Copyright (C) 2025 Reiner Lemoine Institute
+# Reiner Lemoine Institute <paula.preuss@rl-institut.com>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-30 10:46+0200\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\config\settings\base.py:35
+msgid "English"
+msgstr "Inglês"
+
+#: .\config\settings\base.py:36
+msgid "Portuguese"
+msgstr "Português"
+
+#: .\offgridplanner\projects\forms.py:33
+msgid "Demand estimation"
+msgstr "Estimativa de procura"
+
+#: .\offgridplanner\projects\forms.py:70
+msgid "Min. number of consumers"
+msgstr "Número mínimo de consumidores"
+
+#: .\offgridplanner\projects\forms.py:71
+msgid "Max. minigrid network distance [m]"
+msgstr "Distância máxima da mini rede [m]"
+
+#: .\offgridplanner\projects\forms.py:72
+msgid "Min. distance from national grid [m]"
+msgstr "Distância mínima da rede nacional [m]"
+
+#: .\offgridplanner\projects\forms.py:74
+msgid "Min. distance to an existing minigrid [m]"
+msgstr "Distância mínima a uma mini-rede existente [m]"
+
+#: .\offgridplanner\projects\forms.py:76
+msgid "Province"
+msgstr "Província"
+
+#: .\offgridplanner\projects\models.py:36
+#: .\offgridplanner\templates\pages\monitoring.html:38
+msgid "Monitoring"
+msgstr "Monitoramento"
+
+#: .\offgridplanner\projects\models.py:37
+#: .\offgridplanner\templates\pages\monitoring.html:34
+msgid "Analyzing"
+msgstr "Analisando"
+
+#: .\offgridplanner\projects\models.py:38
+#: .\offgridplanner\templates\pages\monitoring.html:30
+msgid "Potential"
+msgstr "Potencial"
+
+#: .\offgridplanner\steps\models.py:11
+msgid "Rural peri-urban"
+msgstr "Zona rural periurbana"
+
+#: .\offgridplanner\steps\models.py:12
+msgid "Rural isolated"
+msgstr "Zona rural isolada"
+
+#: .\offgridplanner\steps\views.py:41
+msgid "Project Setup"
+msgstr "Configuração do projeto"
+
+#: .\offgridplanner\steps\views.py:42
+msgid "Consumer Selection"
+msgstr "Seleção do consumidor"
+
+#: .\offgridplanner\steps\views.py:43
+#: .\offgridplanner\templates\pages\landing_page.html:99
+msgid "Demand Estimation"
+msgstr "Estimativa de procura"
+
+#: .\offgridplanner\steps\views.py:44
+msgid "Grid Design"
+msgstr "Design da rede"
+
+#: .\offgridplanner\steps\views.py:45
+msgid "Energy System Design"
+msgstr "Projeto de Sistemas de Energia"
+
+#: .\offgridplanner\steps\views.py:46
+msgid "Simulation Results"
+msgstr "Resultados da simulação"
+
+#: .\offgridplanner\templates\account\acc_active_email.html:3
+msgid "Hi"
+msgstr "Olá"
+
+#: .\offgridplanner\templates\account\acc_active_email.html:5
+msgid "Please click on the link to confirm your registration"
+msgstr "Por favor, clique no link para confirmar a sua inscrição."
+
+#: .\offgridplanner\templates\account\acc_active_email.html:9
+msgid "If you think, it's not you, then just ignore this email."
+msgstr "Se acha que o problema não é consigo, simplesmente ignore este e-mail."
+
+#: .\offgridplanner\templates\account\login.html:7
+msgid "Log In"
+msgstr "Conecte-se"
+
+#: .\offgridplanner\templates\account\login.html:17
+#: .\offgridplanner\templates\account\login.html:22
+msgid "Login"
+msgstr "Conecte-se"
+
+#: .\offgridplanner\templates\account\login.html:29
+msgid "Do you not have an account yet?"
+msgstr "Ainda não tem uma conta?"
+
+#: .\offgridplanner\templates\account\login.html:30
+#: .\offgridplanner\templates\account\signup.html:28
+#: .\offgridplanner\templates\navbar.html:109
+msgid "Sign up"
+msgstr "Cadastro"
+
+#: .\offgridplanner\templates\account\password_reset.html:4
+#: .\offgridplanner\templates\account\password_reset.html:11
+msgid "Password Reset"
+msgstr "Redefinição de senha"
+
+#: .\offgridplanner\templates\account\password_reset.html:17
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"Esqueceu sua senha? Digite seu endereço de e-mail abaixo e enviaremos um e-"
+"mail permitindo que você o redefina."
+
+#: .\offgridplanner\templates\account\password_reset.html:29
+msgid "Reset My Password"
+msgstr "Redefinir minha senha"
+
+#: .\offgridplanner\templates\account\password_reset.html:34
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Entre em contato conosco se tiver algum problema para redefinir sua senha."
+
+#: .\offgridplanner\templates\account\signup.html:20
+msgid "Welcome to the Offgridplanner"
+msgstr "Bem-vindo ao OffGridPlanner"
+
+#: .\offgridplanner\templates\account\signup.html:23
+msgid "Do you already have an account?"
+msgstr "Já possui uma conta?"
+
+#: .\offgridplanner\templates\account\signup.html:23
+#: .\offgridplanner\templates\navbar.html:102
+#: .\offgridplanner\templates\navbar.html:103
+msgid "Log in"
+msgstr "Conecte-se"
+
+#: .\offgridplanner\templates\account\verification_sent.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Verifique seu endereço de e-mail"
+
+#: .\offgridplanner\templates\account\verification_sent.html:9
+msgid ""
+"We have sent an email to you for verification. Follow the link provided to "
+"finalize the signup process. If you do not see the verification email in "
+"your main inbox, check your spam folder. Please contact us if you do not "
+"receive the verification email within a few minutes."
+msgstr ""
+"Enviamos um e-mail para você para verificação. Siga o link fornecido para "
+"finalizar o processo de inscrição. Entre em contato conosco se você não "
+"recebê-lo dentro de alguns minutos."
+
+#: .\offgridplanner\templates\allauth\layouts\entrance.html:13
+#: .\offgridplanner\templates\base-cookiecutter.html:89
+msgid "Sign In"
+msgstr "Entrar"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:74
+msgid "My Profile"
+msgstr "Meu perfil"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:78
+msgid "Sign Out"
+msgstr "Sair"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:84
+msgid "Sign Up"
+msgstr "Cadastro"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:123
+#: .\offgridplanner\templates\base.html:82
+#: .\offgridplanner\templates\navbar.html:85
+#: .\offgridplanner\templates\pages\training_tasks.html:407
+msgid "Contact"
+msgstr "Contacto"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:125
+msgid "License"
+msgstr "Licença"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:127
+#: .\offgridplanner\templates\base.html:85
+#: .\offgridplanner\templates\pages\training_tasks.html:410
+msgid "Imprint"
+msgstr "Impressum"
+
+#: .\offgridplanner\templates\base-cookiecutter.html:130
+#: .\offgridplanner\templates\base.html:88
+#: .\offgridplanner\templates\pages\training_tasks.html:413
+msgid "Privacy"
+msgstr "Privacidade"
+
+#: .\offgridplanner\templates\base.html:91
+#, python-format
+msgid " Version %(APP_VERSION_NUMBER)s "
+msgstr "Versão %(APP_VERSION_NUMBER)s"
+
+#: .\offgridplanner\templates\navbar.html:34
+msgid "Methodology"
+msgstr "Metodologia"
+
+#: .\offgridplanner\templates\navbar.html:75
+#: .\offgridplanner\templates\pages\simulation_results.html:173
+msgid "My Projects"
+msgstr "Os meus projetos"
+
+#: .\offgridplanner\templates\navbar.html:78
+msgid "Training Tasks"
+msgstr "Tarefas de treino"
+
+#: .\offgridplanner\templates\navbar.html:82
+msgid "Model Description"
+msgstr "Descrição do modelo"
+
+#: .\offgridplanner\templates\navbar.html:94
+msgid "Log out"
+msgstr "Sair"
+
+#: .\offgridplanner\templates\pages\calculating.html:23
+msgid "Model Calculation"
+msgstr "Cálculo do modelo"
+
+#: .\offgridplanner\templates\pages\calculating.html:27
+#: .\offgridplanner\templates\pages\demand_estimation.html:226
+msgid "Status:"
+msgstr "Estado:"
+
+#: .\offgridplanner\templates\pages\calculating.html:28
+msgid "Starting optimization..."
+msgstr "Iniciando a otimização..."
+
+#: .\offgridplanner\templates\pages\calculating.html:35
+msgid "Send email when calculation is finished."
+msgstr "Enviar e-mail quando o cálculo estiver concluído."
+
+#: .\offgridplanner\templates\pages\calculating.html:43
+msgid "Abort Calculation"
+msgstr "Cancelar cálculo"
+
+#: .\offgridplanner\templates\pages\calculating.html:52
+#: .\offgridplanner\templates\pages\consumer_selection.html:298
+msgid "Warning"
+msgstr "Aviso"
+
+#: .\offgridplanner\templates\pages\calculating.html:54
+msgid "Go to Page with Missing Data"
+msgstr "Aceda à página com dados em falta."
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:23
+msgid "Icon"
+msgstr "Ícone"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:44
+#: .\offgridplanner\templates\pages\demand_estimation.html:34
+msgid "Set Consumer Properties"
+msgstr "Definir as propriedades do consumidor"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:54
+msgid "Consumer Type"
+msgstr "Tipo de consumidor"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:55
+msgid "Consumer Category"
+msgstr "Categoria de Consumo"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:56
+msgid "Latitude"
+msgstr "Latitude"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:57
+msgid "Longitude"
+msgstr "Longitude"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:59
+msgid "Grid-/SHS-Options"
+msgstr "Opções de grelha/SHS"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:62
+msgid ""
+"The off-grid planning process identifies consumers for whom connection costs "
+"surpass a specified threshold during grid optimization. Economically, it may "
+"not be feasible to connect these consumers to the grid. Instead, equipping "
+"them with a solar home system is a more viable solution. Further details "
+"about this option are available on the Grid-Design page. Additionally, this "
+"page offers an option to adjust the threshold, ensuring all consumers can "
+"connect to the grid. On this very page, you also have the discretion to "
+"manually determine the connection status of specific consumers, such as "
+"schools and health centers. You can decide whether these entities should be "
+"mandatorily connected to the grid, or if the decision should be left to the "
+"optimizer based on the set threshold."
+msgstr ""
+"O processo de planeamento off-grid identifica consumidores para os quais os "
+"custos de ligação ultrapassam um determinado limiar durante a otimização da "
+"rede. Do ponto de vista económico, pode não ser viável ligar estes "
+"consumidores à rede. Em vez disso, equipá-los com um sistema solar doméstico "
+"é uma solução mais viável. Mais detalhes sobre esta opção estão disponíveis "
+"na página de Grid-Design. Além disso, esta página oferece uma opção para "
+"ajustar o limiar, garantindo que todos os consumidores possam ligar-se à "
+"rede. Nesta mesma página, também tem a possibilidade de determinar "
+"manualmente o estado de ligação de consumidores específicos, como escolas e "
+"centros de saúde. Pode decidir se estas entidades devem ser obrigatoriamente "
+"ligadas à rede ou se a decisão deve ser deixada ao otimizador com base no "
+"limiar definido."
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:65
+msgid "Delete Consumer"
+msgstr "Eliminar consumidor"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:73
+msgid "Household"
+msgstr "Agregado familiar"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:80
+msgid "Enterprise"
+msgstr "Empresa"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:80
+msgid "Public Service"
+msgstr "Serviço público"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:96
+#: .\offgridplanner\templates\pages\consumer_selection.html:111
+msgid "Degree"
+msgstr "Grau"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:117
+msgid "Optimize"
+msgstr "Otimizar"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:118
+msgid "Grid"
+msgstr "Rede"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:130
+#: .\offgridplanner\templates\pages\user_projects.html:57
+#: .\offgridplanner\templates\pages\user_projects.html:60
+#: .\offgridplanner\templates\pages\user_projects.html:148
+msgid "Delete"
+msgstr "Eliminar"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:145
+msgid "Number of Selected Households:"
+msgstr "Número de domicílios selecionados"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:149
+msgid "Number of Selected Enterprises:"
+msgstr "Número de empresas selecionadas:"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:153
+msgid "Number of Selected Public Services:"
+msgstr "Número de serviços públicos selecionados:"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:173
+msgid "Import Consumers"
+msgstr "Importar consumidores"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:183
+msgid "Export Consumers"
+msgstr "Exportar consumidores"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:191
+#: .\offgridplanner\templates\pages\demand_estimation.html:137
+msgid "File type: CSV"
+msgstr "Tipo de ficheiro: CSV"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:192
+#: .\offgridplanner\templates\pages\demand_estimation.html:138
+msgid "File type: XLSX"
+msgstr "Tipo de ficheiro: XLSX"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:197
+#: .\offgridplanner\templates\pages\demand_estimation.html:223
+msgid ""
+"The first row of the CSV or Excel file should contain the column headers, "
+"with subsequent rows containing the respective values. The file must include "
+"a \\"
+msgstr ""
+"A primeira linha do ficheiro CSV ou Excel deve conter os cabeçalhos das "
+"colunas, com as linhas subsequentes contendo os respectivos valores. O "
+"ficheiro deve incluir uma \\"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:243
+msgid "Number"
+msgstr "Número"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:274
+msgid "Search location"
+msgstr "Localização da pesquisa"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:302
+#: .\offgridplanner\templates\pages\consumer_selection.html:323
+msgid "OK"
+msgstr "OK"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:313
+msgid "Video Tutorial"
+msgstr "Tutorial em vídeo"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:326
+msgid "Don't Show Again"
+msgstr "Não mostrar novamente"
+
+#: .\offgridplanner\templates\pages\consumer_selection.html:338
+#: .\offgridplanner\templates\pages\demand_estimation.html:244
+#: .\offgridplanner\templates\pages\energy_system_design.html:411
+#: .\offgridplanner\templates\pages\grid_design.html:121
+#: .\offgridplanner\templates\pages\project_setup.html:89
+#: .\offgridplanner\templates\step_progression.html:74
+#: .\offgridplanner\templates\step_progression.html:80
+msgid "Next"
+msgstr "Seguinte"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:36
+msgid "Use Custom Demand Time Series:"
+msgstr "Utilizar séries temporais de procura personalizadas:"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:53
+#: .\offgridplanner\templates\pages\simulation_results.html:448
+msgid ""
+"Electricity Demand Profile Illustration: First Monday of Simulation Period"
+msgstr ""
+"Ilustração do perfil da procura de eletricidade: primeira segunda-feira do "
+"período de simulação"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:61
+msgid "Show Total Demand"
+msgstr "Mostrar a procura total"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:66
+msgid "Show Single Household Profile"
+msgstr "Visualizar perfil de uma única família"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:75
+msgid "Set Own Custom Shares of Households Allocated per Consumption Category"
+msgstr ""
+"Defina as suas próprias quotas personalizadas de famílias alocadas por "
+"categoria de consumo."
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:77
+msgid "You have entered"
+msgstr "Introduziu"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:79
+#, python-format
+msgid "out of 100%%."
+msgstr "de 100%%."
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:93
+#, python-format
+msgid "%%"
+msgstr "%%"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:111
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:129
+msgid "Export Demand"
+msgstr "Exportar procura"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:142
+msgid "Activate Custom Calibration"
+msgstr "Ativar Calibração Personalizada"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:162
+msgid "Set Custom Total Profile Calibration Values (Optional)"
+msgstr "Defina valores personalizados de calibração do perfil total (opcional)"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:165
+msgid ""
+"These options will calibrate the total community demand profile to set value "
+"below <b>(including enterprises and any other non-household demands chosen "
+"previously)</b>. <br> They can be calibrated either by total annual mini-"
+"grid energy demand OR maximum peak demand over the year - both cannot be "
+"chosen together. <br> This is compatible with choosing custom percentage "
+"shares of consumption categories, but the total will be re-scaled "
+"accordingly."
+msgstr ""
+"Estas opções irão calibrar o perfil da procura total da comunidade para "
+"definir o valor."
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:220
+msgid "Import Demand"
+msgstr "Importar procura"
+
+#: .\offgridplanner\templates\pages\demand_estimation.html:227
+msgid "No File Uploaded"
+msgstr "Nenhum ficheiro enviado"
+
+#: .\offgridplanner\templates\pages\monitoring.html:26
+msgid "Monitoring overview"
+msgstr "Visão geral da monitorização"
+
+#: .\offgridplanner\templates\pages\monitoring.html:42
+msgid "Refresh"
+msgstr "Atualizar"
+
+#: .\offgridplanner\templates\pages\monitoring.html:55
+msgid "Status"
+msgstr "Estado"
+
+#: .\offgridplanner\templates\pages\monitoring.html:57
+msgid "Alarms"
+msgstr "Alarmes"
+
+#: .\offgridplanner\templates\pages\project_setup.html:54
+msgid "Planning Steps"
+msgstr "Etapas de planeamento"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:45
+msgid "Grid Layout"
+msgstr "Layout da rede"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:57
+#: .\offgridplanner\templates\pages\simulation_results.html:414
+msgid "Export as .xls"
+msgstr "Exportar como .xls"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:60
+#: .\offgridplanner\templates\pages\simulation_results.html:417
+msgid "Export as PDF"
+msgstr "Exportar como PDF"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:73
+msgid "Summary of Results"
+msgstr "Resumo dos Resultados"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:147
+msgid "Download Results (xlsx-format)"
+msgstr "Descarregar resultados (formato xlsx)"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:156
+msgid "Download Results (PDF)"
+msgstr "Descarregar resultados (PDF)"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:180
+#: .\offgridplanner\templates\pages\user_projects.html:164
+msgid "Results"
+msgstr "Resultados"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:184
+msgid "GRID"
+msgstr "REDE"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:217
+msgid "ENERGY CONVERTERS"
+msgstr "CONVERSORES DE ENERGIA"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:282
+msgid "DEMAND"
+msgstr "PROCURA"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:316
+msgid "ECONOMIC DATA"
+msgstr "DADOS ECONÓMICOS"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:394
+msgid "Optimal Capacity of Components"
+msgstr "Capacidade ideal dos componentes"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:406
+msgid "Breakdown of the LCOE"
+msgstr "Análise detalhada do LCOE (custo nivelado de energia)"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:433
+msgid "Sankey Diagram Representing the Energy Flow in the System"
+msgstr "Diagrama de Sankey que representa o fluxo de energia no sistema"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:439
+msgid "*electricity surplus is not shown"
+msgstr "*O excedente de eletricidade não é apresentado"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:462
+msgid "Demand Coverage by Renewable and Non-Renewable Resources"
+msgstr "Cobertura da procura de recursos renováveis e não renováveis"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:476
+msgid "Annual Energy Flows with 1-Hour Resolution"
+msgstr "Fluxos de energia anuais com resolução de 1 hora"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:490
+msgid "Duration Curves for All Components"
+msgstr "Curvas de duração para todos os componentes"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:502
+msgid "Cumulative CO2 Emissions"
+msgstr "Emissões cumulativas de CO2"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:529
+#: .\offgridplanner\templates\pages\simulation_results.html:557
+msgid "Close Modal"
+msgstr "Fechar janela"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:532
+msgid "No results"
+msgstr "Nenhum resultado"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:541
+msgid "Yes, start calculation"
+msgstr "Sim, inicie o cálculo"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:546
+msgid "No, go to project setup"
+msgstr "Não, aceda à configuração do projeto."
+
+#: .\offgridplanner\templates\pages\simulation_results.html:551
+#: .\offgridplanner\templates\pages\user_projects.html:63
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:560
+msgid "Revoke pending calculation?"
+msgstr "Revogar cálculo pendente?"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:568
+msgid "Revoke"
+msgstr "Revogar"
+
+#: .\offgridplanner\templates\pages\simulation_results.html:571
+msgid "Wait"
+msgstr "Espera"
+
+#: .\offgridplanner\templates\pages\user_projects.html:17
+msgid "Project successfully moved to monitoring!"
+msgstr "O projeto foi transferido com sucesso para a fase de monitorização!"
+
+#: .\offgridplanner\templates\pages\user_projects.html:32
+msgid ""
+"Enter the monitoring ID that is used to track the mini-grid status on the "
+"FUNAE smart data system."
+msgstr ""
+"Introduza o ID de monitorização utilizado para acompanhar o estado da mini-"
+"rede no sistema de dados inteligentes FUNAE."
+
+#: .\offgridplanner\templates\pages\user_projects.html:58
+msgid "Are you sure you want to delete the project?"
+msgstr "Tem a certeza de que pretende eliminar o projeto?"
+
+#: .\offgridplanner\templates\pages\user_projects.html:103
+msgid "ID"
+msgstr "ID"
+
+# #-#-#-#-#  django.po (0.1.0)  #-#-#-#-#
+# form_parameters.csv translation strings
+# #-#-#-#-#  django.po (0.1.0)  #-#-#-#-#
+# output_kpis.csv translation strings
+#: .\offgridplanner\templates\pages\user_projects.html:104
+msgid "Project Name"
+msgstr "Nome do projeto"
+
+#: .\offgridplanner\templates\pages\user_projects.html:105
+msgid "Creation Date"
+msgstr "Data de criação"
+
+#: .\offgridplanner\templates\pages\user_projects.html:106
+msgid "Last Update"
+msgstr "Última atualização"
+
+#: .\offgridplanner\templates\pages\user_projects.html:107
+msgid "Model Status"
+msgstr "Estado do modelo"
+
+#: .\offgridplanner\templates\pages\user_projects.html:138
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: .\offgridplanner\templates\pages\user_projects.html:155
+#: .\offgridplanner\templates\widgets\monitoring_table.html:47
+msgid "Edit"
+msgstr "Editar"
+
+#: .\offgridplanner\templates\pages\user_projects.html:172
+msgid "You do not yet have any saved projects"
+msgstr "Ainda não tem nenhum projeto guardado."
+
+#: .\offgridplanner\templates\pages\user_projects.html:196
+msgid "Create Example Model"
+msgstr "Criar modelo de exemplo"
+
+#: .\offgridplanner\templates\pages\user_projects.html:197
+msgid ""
+"You have not created any projects yet. Would you like a sample project to be "
+"set up for you?"
+msgstr ""
+"Ainda não criou nenhum projeto. Gostaria que um projeto de exemplo fosse "
+"configurado para si?"
+
+#: .\offgridplanner\templates\pages\user_projects.html:198
+msgid "Yes"
+msgstr "Sim"
+
+#: .\offgridplanner\templates\pages\user_projects.html:201
+msgid "No"
+msgstr "Não"
+
+#: .\offgridplanner\templates\step_progression.html:9
+msgid "Scenario step"
+msgstr "Etapa do cenário"
+
+#: .\offgridplanner\templates\step_progression.html:18
+msgid "< My projects"
+msgstr "< Os meus projetos"
+
+#: .\offgridplanner\templates\step_progression.html:19
+msgid "< Map view"
+msgstr "< Visualização do mapa"
+
+#: .\offgridplanner\templates\step_progression.html:25
+msgid "Scenario"
+msgstr "Cenário"
+
+#: .\offgridplanner\templates\step_progression.html:68
+msgid "Previous"
+msgstr "Anterior"
+
+#: .\offgridplanner\users\adapters.py:91
+msgid "Form - mail sending error:"
+msgstr "Formulário - erro no envio de e-mail:"
+
+#: .\offgridplanner\users\admin.py:24
+msgid "Personal info"
+msgstr "Informação pessoal"
+
+#: .\offgridplanner\users\admin.py:26
+msgid "Permissions"
+msgstr "Permissões"
+
+#: .\offgridplanner\users\admin.py:37
+msgid "Important dates"
+msgstr "Datas importantes"
+
+#: .\offgridplanner\users\apps.py:9
+msgid "Users"
+msgstr "Utilizadores"
+
+#: .\offgridplanner\users\forms.py:31
+#: .\offgridplanner\users\tests\test_forms.py:35
+msgid "This email has already been taken."
+msgstr "Este endereço de e-mail já está em uso."
+
+#: .\offgridplanner\users\forms.py:55
+#, python-format
+msgid ""
+"I have read and accept the <a target='_blank' href='%(privacy_url)s'>privacy "
+"statement</a> from OffgridPlanner"
+msgstr ""
+"Li e aceito a <a target='_blank' href='%(privacy_url)s'>declaração de "
+"privacidade</a> do OffgridPlanner"
+
+#: .\offgridplanner\users\models.py:20
+msgid "Name of User"
+msgstr "Nome do utilizador"
+
+#: .\offgridplanner\users\models.py:23
+msgid "email address"
+msgstr "endereço de e-mail"
+
+#: .\offgridplanner\users\tests\test_views.py:73
+#: .\offgridplanner\users\views.py:28
+msgid "Information successfully updated"
+msgstr "Informação atualizada com sucesso"
+
+msgid "Interest Rate"
+msgstr "Taxa de juro"
+
+msgid "Project Description"
+msgstr "Descrição do projeto"
+
+msgid "Project Lifetime"
+msgstr "Vida útil do projeto"
+
+msgid "Simulation Period"
+msgstr "Período de simulação"
+
+#, fuzzy
+msgid "Project Country"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do Projeto\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do projeto\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do Projeto\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"País do Projeto"
+
+msgid "Set Total Annual Consumption"
+msgstr "Definir o consumo anual total"
+
+msgid "Set Peak Demand"
+msgstr "Definir procura máxima"
+
+msgid "Lifetime"
+msgstr "Vida útil"
+
+#, fuzzy
+msgid "CapEx"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"CapEx\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Despesas de capital\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"CapEx\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"CapEx"
+
+msgid "Max. Length"
+msgstr "Comprimento máximo"
+
+msgid "Max. Number of Connections"
+msgstr "Número máximo de ligações"
+
+msgid "Connection Cost"
+msgstr "Custo de ligação"
+
+msgid "Solar Home Systems"
+msgstr "Sistemas solares residenciais"
+
+msgid "Max. Specific Grid Cost"
+msgstr "Custo máximo específico da grelha"
+
+msgid "Battery"
+msgstr "Bateria"
+
+msgid "Optimize Capacity"
+msgstr "Otimizar a capacidade"
+
+msgid "Capacity"
+msgstr "Capacidade"
+
+msgid "OpEx"
+msgstr "OpEx"
+
+#, fuzzy
+msgid "Min. SOC"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Min. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Min. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Mín. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Mín. SOC"
+
+#, fuzzy
+msgid "Max. SOC"
+msgstr ""
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Max. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Max. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Max. SOC\n"
+"#-#-#-#-#  django.po (0.1.0)  #-#-#-#-#\n"
+"Máx. SOC"
+
+msgid "C-Rate in"
+msgstr "C-Rate in"
+
+msgid "C-Rate out"
+msgstr "C-Rate out"
+
+msgid "Roundtrip Efficiency"
+msgstr "Eficiência de ida e volta"
+
+msgid "Diesel Genset"
+msgstr "Grupo gerador a diesel"
+
+msgid "Variable Cost"
+msgstr "Custo variável"
+
+msgid "Fuel Cost"
+msgstr "Custo do combustível"
+
+msgid "Fuel LHV"
+msgstr "Combustível LHV"
+
+msgid "Min. Efficiency"
+msgstr "Eficiência mínima"
+
+msgid "Max. Efficiency"
+msgstr "Eficiência máxima"
+
+msgid "Min. Load"
+msgstr "Carga mínima"
+
+msgid "Max. Load"
+msgstr "Carga máxima"
+
+msgid "Inverter"
+msgstr "Inversor"
+
+msgid "Efficiency"
+msgstr "Eficiência"
+
+msgid "PV"
+msgstr "PV"
+
+msgid "Charger"
+msgstr "Carregador"
+
+msgid "Shortage"
+msgstr "Escassez"
+
+msgid "Fuel"
+msgstr "Combustível"
+
+msgid "Max. Total Shortage"
+msgstr "Escassez máxima total"
+
+msgid "Max. Shortage Each Timestep"
+msgstr "Escassez máxima a cada intervalo de tempo"
+
+msgid "Shortage Penalty Cost"
+msgstr "Custo da penalização por falta de fundos"
+
+msgid ""
+"The interest rate in investment calculations signifies the cost of capital "
+"and the potential return from an alternative investment of similar risk. It "
+"helps express the time value of money, crucial for determining the present "
+"value of future cash flows. This assists in evaluating and comparing "
+"investment opportunities. Default value of 12.3% is taken from World Bank "
+"reported average lending interest rate data of 2022. Please make sure to "
+"check this value for your project."
+msgstr ""
+"A taxa de juro nos cálculos de investimento representa o custo de capital e "
+"o potencial retorno de um investimento alternativo com risco semelhante. "
+"Ajuda a expressar o valor do dinheiro no tempo, crucial para determinar o "
+"valor presente dos fluxos de caixa futuros. Este auxilia na avaliação e "
+"comparação de oportunidades de investimento. O valor padrão de 12,3% foi "
+"obtido a partir dos dados da taxa de juro média para empréstimos divulgados "
+"pelo Banco Mundial em 2022. Certifique-se de que verifica este valor para o "
+"seu projeto."
+
+msgid ""
+"The period during which the system will be in operation. Components whose "
+"lifetime is below that of the project lifetime must be replaced during "
+"operation, which will be taken into account in the cost calculation. In "
+"addition, the residual value of the components is determined at the end of "
+"the project lifetime."
+msgstr ""
+"O período durante o qual o sistema estará em funcionamento. Os componentes "
+"cuja vida útil seja inferior à vida útil do projeto deverão ser substituídos "
+"durante a operação, o que será considerado no cálculo dos custos. Além "
+"disso, o valor residual dos componentes é determinado no final da vida útil "
+"do projeto."
+
+msgid ""
+"Number of days used for the modelling period. For economic calculations, the "
+"project lifetime will be used."
+msgstr ""
+"Número de dias utilizados para o período de modelação. Para os cálculos "
+"económicos, será utilizado o tempo de vida útil do projeto."
+
+msgid "Country Project"
+msgstr "País do projeto"
+
+msgid ""
+"Country for the project. The country will be used to center map features on "
+"the correct location, but will have no impact on the default demand profiles "
+"used, which are specific to the base country of the tool."
+msgstr ""
+"País do projeto. O país será utilizado para centrar os elementos do mapa na "
+"localização correta, mas não terá impacto nos perfis de procura padrão "
+"utilizados, que são específicos para o país base da ferramenta."
+
+msgid "Assumed type of settlement (isolated or peri-urban)"
+msgstr "Tipo de assentamento presumível (isolado ou periurbano)"
+
+msgid "Settlement Type"
+msgstr "Tipo de assentamento"
+
+msgid "Very Low"
+msgstr "Muito baixo"
+
+msgid ""
+"Percentage of households with very low demand (isolated: 0.3kWh/day / peri-"
+"urban: 0.6kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com uma procura muito baixa (isolados: "
+"0,3 kWh/dia / periurbanos: 0,6 kWh/dia)"
+
+msgid "Low"
+msgstr "Baixo"
+
+msgid ""
+"Percentage of households with low demand (isolated: 0.6kWh/day / peri-urban: "
+"1.5kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com baixa procura (isolados: 0,6 kWh/"
+"dia / periurbanos: 1,5 kWh/dia)"
+
+msgid "Middle"
+msgstr "Médio"
+
+msgid ""
+"Percentage of households with middle demand  (isolated: 1.2kWh/day / peri-"
+"urban: 2.2kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com consumo médio (isolados: 1,2 kWh/"
+"dia / periurbanos: 2,2 kWh/dia)"
+
+msgid "High"
+msgstr "Elevado"
+
+msgid ""
+"Percentage of households with high demand (isolated: 2.4kWh/day / peri-"
+"urban: 2.9kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com elevada procura (isolados: 2,4 kWh/"
+"dia / periurbanos: 2,9 kWh/dia)"
+
+msgid "Very High"
+msgstr "Muito elevado"
+
+msgid ""
+"Percentage of households with very high demand  (isolated: 2.9kWh/day / peri-"
+"urban: 3.4kWh/day)"
+msgstr ""
+"Percentagem de agregados familiares com uma procura muito elevada (isolados: "
+"2,9 kWh/dia / periurbanos: 3,4 kWh/dia)"
+
+msgid "The demand curve will be scaled to meet the given total demand"
+msgstr ""
+"A curva da procura será dimensionada para satisfazer a procura total "
+"fornecida."
+
+msgid "The demand curve will be scaled to meet the given peak demand"
+msgstr ""
+"A curva da procura será dimensionada para satisfazer a procura máxima "
+"especificada."
+
+msgid ""
+"Lifespan of the component, after expiration a replacement investment must be "
+"made"
+msgstr ""
+"Vida útil do componente; após o vencimento, é necessário fazer um "
+"investimento para o substituir."
+
+msgid ""
+"Capital Expenditure (CapEx) is the money that has to be spent to purchase "
+"the component"
+msgstr ""
+"As despesas de capital (CapEx) são os recursos financeiros necessários para "
+"adquirir um componente."
+
+msgid "Distribution Line"
+msgstr "Cabo de distribuição"
+
+msgid "Maximum allowed length of the distribution cable"
+msgstr "Comprimento máximo permitido do cabo de distribuição"
+
+msgid "Connection Cable"
+msgstr "Cabo de ligação"
+
+msgid "Maximum allowed length of the connection cable"
+msgstr "Comprimento máximo permitido do cabo de ligação"
+
+msgid "Pole"
+msgstr "Poste"
+
+msgid "Maximum number of consumers that can be connected to one pole"
+msgstr "Número máximo de consumidores que podem ser ligados a um poste."
+
+msgid "Connection Costs"
+msgstr "Custos de ligação"
+
+msgid ""
+"Costs that arise when connecting a consumer in addition to the material "
+"costs of the cable."
+msgstr ""
+"Custos que surgem ao ligar um consumidor, para além dos custos do material "
+"do cabo."
+
+msgid ""
+"For each consumer, specific costs of grid connection are calculated and "
+"related to the consumer's consumption. If the threshold value is exceeded, a "
+"grid connection is forgone and instead a solar home system is recommended"
+msgstr ""
+"Para cada consumidor, os custos específicos de ligação à rede elétrica são "
+"calculados e relacionados com o seu consumo. Se o valor limite for excedido, "
+"a ligação à rede é dispensada e, em vez disso, é recomendado um sistema de "
+"energia solar residencial."
+
+msgid ""
+"Operating Expense (OpEx) is the cost associated with the operation of the "
+"component"
+msgstr ""
+"A despesa operacional (OpEx) é o custo associado à operação do componente."
+
+msgid ""
+"Minimum State of Charge (SOC) of a battery refers to the lowest level at "
+"which the battery is allowed to discharge in order to prevent damage and "
+"prolong its lifespan"
+msgstr ""
+"O Estado Mínimo de Carga (SOC) de uma bateria refere-se ao nível mais baixo "
+"a que a bateria pode ser descarregada para evitar danos e prolongar a sua "
+"vida útil."
+
+msgid ""
+"Maximum State of Charge (SOC) of a battery refers to the highest level at "
+"which the battery can be safely charged to prevent overcharging and ensure "
+"longevity"
+msgstr ""
+"O Estado Máximo de Carga (SOC) de uma bateria refere-se ao nível mais "
+"elevado a que a bateria pode ser carregada em segurança para evitar a "
+"sobrecarga e garantir a sua longevidade."
+
+msgid ""
+"Operating Expense (OpEx) refers to the fixed annual costs incurred in the "
+"operation of a component, specifically excluding fuel and other variable "
+"expenses"
+msgstr ""
+"As despesas operacionais (OpEx) referem-se aos custos fixos anuais "
+"incorridos na operação de um componente, excluindo especificamente o "
+"combustível e outras despesas variáveis."
+
+msgid "Number of Poles"
+msgstr "Número de pólos"
+
+msgid "Number of grid-connected Consumers"
+msgstr "Número de consumidores ligados à rede"
+
+msgid "Number of SHS Consumers"
+msgstr "Número de consumidores de SHS"
+
+msgid "Distribution Cable Length"
+msgstr "Comprimento do cabo de distribuição"
+
+msgid "Average Length Distribution"
+msgstr "Distribuição do comprimento médio"
+
+msgid "Connection Cable Length"
+msgstr "Comprimento do cabo de ligação"
+
+msgid "Average Length Connection"
+msgstr "Ligação de comprimento médio"
+
+msgid "Grid's annualized Cost"
+msgstr "Custo anualizado da rede"
+
+msgid "Levelized Cost of Electricity (w/o SHS)"
+msgstr "Custo Nivelado da Eletricidade (sem SHS)"
+
+msgid "Share of Grid-Related Costs in the LCOE"
+msgstr ""
+"Participação dos custos relacionados com a rede elétrica no LCOE (custo "
+"nivelado de energia)"
+
+msgid "Share of Generation-Related Costs in LCOE"
+msgstr ""
+"Participação dos custos relacionados com a geração no LCOE (custo nivelado "
+"de energia)"
+
+msgid "Renewable Energy Share"
+msgstr "Participação em Energias Renováveis"
+
+msgid "Max. Voltage drop"
+msgstr "Queda de tensão máxima"
+
+msgid "Total annual Shortage"
+msgstr "Escassez anual total"
+
+msgid "Total annual Surplus"
+msgstr "Superávit anual total"
+
+msgid "Total simulation time"
+msgstr "Tempo total de simulação"
+
+msgid "Annual CO2 savings"
+msgstr "Economia anual de CO2"
+
+msgid "Total annual Consumption"
+msgstr "Consumo anual total"
+
+msgid "Annual average Demand per Consumer"
+msgstr "Procura média anual por consumidor"
+
+msgid "Grid upfront Investment Cost"
+msgstr "Custo inicial de investimento na rede elétrica"
+
+msgid "Diesel Generator upfront Investment Cost"
+msgstr "Custo de investimento inicial do gerador a diesel"
+
+msgid "Inverter upfront Investment Cost"
+msgstr "Custo de investimento inicial do inversor"
+
+msgid "Rectifier upfront Investment Cost"
+msgstr "Custo de investimento inicial do retificador"
+
+msgid "Battery upfront Investment Cost"
+msgstr "Custo de investimento inicial da bateria"
+
+msgid "PV upfront Investment Cost"
+msgstr "Custo de investimento inicial em energia fotovoltaica"
+
+msgid "Total upfront Investment Cost"
+msgstr "Custo total do investimento inicial"
+
+msgid "Capacity Battery"
+msgstr "Capacidade da bateria"
+
+msgid "Capacity PV"
+msgstr "Capacidade PV"
+
+msgid "Capacity Diesel Generator"
+msgstr "Capacidade do gerador a diesel"
+
+msgid "Capacity Inverter"
+msgstr "Capacidade do inversor"
+
+msgid "Capacity Rectifier"
+msgstr "Capacidade do retificador"
+
+msgid "Annual CO2 Emissions"
+msgstr "Emissões anuais de CO2"
+
+msgid "Annual Fuel Consumption"
+msgstr "Consumo anual de combustível"
+
+msgid "Peak Demand"
+msgstr "Procura máxima"
+
+msgid "Base Load"
+msgstr "Carga base"
+
+msgid "Max. Shortage per Time Step"
+msgstr "Falta máxima por etapa de tempo"
+
+msgid "Annual fuel cost"
+msgstr "Custo anual de combustível"
+
+msgid "PV's annualized Cost"
+msgstr "Custo anualizado do PV"
+
+msgid "Diesel Generator's annualized Cost"
+msgstr "Custo anualizado do gerador a diesel"
+
+msgid "Inverter's annualized Cost"
+msgstr "Custo anualizado do inversor"
+
+msgid "Rectifier's annualized Cost"
+msgstr "Custo anualizado do rectificador"
+
+msgid "Battery's annualized Cost"
+msgstr "Custo anual da bateria"
+
+msgid "Total annualized Cost"
+msgstr "Custo total anualizado"
+
+msgid "Capacity in kW"
+msgstr "Capacidade em kW"
+
+msgid "Capacity in kWh"
+msgstr "Capacidade em kWh"
+
+# random plot strings
+msgid "Total Demand"
+msgstr "Procura total"
+
+msgid "Demand of Enterprises"
+msgstr "Procura das Empresas"
+
+msgid "Demand of Public Services"
+msgstr "Procura por serviços públicos"
+
+msgid "Demand of Households"
+msgstr "Procura das famílias"
+
+msgid "Low Consumption"
+msgstr "Baixo consumo"
+
+msgid "Middle Consumption"
+msgstr "Consumo médio"
+
+msgid "High Consumption"
+msgstr "Alto consumo"
+
+msgid "New Project"
+msgstr "Novo projeto"
+
+msgid "Food_Groceries"
+msgstr "Alimentação_Mercearia"
+
+msgid "Retail_Kiosk"
+msgstr "Retalho_Quiosque"
+
+msgid "Food_Restaurant"
+msgstr "Alimentação_Restaurante"
+
+msgid "Food_Bar"
+msgstr "Alimentação_Bar"
+
+msgid "Food_Fish"
+msgstr "Alimentação_Peixe"
+
+msgid "Trades_Tailoring"
+msgstr "Ofícios_Alfaiataria"
+
+msgid "Trades_Beauty or Hair"
+msgstr "Ofícios_Beleza ou Cabeleireiro"
+
+msgid "Trades_Metalworks"
+msgstr "Ofícios_Serralharia"
+
+msgid "Trades_Car or Motorbike Repair"
+msgstr "Ofícios_Reparação de Automóveis ou Motos"
+
+msgid "Trades_Carpentry"
+msgstr "Ofícios_Carpintaria"
+
+msgid "Trades_Laundry"
+msgstr "Ofícios_Lavandaria"
+
+msgid "Trades_Hotel"
+msgstr "Ofícios_Hotel"
+
+msgid "Retail_Pharmacy"
+msgstr "Retalho_Farmácia"
+
+msgid "Retail_Electronics"
+msgstr "Retalho_Eletrónica"
+
+msgid "Retail_Agricultural"
+msgstr "Retalho_Agrícola"
+
+msgid "Digital_Cybercafé"
+msgstr "Digital_Cibercafé"
+
+msgid "Digital_Cinema or Betting"
+msgstr "Digital_Cinema ou Apostas"
+
+msgid "Retail_Other"
+msgstr "Retalho_Outros"
+
+msgid "Agricultural_Cold Room"
+msgstr "Agrícola_Câmara Fria"
+
+msgid "Health_Health Centre"
+msgstr "Saúde_Centro de Saúde"
+
+msgid "Health_Clinic"
+msgstr "Saúde_Clínica"
+
+msgid "Health_CHPS"
+msgstr "Saúde_CHPS"
+
+msgid "Education_Primary School"
+msgstr "Educação_Escola Primária"
+
+msgid "Education_Secondary School"
+msgstr "Educação_Escola Secundária"
+
+msgid "Education_Trade School"
+msgstr "Educação_Escola Profissional"
+
+msgid "Education_School_noICT"
+msgstr "Educação_Escola_sem_TIC"
+
+msgid "Public_Police Station"
+msgstr "Público_Esquadra de Polícia"
+
+msgid "Public_Military Barrack"
+msgstr "Público_Quartel Militar"
+
+msgid "Public_Administration Office"
+msgstr "Público_Gabinete Administrativo"
+
+msgid "Public_Community Hall or Youth Center"
+msgstr "Público_Salão Comunitário ou Centro Juvenil"
+
+msgid "Public_Pump Station"
+msgstr "Público_Estação de Bombeamento"
+
+msgid "Public_Lighting"
+msgstr "Público_Iluminação Pública"
+
+msgid "Public_Church"
+msgstr "Público_Igreja"
+
+msgid "Public_Mosque"
+msgstr "Público_Mesquita"
+
+msgid "Public_Telecommunications"
+msgstr "Público_Telecomunicações"
+
+msgid "Watch video tutorial for further explanation of this parameter"
+msgstr "Veja o tutorial em vídeo para obter mais explicações sobre este parâmetro"
+
+msgid "Years"
+msgstr "anos"
+
+msgid "currency/pole"
+msgstr "currency/poste"
+
+msgid "currency/con"
+msgstr "currency/ligação"
+
+msgid "currency/kW/year"
+msgstr "currency/kW/ano"
+
+msgid "currency/kWh/year"
+msgstr "currency/kWh/ano"
+
+msgid "Consumers"
+msgstr "Consumidores"
+
+msgid "Grid Dist. [km]"
+msgstr "Dist. rede [km]"
+
+msgid "Road Dist. [km]"
+msgstr "Dist. estrada [km]"
+
+msgid "LCOE [ct/kWh]"
+msgstr "LCOE [ct/kWh]"
+
+msgid "RES [%]"
+msgstr "FER [%]"
+
+msgid "CAPEX [USD]"
+msgstr "CAPEX [USD]"
+
+msgid "CO2 Savings [t/a]"
+msgstr "Poupança de CO2 [t/a]"
+
+msgid "Total consumption [kWh/a]"
+msgstr "Consumo total [kWh/a]"
+
+msgid "Run Exploration"
+msgstr "Iniciar exploração"
+
+msgid "Potential project sites"
+msgstr "Locais potenciais para o projeto"

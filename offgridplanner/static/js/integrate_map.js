@@ -397,7 +397,7 @@ function load_legend() {
                 image[i] +
                 " height='12' width='12'>" +
                 "&nbsp" +
-                description[i] +
+                gettext(description[i]) +
                 "<br>";
         }
         return div;
