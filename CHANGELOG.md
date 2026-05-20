@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fix crashes in production due to translation settings ([#32](https://github.com/Aiguasol-coop/django-offgridplanner/pull/32))
 
 ## [v1.1.6-moz.3.0] – 2026-05-18
 ### Added
