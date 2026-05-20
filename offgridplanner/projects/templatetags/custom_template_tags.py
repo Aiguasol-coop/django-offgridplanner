@@ -43,7 +43,7 @@ def custom_redir_lang(url_fullpath):
     # see https://stackoverflow.com/questions/67234400/django-i18n-language-switcher-not-working-on-deploy-at-subdirectory
     ls_urls = url_fullpath.split("/")
     del ls_urls[1]
-    return "/".join(ls_urls)
+    return "/".join(ls_urls) or "/"
 
 
 @register.filter
