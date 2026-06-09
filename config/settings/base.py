@@ -395,7 +395,7 @@ OVERPASS_REFERER = os.getenv("OVERPASS_REFERER", "http://localhost:8000")
 # SIMULATION
 # ------------------------------------------------------------------------------
 SIM_API_HOST = os.getenv("SIM_API_HOST")
-SIM_GRID_POST_URL = f"{SIM_API_HOST}/sendjson/grid_dev"
+SIM_GRID_POST_URL = f"{SIM_API_HOST}/sendjson/grid"
 SIM_SUPPLY_POST_URL = f"{SIM_API_HOST}/sendjson/supply"
 SIM_GET_URL = f"{SIM_API_HOST}/check/"
 
