@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.3.2] – 2026-06-10
 ### Fixed
 - Fix issues in demand calculation when selecting consumers in portuguese ([#33](https://github.com/Aiguasol-coop/django-offgridplanner/pull/33))
 
