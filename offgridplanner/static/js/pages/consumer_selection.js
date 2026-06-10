@@ -45,12 +45,12 @@ function dropDownMenu(dropdown_list) {
     }
 }
 
-let large_load_type = "group1";
+let large_load_type = Object.keys(large_load_list)[0];
 
 let option_load = '';
 for (let load_code in large_load_list) {
     let selected = (load_code == large_load_type) ? ' selected' : '';
-    option_load += '<option value="' + load_code + '"' + selected + '>' + large_load_list[load_code] + '</option>';
+    option_load += '<option value="' + load_code + '"' + selected + '>' + load_code + '</option>';
 }
 document.getElementById('loads').innerHTML = option_load;
 
@@ -67,7 +67,7 @@ document.getElementById('consumer').addEventListener('change', function () {
     } else if (this.value === 'E') {
         dropDownMenu(enterprise_list);
         document.getElementById('enterprise').innerHTML = enterprise_option;
-        document.getElementById('enterprise').value = 'group1';
+        document.getElementById('enterprise').value = Object.keys(enterprise_list)[0];
         document.getElementById('enterprise').disabled = false;
         activate_large_loads();
     } else if (this.value === 'P') {
@@ -224,14 +224,11 @@ function update_map_elements() {
             case 'P':
                 marker.consumer_type = 'public_service';
                 marker.consumer_detail = document.getElementById('enterprise').value;
-                let key2 = document.getElementById('enterprise').value;
-                marker.consumer_detail = public_service_list[key2];
                 selected_icon = markerPublicservice;
                 break;
             case 'E':
                 marker.consumer_type = 'enterprise';
-                let key = document.getElementById('enterprise').value;
-                marker.consumer_detail = enterprise_list[key];
+                marker.consumer_detail = document.getElementById('enterprise').value;
                 selected_icon = markerEnterprise;
                 break;
             case '':

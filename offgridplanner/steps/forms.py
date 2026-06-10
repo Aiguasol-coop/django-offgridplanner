@@ -79,7 +79,7 @@ class CustomDemandForm(CustomModelForm):
         }
         total = round(sum(percentage_values.values(), 0))
         if total != 100:  # noqa: PLR2004
-            error_message = "The sum of all shares must equal 100%."
+            error_message = _("The sum of all shares must equal 100%.")
             raise ValidationError(error_message)
 
         for field, value in self.cleaned_data.items():

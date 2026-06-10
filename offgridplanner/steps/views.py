@@ -117,15 +117,15 @@ def consumer_selection(request, proj_id=None):
         project = get_object_or_404(Project, id=proj_id)
 
         public_service_list = {
-            f"group{ix}": service
+            service: _(service)
             for ix, service in enumerate(sorted(PUBLIC_SERVICE_LIST), 1)
         }
         enterprise_list = {
-            f"group{ix}": enterprise
+            enterprise: _(enterprise)
             for ix, enterprise in enumerate(sorted(ENTERPRISE_LIST), 1)
         }
         large_load_list = {
-            f"group{ix}": f"{machine} ({LARGE_LOAD_KW_MAPPING[machine]}kW)"
+            machine: f"{_(machine)} ({LARGE_LOAD_KW_MAPPING[machine]}kW)"
             for ix, machine in enumerate(sorted(LARGE_LOAD_LIST), 1)
         }
 

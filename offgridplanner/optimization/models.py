@@ -2,7 +2,10 @@ from io import StringIO
 
 import pandas as pd
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
+from offgridplanner.optimization.supply.demand_estimation import ENTERPRISE_LIST
+from offgridplanner.optimization.supply.demand_estimation import PUBLIC_SERVICE_LIST
 from offgridplanner.projects.models import Project
 
 
@@ -44,7 +47,24 @@ class Nodes(BaseJsonData):
 
     @property
     def counts(self):
-        counts = self.df.groupby(["consumer_type", "consumer_detail"]).size()
+        df = self.df
+        # TODO remove once it is sure that there are no more pt strings present in database, currently needed as patch to handle accidentally saved pt strings
+        # check for accidentally translated consumers
+        name_mapping = {
+            "enterprise": ENTERPRISE_LIST,
+            "public_service": PUBLIC_SERVICE_LIST,
+        }
+
+        for const_list in name_mapping.values():
+            trans_names = {
+                str(_(col)): col for ix, col in enumerate(sorted(const_list), 1)
+            }
+
+            df.consumer_detail = df.consumer_detail.replace(trans_names)
+        # replace data in the dataframe to be able to remove this patch eventually
+        self.data = df.to_json()
+        self.save()
+        counts = df.groupby(["consumer_type", "consumer_detail"]).size()
         return counts
 
     @property

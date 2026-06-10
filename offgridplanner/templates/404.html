@@ -1,9 +1,7 @@
-{% extends "base.html" %}
-
-{% block title %}
-  Page not found
-{% endblock title %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head><title>Page not found</title></head>
+<body>
   <h1>Page not found</h1>
   <p>
     {% if exception %}
@@ -12,4 +10,5 @@
       This is not the page you were looking for.
     {% endif %}
   </p>
-{% endblock content %}
+</body>
+</html>

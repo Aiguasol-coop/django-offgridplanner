@@ -283,6 +283,7 @@ def get_project_data(project):
     return proj_data
 
 
+@login_required
 @require_http_methods(["GET", "POST"])
 def potential_map(request):
     user = request.user
