@@ -1424,35 +1424,38 @@ msgstr "Iniciar exploração"
 msgid "Potential project sites"
 msgstr "Locais potenciais para o projeto"
 
-  msgid "Name"
-  msgstr "Nome"
+msgid "Name"
+msgstr "Nome"
 
-  msgid "New Alarms"
-  msgstr "Novos alarmes"
+msgid "New Alarms"
+msgstr "Novos alarmes"
 
-  msgid "Open Alarms"
-  msgstr "Alarmes em aberto"
+msgid "Open Alarms"
+msgstr "Alarmes em aberto"
 
-  msgid "Daily consumption [kWh]"
-  msgstr "Consumo diário [kWh]"
+msgid "Daily consumption [kWh]"
+msgstr "Consumo diário [kWh]"
 
-  msgid "Daily generation [kWh]"
-  msgstr "Geração diária [kWh]"
+msgid "Daily generation [kWh]"
+msgstr "Geração diária [kWh]"
 
-  msgid "Daily discharge [kWh]"
-  msgstr "Descarga diária [kWh]"
+msgid "Daily discharge [kWh]"
+msgstr "Descarga diária [kWh]"
 
-  msgid "Daily self-consumption [kWh]"
-  msgstr "Autoconsumo diário [kWh]"
+msgid "Daily self-consumption [kWh]"
+msgstr "Autoconsumo diário [kWh]"
 
-  msgid "Monitoring URL"
-  msgstr "URL de monitoramento"
+msgid "Monitoring URL"
+msgstr "URL de monitoramento"
 
-  msgid "Severity"
-  msgstr "Severidade"
+msgid "Severity"
+msgstr "Severidade"
 
-  msgid "Title"
-  msgstr "Título"
+msgid "Title"
+msgstr "Título"
 
-  msgid "Device"
-  msgstr "Dispositivo"
+msgid "Device"
+msgstr "Dispositivo"
+
+msgid "The sum of all shares must equal 100%."
+msgstr "A soma de todas as quotas deve ser igual a 100%."
