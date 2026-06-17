@@ -56,10 +56,12 @@ def format_sites_data(sites, table="potential"):
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": site["centroid"]["coordinates"],
+                "coordinates": site.get("centroid", {}).get("coordinates", []),
             },
             "properties": {
-                "name": site["id"] if status == "potential" else site["name"],
+                "name": site.get("id", "")
+                if status == "potential"
+                else site.get("name", ""),
                 "status": status,
             },
         }

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fix alarms not displaying on monitoring page ([#34](https://github.com/Aiguasol-coop/django-offgridplanner/pull/34))
 
 ## [v1.1.6-moz.3.2] – 2026-06-10
 ### Fixed
