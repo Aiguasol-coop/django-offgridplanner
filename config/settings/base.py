@@ -381,7 +381,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 # OFFGRIDPLANNER SETTINGS
-APP_VERSION_NUMBER = "1.1.6-moz.3.2"
+APP_VERSION_NUMBER = "1.1.6-moz.3.3"
 
 # Assumed country based on timeseries data (used for map settings and user warning if a different country is selected)
 DEFAULT_COUNTRY = ("MZ", "Mozambique")
