@@ -287,7 +287,7 @@ def get_project_data(project):
 @require_http_methods(["GET", "POST"])
 def potential_map(request):
     user = request.user
-    site_exploration, _ = SiteExploration.objects.get_or_create(user__id=user.id)
+    site_exploration, _ = SiteExploration.objects.get_or_create(user=user)
     form = SiteExplorationForm(instance=site_exploration)
 
     # Save the existing MG data in the session storage to avoid sending an API request every time

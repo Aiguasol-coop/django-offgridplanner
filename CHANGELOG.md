@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fix server error when accessing potential map for new users ([#35](https://github.com/Aiguasol-coop/django-offgridplanner/pull/35))
 
 ## [v1.1.6-moz.3.3] – 2026-06-17
 ### Fixed
