@@ -1467,5 +1467,5 @@ msgstr "A soma de todas as quotas deve ser igual a 100%."
 msgid "Error: The imported file must be a previously exported project in .json format."
 msgstr "Erro: O ficheiro importado deve ser um projeto previamente exportado no formato .json."
 
-msgid "Import project"
-msgstr "importar projeto"
+msgid "Import Project"
+msgstr "Importar Projeto"
