@@ -133,7 +133,9 @@ def project_export(request, proj_id):
         json.dumps(export_dict, indent=4),
         content_type="application/json",
     )
-    response["Content-Disposition"] = f"attachment; filename={project.name}.json"
+    response["Content-Disposition"] = (
+        f"attachment; filename={project.name.replace(' ', '_')}.json"
+    )
 
     return response
 
