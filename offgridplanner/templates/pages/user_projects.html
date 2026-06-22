@@ -94,6 +94,20 @@
                     <a href="{% url 'steps:project_setup' %}"
                        class="btn btn--long text-right">{% translate "New Project" %}</a>
                   </a>
+                    <form action="{% url 'projects:project_import' %}" method="POST" enctype="multipart/form-data" style="display:inline;">
+                      {% csrf_token %}
+                      <label class="btn btn--medium"
+                             style="height: 32px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-right: 10px;
+                                    cursor: pointer;">
+                        {% translate 'Project Import' %}
+                        <input type="file" name="file" accept=".json" style="display:none;"
+                               onchange="this.form.submit()">
+                      </label>
+                    </form>
           {% endif %}
           </span>
         </div>
@@ -220,6 +234,7 @@
 <script>
   const csrfToken = '{{ csrf_token }}';
   const updateProjectStatusUrl = `{% url 'projects:update_project_status' %}`;;
+  const importProjectUrl = `{% url 'projects:project_import' %}`;;
 </script>
 <script src="{% static 'js/pages/user_projects.js' %}"></script>
 <script src="{% static 'js/backend_communication.js' %}"></script>

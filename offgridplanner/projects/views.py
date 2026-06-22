@@ -176,6 +176,17 @@ def project_export(request, proj_id):
 
 
 @login_required
+@require_http_methods(["POST"])
+def project_import(request):
+    file = request.FILES["file"]
+    export_dict = json.loads(file.read())
+    new_proj_id = populate_project_from_export(
+        export_dict, user=request.user, input_from_json_export=True
+    )
+    return HttpResponseRedirect(reverse("projects:projects_list"))
+
+
+@login_required
 @user_owns_project
 @require_http_methods(["POST"])
 def project_delete(request, proj_id):
