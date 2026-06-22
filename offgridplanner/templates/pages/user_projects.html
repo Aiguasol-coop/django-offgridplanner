@@ -109,6 +109,8 @@
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
+              <th></th>
             </tr>
             {% if projects|length > 0 %}
             {% for project in projects %}
@@ -161,6 +163,18 @@
                           </button>
                         </span>
               </td>
+              <td>
+                <span style="float:right; padding: 4px;">
+                  <a href="{% url 'projects:project_export' project.id %}" title="{% translate 'Export' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F567D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v13"/>
+                    <path d="M7 11l5 5 5-5"/>
+                    <path d="M5 21h14"/>
+                  </svg>
+                  </a>
+                </span>
+              </td>
+
             </tr>
             {% endfor %}
             {% else %}

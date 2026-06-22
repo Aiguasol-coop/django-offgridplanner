@@ -9,6 +9,7 @@ urlpatterns = [
     path("projects", projects_list, name="projects_list"),
     path("projects/status/<str:status>", projects_list, name="projects_list"),
     path("duplicate/<int:proj_id>", project_duplicate, name="project_duplicate"),
+    path("export/<int:proj_id>", project_export, name="project_export"),
     path("delete/<int:proj_id>", project_delete, name="project_delete"),
     path("update_project_status", update_project_status, name="update_project_status"),
     path(

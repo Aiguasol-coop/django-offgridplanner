@@ -24,6 +24,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from openpyxl.drawing.image import PILImage
 from reportlab.lib.pagesizes import A4
@@ -148,7 +149,7 @@ def populate_project_from_export(export_dict, user):
 
 @login_required
 @user_owns_project
-@require_http_methods(["GET", "POST"])
+@require_http_methods(["GET"])
 def project_duplicate(request, proj_id):
     if proj_id is not None:
         project = get_object_or_404(Project, id=proj_id)
@@ -161,6 +162,21 @@ def project_duplicate(request, proj_id):
 
 @login_required
 @user_owns_project
+@require_http_methods(["GET"])
+def project_export(request, proj_id):
+    project = get_object_or_404(Project, id=proj_id)
+    export_dict = project.export()
+    response = HttpResponse(
+        json.dumps(export_dict, indent=4),
+        content_type="application/json",
+    )
+    response["Content-Disposition"] = f"attachment; filename={project.name}.json"
+
+    return response
+
+
+@login_required
+@user_owns_project
 @require_http_methods(["POST"])
 def project_delete(request, proj_id):
     project = get_object_or_404(Project, id=proj_id)
@@ -168,7 +184,7 @@ def project_delete(request, proj_id):
     if request.method == "POST":
         project.delete()
         # message not defined
-        messages.success(request, "Project successfully deleted!")
+        messages.success(request, _("Project successfully deleted!"))
 
     return HttpResponseRedirect(reverse("projects:projects_list"))
 
