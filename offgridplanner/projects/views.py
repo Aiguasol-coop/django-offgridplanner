@@ -6,8 +6,6 @@ import urllib
 from http.client import HTTPException
 
 import numpy as np
-
-# from jsonview.decorators import json_view
 import pandas as pd
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -110,69 +108,6 @@ def projects_list(request, status="analyzing"):
         )
 
 
-def populate_project_from_export(export_dict, user, *, include_results=True):
-    # Populate a project from a different project export. If include_results, the project is created along with the results object. This is the case if the project is imported from a json file. If the project is instead duplicated, we assume the user wants to change some parameters and re-calculate, so the results objects are not instantiated.
-    with transaction.atomic():
-        project_input = export_dict["proj"] | {
-            "user": user,
-        }
-        proj = Project.objects.create(**project_input)
-
-        if proj.options is None:
-            proj.options = Options.objects.create()
-        proj.save()
-
-        # Save links and nodes data
-        for name, model in zip(["links", "nodes"], [Links, Nodes], strict=False):
-            if name in export_dict:
-                json_data = export_dict[name]
-                instance, _ = model.objects.get_or_create(project=proj)
-                instance.data = json_data
-                instance.save()
-
-        # Save the energy system and grid design model data
-        for name, model in zip(
-            ["energy_system_design", "grid_design"],
-            [EnergySystemDesign, GridDesign],
-            strict=False,
-        ):
-            if name in export_dict:
-                params_dict = json.loads(export_dict[name])
-                processed_dict = from_nested_dict(model, params_dict)
-                model_input = {"project": proj} | processed_dict
-                instance, _ = model.objects.get_or_create(**model_input)
-                instance.save()
-
-        # Create a CustomDemand object
-        if "custom_demand" in export_dict:
-            model_input = export_dict["custom_demand"] | {"project": proj}
-            custom_demand, _ = CustomDemand.objects.get_or_create(**model_input)
-            custom_demand.save()
-
-        # If import from export json, include the simulation results
-        if include_results:
-            if "simulation" in export_dict:
-                simulation_input = export_dict["simulation"] | {"project": proj}
-                simulation, _ = Simulation.objects.get_or_create(**simulation_input)
-                simulation.save()
-
-                results_input = export_dict["results"] | {"simulation": simulation}
-                results, _ = Results.objects.get_or_create(**results_input)
-
-                for name, model in zip(
-                    ["emissions", "duration_curve", "energy_flow", "demand_coverage"],
-                    [Emissions, DurationCurve, EnergyFlow, DemandCoverage],
-                    strict=False,
-                ):
-                    if name in export_dict:
-                        json_data = export_dict[name]
-                        instance, _ = model.objects.get_or_create(project=proj)
-                        instance.data = json_data
-                        instance.save()
-
-    return proj.id
-
-
 @login_required
 @user_owns_project
 @require_http_methods(["GET"])
@@ -182,7 +117,7 @@ def project_duplicate(request, proj_id):
         export_dict = project.export()
         user = request.user
         new_proj_id = populate_project_from_export(
-            export_dict, user=user, input_from_json_export=False
+            export_dict, user=user, include_results=False
         )
 
     return HttpResponseRedirect(reverse("projects:projects_list"))
@@ -208,9 +143,17 @@ def project_export(request, proj_id):
 def project_import(request):
     file = request.FILES["file"]
     export_dict = json.loads(file.read())
-    new_proj_id = populate_project_from_export(
-        export_dict, user=request.user, input_from_json_export=True
-    )
+    if "proj" in export_dict and file.name.split(".")[-1].lower():
+        new_proj_id = populate_project_from_export(
+            export_dict, user=request.user, include_results=True
+        )
+    else:
+        messages.error(
+            request,
+            _(
+                "The imported file must be a previously exported project in .json format."
+            ),
+        )
     return HttpResponseRedirect(reverse("projects:projects_list"))
 
 
@@ -796,3 +739,62 @@ def download_excel_results(request, proj_id):
             "Content-Disposition": 'attachment; filename="offgridplanner_results.xlsx"'
         },
     )
+
+
+def _save_model(model_dict, proj, model):
+    instance, _ = model.objects.get_or_create(**model_dict | {"project": proj})
+    instance.save()
+    return instance
+
+
+def _save_json_data_model(model_dict, proj, model):
+    instance, _ = model.objects.get_or_create(project=proj)
+    instance.data = model_dict
+    instance.save()
+    return instance
+
+
+def _save_nested_model(model_dict, proj, model):
+    params_dict = json.loads(model_dict)
+    processed_dict = from_nested_dict(model, params_dict)
+    instance, _ = model.objects.get_or_create(**{"project": proj} | processed_dict)
+    instance.save()
+    return instance
+
+
+def populate_project_from_export(export_dict, user, *, include_results=True):
+    # Populate a project from a different project export. If include_results, the project is created along with the results object. This is the case if the project is imported from a json file. If the project is instead duplicated, we assume the user wants to change some parameters and re-calculate, so the results objects are not instantiated.
+    with transaction.atomic():
+        proj = Project.objects.create(**export_dict["proj"] | {"user": user})
+        proj.options = Options.objects.create()
+        proj.save()
+
+        for name, model in [("links", Links), ("nodes", Nodes)]:
+            if name in export_dict:
+                _save_json_data_model(export_dict[name], proj, model)
+
+        for name, model in [
+            ("energy_system_design", EnergySystemDesign),
+            ("grid_design", GridDesign),
+        ]:
+            if name in export_dict:
+                _save_nested_model(export_dict[name], proj, model)
+
+        if "custom_demand" in export_dict:
+            _save_model(export_dict["custom_demand"], proj, CustomDemand)
+
+        if include_results and "simulation" in export_dict:
+            simulation = _save_model(export_dict["simulation"], proj, Simulation)
+            Results.objects.get_or_create(
+                **export_dict["results"] | {"simulation": simulation}
+            )
+
+            for name, model in [
+                ("emissions", Emissions),
+                ("duration_curve", DurationCurve),
+                ("energy_flow", EnergyFlow),
+                ("demand_coverage", DemandCoverage),
+            ]:
+                _save_json_data_model(export_dict[name], proj, model)
+
+    return proj.id
