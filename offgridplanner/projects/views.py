@@ -34,8 +34,13 @@ from svglib.svglib import svg2rlg
 
 from config.settings.base import DONE
 from offgridplanner.optimization.helpers import process_optimization_results
+from offgridplanner.optimization.models import DemandCoverage
+from offgridplanner.optimization.models import DurationCurve
+from offgridplanner.optimization.models import Emissions
+from offgridplanner.optimization.models import EnergyFlow
 from offgridplanner.optimization.models import Links
 from offgridplanner.optimization.models import Nodes
+from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.models import Roads
 from offgridplanner.optimization.models import Simulation
 from offgridplanner.optimization.processing import PreProcessor
@@ -105,8 +110,8 @@ def projects_list(request, status="analyzing"):
         )
 
 
-def populate_project_from_export(export_dict, user):
-    # TODO technically one could also just duplicate the model instances directly instead of recreating them from dictionaries, but this allows the option to also have a file export/import in the future in json format that works with the same functions
+def populate_project_from_export(export_dict, user, *, include_results=True):
+    # Populate a project from a different project export. If include_results, the project is created along with the results object. This is the case if the project is imported from a json file. If the project is instead duplicated, we assume the user wants to change some parameters and re-calculate, so the results objects are not instantiated.
     with transaction.atomic():
         project_input = export_dict["proj"] | {
             "user": user,
@@ -144,6 +149,27 @@ def populate_project_from_export(export_dict, user):
             custom_demand, _ = CustomDemand.objects.get_or_create(**model_input)
             custom_demand.save()
 
+        # If import from export json, include the simulation results
+        if include_results:
+            if "simulation" in export_dict:
+                simulation_input = export_dict["simulation"] | {"project": proj}
+                simulation, _ = Simulation.objects.get_or_create(**simulation_input)
+                simulation.save()
+
+                results_input = export_dict["results"] | {"simulation": simulation}
+                results, _ = Results.objects.get_or_create(**results_input)
+
+                for name, model in zip(
+                    ["emissions", "duration_curve", "energy_flow", "demand_coverage"],
+                    [Emissions, DurationCurve, EnergyFlow, DemandCoverage],
+                    strict=False,
+                ):
+                    if name in export_dict:
+                        json_data = export_dict[name]
+                        instance, _ = model.objects.get_or_create(project=proj)
+                        instance.data = json_data
+                        instance.save()
+
     return proj.id
 
 
@@ -155,7 +181,9 @@ def project_duplicate(request, proj_id):
         project = get_object_or_404(Project, id=proj_id)
         export_dict = project.export()
         user = request.user
-        new_proj_id = populate_project_from_export(export_dict, user=user)
+        new_proj_id = populate_project_from_export(
+            export_dict, user=user, input_from_json_export=False
+        )
 
     return HttpResponseRedirect(reverse("projects:projects_list"))
 
