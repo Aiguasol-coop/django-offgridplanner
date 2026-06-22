@@ -89,26 +89,13 @@
             </label>
           </div>
 
-          <span style="float:right;">
-          {% if status == "analyzing" %}<a>
-                    <a href="{% url 'steps:project_setup' %}"
-                       class="btn btn--long text-right">{% translate "New Project" %}</a>
-                  </a>
-                    <form action="{% url 'projects:project_import' %}" method="POST" enctype="multipart/form-data" style="display:inline;">
-                      {% csrf_token %}
-                      <label class="btn btn--medium"
-                             style="height: 32px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    margin-right: 10px;
-                                    cursor: pointer;">
-                        {% translate 'Project Import' %}
-                        <input type="file" name="file" accept=".json" style="display:none;"
-                               onchange="this.form.submit()">
-                      </label>
-                    </form>
-          {% endif %}
+          <span style="float:right; display:flex; gap:8px; align-items:center;">
+            <form action="{% url 'projects:project_import' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input id="importFileInput" type="file" name="file" accept=".json" style="display:none;" onchange="this.form.submit()">
+              <button type="button" class="btn btn--long" style="margin:0; white-space:nowrap; width:auto;" onclick="document.getElementById('importFileInput').click()">{% translate 'Import Project' %}</button>
+            </form>
+            <a href="{% url 'steps:project_setup' %}" class="btn btn--long" style="margin:0;">{% translate "New Project" %}</a>
           </span>
         </div>
         <span class="title"></span>
