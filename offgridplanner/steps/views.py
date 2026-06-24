@@ -1,3 +1,4 @@
+import json
 import os
 
 from django.contrib import messages
@@ -13,6 +14,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
+from psycopg import IntegrityError
 
 from config.settings.base import DEFAULT_COUNTRY
 from config.settings.base import PENDING
@@ -56,56 +58,37 @@ STEP_LIST_RIBBON = list(STEPS.values())
 @user_owns_project
 @require_http_methods(["GET", "POST"])
 def project_setup(request, proj_id=None):
-    project = get_object_or_404(Project, id=proj_id) if proj_id is not None else None
-    if request.method == "GET":
-        max_days = int(os.environ.get("MAX_DAYS", 365))
+    max_days = int(os.environ.get("MAX_DAYS", 365))
 
-        context = {}
+    if request.method == "POST":
+        form, opts_form, project, success = _save_project_setup(
+            request.user, proj_id, request.POST
+        )
+        if success:
+            return HttpResponseRedirect(
+                reverse("steps:consumer_selection", args=[project.id]),
+            )
+    else:
+        project = (
+            get_object_or_404(Project, id=proj_id) if proj_id is not None else None
+        )
         if project is not None:
             form = ProjectForm(instance=project)
-            opts = OptionForm(instance=project.options)
-            context.update({"proj_id": project.id})
+            opts_form = OptionForm(instance=project.options)
         else:
             form = ProjectForm(initial=get_param_from_metadata("default", "Project"))
-            opts = OptionForm()
-        context.update(
-            {
-                "form": form,
-                "opts_form": opts,
-                # fields that should be rendered in left column (for use in template tags)
-                "left_col_fields": ["name", "n_days", "description"],
-                "max_days": max_days,
-                "step_id": list(STEPS.keys()).index("project_setup") + 1,
-                "step_list": STEP_LIST_RIBBON,
-            },
-        )
+            opts_form = OptionForm()
 
-        # TODO in the js figure out what this is supposed to mean, this make the next button jump to either step 'consumer_selection'
-        # or step 'demand_estimation'
-        # const consumerSelectionHref = `consumer_selection?project_id=${project_id}`;
-        # const demandEstimationHref = `demand_estimation?project_id =${project_id}`;
-        # If Consumer Selection is hidden (in raw html), go to demand_estimation
-
-        return render(request, "pages/project_setup.html", context)
-    if request.method == "POST":
-        if project is None:
-            form = ProjectForm(request.POST)
-            opts_form = OptionForm(request.POST)
-        else:
-            form = ProjectForm(request.POST, instance=project)
-            opts_form = OptionForm(request.POST, instance=project.options)
-        if form.is_valid() and opts_form.is_valid():
-            opts = opts_form.save()
-            if project is None:
-                project = form.save(commit=False)
-                project.user = User.objects.get(email=request.user.email)
-                project.options = opts
-            project.save()
-            simulation, _ = Simulation.objects.get_or_create(project=project)
-
-        return HttpResponseRedirect(
-            reverse("steps:consumer_selection", args=[project.id]),
-        )
+    context = {
+        "form": form,
+        "opts_form": opts_form,
+        "proj_id": project.id if project else None,
+        "left_col_fields": ["name", "n_days", "description"],
+        "max_days": max_days,
+        "step_id": list(STEPS.keys()).index("project_setup") + 1,
+        "step_list": STEP_LIST_RIBBON,
+    }
+    return render(request, "pages/project_setup.html", context)
 
 
 @login_required
@@ -450,24 +433,40 @@ def steps(request, proj_id, step_id=None):
 @login_required
 @user_owns_project
 @require_http_methods(["POST"])
-def project_setup_autosave(request, proj_id):
-    with transaction.atomic():
-        project = get_object_or_404(Project, id=proj_id)
-        if project is None:
-            form = ProjectForm(request.POST)
-            opts_form = OptionForm(request.POST)
-        else:
-            form = ProjectForm(request.POST, instance=project)
-            opts_form = OptionForm(request.POST, instance=project.options)
-        if form.is_valid() and opts_form.is_valid():
-            opts = opts_form.save()
-            if project is None:
-                project = form.save(commit=False)
-                project.user = User.objects.get(email=request.user.email)
-                project.options = opts
-            project.save()
-            simulation, _ = Simulation.objects.get_or_create(project=project)
+def project_setup_autosave(request, proj_id=None):
+    try:
+        data = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({"message": "invalid JSON"}, status=400)
+    _, _, _, success = _save_project_setup(request.user, proj_id, data)
+    if success:
         return JsonResponse({"message": "successfully autosaved"}, status=200)
+    return JsonResponse({"message": "autosave failed"}, status=400)
+
+
+def _save_project_setup(user, proj_id, form_data):
+    project = get_object_or_404(Project, id=proj_id) if proj_id else None
+    form = ProjectForm(form_data, instance=project)
+    opts_form = OptionForm(form_data, instance=project.options if project else None)
+    success = True
+    if form.is_valid() and opts_form.is_valid():
+        try:
+            with transaction.atomic():
+                opts = opts_form.save()
+                if project is None:
+                    project = form.save(commit=False)
+                    project.user = User.objects.get(email=user.email)
+                    project.options = opts
+                    project.save()
+                else:
+                    project.save()
+                Simulation.objects.get_or_create(project=project)
+        except IntegrityError:
+            success = False
+    else:
+        success = False
+
+    return form, opts_form, project, success
 
 
 @require_http_methods(["GET"])
