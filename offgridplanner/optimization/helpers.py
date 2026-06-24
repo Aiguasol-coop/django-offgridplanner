@@ -291,6 +291,7 @@ def consumer_data_to_file(df, file_type):
         )
     else:
         df = df.drop(columns=["is_connected", "is_fixed", "how_added", "node_type"])
+        df = df.reset_index(names=["id"])
 
     if file_type == "xlsx":
         return consumer_data_to_formatted_excel(df)
