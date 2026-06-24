@@ -650,6 +650,10 @@ msgstr "Espera"
 msgid "Project successfully moved to monitoring!"
 msgstr "O projeto foi transferido com sucesso para a fase de monitorização!"
 
+#: .\offgridplanner\templates\pages\user_projects.html:17
+msgid "Project successfully deleted!"
+msgstr "O projeto foi eliminado com sucesso!"
+
 #: .\offgridplanner\templates\pages\user_projects.html:32
 msgid ""
 "Enter the monitoring ID that is used to track the mini-grid status on the "
@@ -1459,3 +1463,9 @@ msgstr "Dispositivo"
 
 msgid "The sum of all shares must equal 100%."
 msgstr "A soma de todas as quotas deve ser igual a 100%."
+
+msgid "Error: The imported file must be a previously exported project in .json format."
+msgstr "Erro: O ficheiro importado deve ser um projeto previamente exportado no formato .json."
+
+msgid "Import Project"
+msgstr "Importar Projeto"
