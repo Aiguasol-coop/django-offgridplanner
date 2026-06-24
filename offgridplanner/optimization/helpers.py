@@ -14,6 +14,7 @@ from config.settings.base import DEFAULT_COUNTRY
 from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import SupplyProcessor
+from offgridplanner.optimization.supply.demand_estimation import CONSUMER_TYPE_LIST
 from offgridplanner.optimization.supply.demand_estimation import ENTERPRISE_LIST
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_KW_MAPPING
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_LIST
@@ -270,7 +271,63 @@ def consumer_data_to_file(df, file_type):
         )
     else:
         df = df.drop(columns=["is_connected", "how_added", "node_type"])
+
+    if file_type == "xlsx":
+        return consumer_data_to_formatted_excel(df)
     return df_to_file(df, file_type)
+
+
+def consumer_data_to_formatted_excel(df):
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False)
+        # import pdb; pdb.set_trace()
+        consumer_type_col = df.columns.get_loc("consumer_type")
+        consumer_detail_col = df.columns.get_loc("consumer_detail")
+        workbook = writer.book
+        ws = writer.sheets["Sheet1"]
+        # hidden list sheet
+        list_ws = workbook.add_worksheet("_lists")
+        list_ws.hide()
+        validation_options = {
+            "household": ["default"],
+            "enterprise": ENTERPRISE_LIST,
+            "public_service": PUBLIC_SERVICE_LIST,
+        }
+        for col_idx, (name, values) in enumerate(validation_options.items()):
+            for row_idx, val in enumerate(values):
+                list_ws.write(row_idx, col_idx, val)
+            col_letter = chr(ord("A") + col_idx)
+            workbook.define_name(
+                name, f"=_lists!${col_letter}$1:${col_letter}${len(values)}"
+            )
+        validation_sheet_map = {
+            "household": "=household",
+            "enterprise": "=enterprise",
+            "public_service": "=public_service",
+        }
+        ws.data_validation(
+            1,
+            consumer_type_col,
+            len(df) + 1,
+            consumer_type_col,
+            {"validate": "list", "source": CONSUMER_TYPE_LIST},
+        )
+        for row_idx, consumer_type in enumerate(df["consumer_type"], start=1):
+            allowed = validation_sheet_map.get(consumer_type)
+            ws.data_validation(
+                row_idx,
+                consumer_detail_col,
+                row_idx,
+                consumer_detail_col,
+                {
+                    "validate": "list",
+                    "source": allowed,
+                },
+            )
+
+    output.seek(0)
+    return output
 
 
 def check_imported_demand_data(df, project_dict):

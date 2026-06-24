@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def prepare_load_profiles_data():
     demand_data_json = {}
-    for consumer_type in ["household", "enterprise", "public_service"]:
+    for consumer_type in CONSUMER_TYPE_LIST:
         try:
             demand_data_json[consumer_type] = fetch_demand_profiles(consumer_type)
         except RuntimeError:
@@ -41,6 +41,8 @@ def prepare_load_profiles_data():
 
 
 LOAD_PROFILES = prepare_load_profiles_data()
+
+CONSUMER_TYPE_LIST = ["household", "enterprise", "public_service"]
 
 PUBLIC_SERVICE_LIST = [
     profile.split("_", maxsplit=1)[1]
