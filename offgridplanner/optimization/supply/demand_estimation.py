@@ -8,6 +8,8 @@ from offgridplanner.optimization.requests import fetch_demand_profiles
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+CONSUMER_TYPE_LIST = ["household", "enterprise", "public_service"]
+
 
 def prepare_load_profiles_data():
     demand_data_json = {}
@@ -41,8 +43,6 @@ def prepare_load_profiles_data():
 
 
 LOAD_PROFILES = prepare_load_profiles_data()
-
-CONSUMER_TYPE_LIST = ["household", "enterprise", "public_service"]
 
 PUBLIC_SERVICE_LIST = [
     profile.split("_", maxsplit=1)[1]
