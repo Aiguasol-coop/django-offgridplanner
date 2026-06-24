@@ -43,6 +43,7 @@ function autosave_consumers() {
         option_consumer += '<option value="' + consumer_code + '"' + selected + '>' + consumer_list[consumer_code] + '</option>';
     }
     document.getElementById('consumer').innerHTML = option_consumer;
+    document.getElementById('consumer_id').innerHTML = "";
 
     // Add event listener to the dropdown menu
     document.getElementById('consumer').addEventListener('change', function() {
@@ -146,6 +147,7 @@ function markerOnClick(e) {
                     .on('click', markerOnClick).addTo(map);
                 document.getElementById('longitude').value = marker.longitude;
                 document.getElementById('latitude').value = marker.latitude;
+                document.getElementById('consumer_id').innerHTML = marker.index ?? marker.label ?? '';
                 if (marker.node_type === 'power-house') {
                     document.getElementById('consumer').value = '';
                     document.getElementById('consumer').disabled = true;

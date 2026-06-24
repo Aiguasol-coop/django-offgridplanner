@@ -52,6 +52,8 @@
                 <span class="accordion-body" style="border-bottom: none;">
                   <table style="border-top: none; color: var(--ccb); border-spacing: 0;">
                     <tr>
+                      <th style="vertical-align: top; padding: 5px;"></th>
+                      <th style="vertical-align: top; padding: 5px;">{% translate 'ID' %}</th>
                       <th style="vertical-align: top; padding: 5px;">{% translate 'Consumer Type' %}</th>
                       <th style="vertical-align: top; padding: 5px;">{% translate 'Consumer Category' %}</th>
                       <th style="vertical-align: top; padding: 5px;">{% translate 'Latitude' %}</th>
@@ -68,6 +70,15 @@
                       <th style="vertical-align: top; padding: 5px;"></th>
                     </tr>
                     <tr>
+                      <td style="padding: 5px;">
+                        <span style="float:right;"><a>&nbsp;</a></span>
+                      </td>
+                      <td style="padding: 5px;">
+                        <div class="input-item">
+                          <a id="consumer_id" style="max-width: 150px">
+                          </a>
+                        </div>
+                      </td>
                       <td style="padding: 5px;">
                         <div class="input-item">
                           <select class="form-select" id="consumer" style="max-width: 150px">
