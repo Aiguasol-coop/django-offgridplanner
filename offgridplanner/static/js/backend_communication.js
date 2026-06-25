@@ -56,7 +56,7 @@
                     return res.json();
                 })
                 .then(() => {
-                    if (indicator) setTimeout(() => indicator.classList.remove('visible'), 2000);
+                    if (indicator) setTimeout(() => indicator.classList.remove('visible'), 1500);
                 })
                 .catch(err => {
                     console.error('Autosave error:', err);
