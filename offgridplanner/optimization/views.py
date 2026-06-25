@@ -45,8 +45,6 @@ from offgridplanner.optimization.supply.demand_estimation import get_demand_time
 from offgridplanner.optimization.tasks import revoke_task
 from offgridplanner.projects.helpers import format_results_into_kpi_dict
 from offgridplanner.projects.helpers import sanitize_output_kpis
-from offgridplanner.projects.helpers import collect_project_dataframes
-from offgridplanner.projects.helpers import df_to_file
 from offgridplanner.projects.models import Project
 from offgridplanner.steps.models import CustomDemand
 

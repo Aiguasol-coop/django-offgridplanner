@@ -97,6 +97,7 @@ function initDOM() {
     AppState.plotElement = document.getElementById('demand_plot');
     AppState.radioTotalDemand = document.getElementById('optionTotalDemand');
     AppState.radioSingleHousehold = document.getElementById('optionSingleHousehold');
+    AppState.settlementTypeSelect = document.getElementById('id_settlement_type');
 
     AppState.toggleSwitch = document.getElementById('toggleswitch');
     AppState.option7Radio = document.getElementById('option7radio');
@@ -118,15 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
     initDOM();
     attachInputListeners();
     loadDemandPlot();
-    settlementTypeSelect.addEventListener("change", function() {
+    AppState.settlementTypeSelect.addEventListener("change", function() {
         const type = this.value;
         // Update the plot and the form values
-        plotDemandData();
         if (defaultShares[type]) {
           for (const [field, value] of Object.entries(defaultShares[type])) {
             document.querySelector(`#id_${field}`).value = value;
           }
         }
+    updateDemandCheck();
+    updateAverageArray();
+    updateAverageTrace();
+    updateHouseholdDemandTrace();
     });
 
 
@@ -138,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ================================ */
 
 function loadDemandPlot() {
-    fetch(`${loadDemandPlotUrl}?settlement_type=${encodeURIComponent(settlementTypeSelect.value)}`)
+    fetch(`${loadDemandPlotUrl}?settlement_type=${encodeURIComponent(AppState.settlementTypeSelect.value)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -187,13 +191,13 @@ var layout = {
     font: { size: 14 },
     autosize: true,
     xaxis: {
-        title: 'Hour of the day',
+        title: gettext('Hour of the day'),
         hoverformat: '.1f',
         titlefont: { size: 16 },
         tickfont: { size: 14 },
     },
     yaxis: {
-        title: 'Demand (kW)',
+        title: gettext('Demand (kW)'),
         hoverformat: '.1f',
         titlefont: { size: 16 },
         tickfont: { size: 14 },
@@ -241,7 +245,7 @@ function buildPlot(data) {
             x: x,
             y: AppState.total_demand_raw,
             mode: 'lines',
-            name: 'Total Demand',
+            name: gettext('Total Demand'),
             line: { color: colors.total, width: 3, shape: 'spline' },
             visible: true, // Initially visible
             legendrank: 0
@@ -251,7 +255,7 @@ function buildPlot(data) {
             y: public_services,
             type: 'scatter',
             mode: 'lines',
-            name: 'Demand of Public Services',
+            name: gettext('Demand of Public Services'),
             stackgroup: 'one',
             fill: 'tonexty',
             hoverinfo: 'x+y',
@@ -264,7 +268,7 @@ function buildPlot(data) {
             y: enterprises,
             type: 'scatter',
             mode: 'lines',
-            name: 'Demand of Enterprises',
+            name: gettext('Demand of Enterprises'),
             stackgroup: 'one',
             fill: 'tonexty',
             hoverinfo: 'x+y',
@@ -277,7 +281,7 @@ function buildPlot(data) {
             y: households,
             type: 'scatter',
             mode: 'lines',
-            name: 'Demand of Households',
+            name: gettext('Demand of Households'),
             stackgroup: 'one',
             fill: 'tonexty',
             hoverinfo: 'x+y',
@@ -289,7 +293,7 @@ function buildPlot(data) {
             x: x,
             y: Average,
             mode: 'lines',
-            name: 'Average Household Profile',
+            name: gettext('Average Household Profile'),
             line: { color: colors.average, width: 2, shape: 'spline' },
             visible: false, // Initially hidden
             legendrank: 4
@@ -298,7 +302,7 @@ function buildPlot(data) {
             x: x,
             y: Very_High,
             mode: 'lines',
-            name: 'Very High Consumption',
+            name: gettext('Very High Consumption'),
             line: { color: colors.very_high, width: 1, shape: 'spline' },
             visible: 'legendonly',
             legendrank: 5
@@ -307,7 +311,7 @@ function buildPlot(data) {
             x: x,
             y: High,
             mode: 'lines',
-            name: 'High Consumption',
+            name: gettext('High Consumption'),
             line: { color: colors.high, width: 1, shape: 'spline' },
             visible: 'legendonly',
             legendrank: 6
@@ -316,7 +320,7 @@ function buildPlot(data) {
             x: x,
             y: Middle,
             mode: 'lines',
-            name: 'Middle Consumption',
+            name: gettext('Middle Consumption'),
             line: { color: colors.middle, width: 1, shape: 'spline' },
             visible: 'legendonly',
             legendrank: 7
@@ -325,7 +329,7 @@ function buildPlot(data) {
             x: x,
             y: Low,
             mode: 'lines',
-            name: 'Low Consumption',
+            name: gettext('Low Consumption'),
             line: { color: colors.low, width: 1, shape: 'spline' },
             visible: 'legendonly',
             legendrank: 8
@@ -334,7 +338,7 @@ function buildPlot(data) {
             x: x,
             y: Very_Low,
             mode: 'lines',
-            name: 'Very Low Consumption',
+            name: gettext('Very Low Consumption'),
             line: { color: colors.very_low, width: 1, shape: 'spline' },
             visible: 'legendonly',
             legendrank: 9
@@ -555,7 +559,7 @@ document.addEventListener("input", updateDemandCheck);
 ================================ */
 
 // add functionality to reset Shares Button
-document.getElementById("resetShares").addEventListener("click", resetInitialShares);
+document.getElementById("resetDefault").addEventListener("click", resetInitialShares);
 
 /* ================================
    File Handling
