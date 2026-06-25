@@ -167,8 +167,7 @@ function markerOnClick(e) {
                 } else if (marker.consumer_type === 'enterprise') {
                     dropDownMenu(enterprise_list);
                     document.getElementById('consumer').value = 'E';
-                    let key = getKeyByValue(enterprise_list, marker.consumer_detail);
-                    document.getElementById('enterprise').value = key;
+                    document.getElementById('enterprise').value = marker.consumer_detail;
                     document.getElementById('shs_options').disabled = false;
                     document.getElementById('consumer').disabled = false;
                     activate_large_loads();
@@ -186,8 +185,7 @@ function markerOnClick(e) {
                     document.getElementById('shs_options').disabled = false;
                     document.getElementById('consumer').value = 'P';
                     document.getElementById('consumer').disabled = false;
-                    let key2 = getKeyByValue(public_service_list, marker.consumer_detail);
-                    document.getElementById('enterprise').value = key2;
+                    document.getElementById('enterprise').value = marker.consumer_detail;
                     deactivate_large_loads()
                 }
                 if (marker.node_type !== 'power-house') {
