@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - Allow download and import of projects in .json format ([#35](https://github.com/Aiguasol-coop/django-offgridplanner/pull/35))
+- Autosave form data for all steps ([#37](https://github.com/Aiguasol-coop/django-offgridplanner/pull/37))
 
 ### Fixed
 - Fix server error when accessing potential map for new users ([#35](https://github.com/Aiguasol-coop/django-offgridplanner/pull/35))
