@@ -8,10 +8,12 @@ from offgridplanner.optimization.requests import fetch_demand_profiles
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+CONSUMER_TYPE_LIST = ["household", "enterprise", "public_service"]
+
 
 def prepare_load_profiles_data():
     demand_data_json = {}
-    for consumer_type in ["household", "enterprise", "public_service"]:
+    for consumer_type in CONSUMER_TYPE_LIST:
         try:
             demand_data_json[consumer_type] = fetch_demand_profiles(consumer_type)
         except RuntimeError:

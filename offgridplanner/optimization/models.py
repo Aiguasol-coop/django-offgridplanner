@@ -37,7 +37,7 @@ class Nodes(BaseJsonData):
     def filter_consumers(self, consumer_type):
         """
         Parameters:
-            consumer_type (str): One of "household", "enterprise", "public_service"
+            consumer_type (str): One of CONSUMER_TYPE_LIST
         """
         nodes = self.df
         consumer_type_df = nodes[

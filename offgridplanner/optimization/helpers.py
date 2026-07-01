@@ -8,12 +8,16 @@ import pycountry
 from country_bounding_boxes import country_subunits_by_iso_code
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
+from django.utils import translation
+from django.utils.translation import gettext_lazy as _
 from rest_framework.generics import get_object_or_404
 
 from config.settings.base import DEFAULT_COUNTRY
+from config.settings.base import LANGUAGES
 from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import SupplyProcessor
+from offgridplanner.optimization.supply.demand_estimation import CONSUMER_TYPE_LIST
 from offgridplanner.optimization.supply.demand_estimation import ENTERPRISE_LIST
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_KW_MAPPING
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_LIST
@@ -21,6 +25,19 @@ from offgridplanner.optimization.supply.demand_estimation import PUBLIC_SERVICE_
 from offgridplanner.projects.models import Project
 
 logger = logging.getLogger(__name__)
+
+
+def _build_consumer_detail_reverse_map():
+    all_values = list(ENTERPRISE_LIST) + list(PUBLIC_SERVICE_LIST)
+    reverse = {v: v for v in all_values}
+    for lang, _verbose in LANGUAGES:
+        with translation.override(lang):
+            for val in all_values:
+                reverse[str(_(val))] = val
+    return reverse
+
+
+CONSUMER_DETAIL_REVERSE_MAP = _build_consumer_detail_reverse_map()
 
 
 def df_to_file(df, file_type):
@@ -199,6 +216,10 @@ def check_imported_consumer_data(df, proj_id):
     }
     df = set_default_values(df, defaults)
     df["is_connected"], df["how_added"], df["node_type"] = True, "automatic", "consumer"
+    # Normalize translated consumer_detail values back to English keys
+    df["consumer_detail"] = df["consumer_detail"].map(
+        lambda x: CONSUMER_DETAIL_REVERSE_MAP.get(x, x)
+    )
     # Validate column inputs
     for col in [
         "consumer_type",
@@ -269,8 +290,67 @@ def consumer_data_to_file(df, file_type):
             ],
         )
     else:
-        df = df.drop(columns=["is_connected", "how_added", "node_type"])
+        df = df.drop(columns=["is_connected", "is_fixed", "how_added", "node_type"])
+        df = df.reset_index(names=["id"])
+
+    if file_type == "xlsx":
+        return consumer_data_to_formatted_excel(df)
     return df_to_file(df, file_type)
+
+
+def consumer_data_to_formatted_excel(df):
+    output = io.BytesIO()
+    # Translate the existing consumer detail data to have export in portuguese
+    df["consumer_detail"] = df["consumer_detail"].map(lambda x: _(x))
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False)
+        consumer_type_col = df.columns.get_loc("consumer_type")
+        consumer_detail_col = df.columns.get_loc("consumer_detail")
+        workbook = writer.book
+        ws = writer.sheets["Sheet1"]
+        # hidden list sheet
+        list_ws = workbook.add_worksheet("_lists")
+        list_ws.hide()
+        validation_options = {
+            "household": ["default"],
+            "enterprise": [_(enterprise) for enterprise in ENTERPRISE_LIST],
+            "public_service": [_(service) for service in PUBLIC_SERVICE_LIST],
+        }
+
+        for col_idx, (name, values) in enumerate(validation_options.items()):
+            for row_idx, val in enumerate(values):
+                list_ws.write(row_idx, col_idx, str(val))
+            col_letter = chr(ord("A") + col_idx)
+            workbook.define_name(
+                name, f"=_lists!${col_letter}$1:${col_letter}${len(values)}"
+            )
+        validation_sheet_map = {
+            "household": "=household",
+            "enterprise": "=enterprise",
+            "public_service": "=public_service",
+        }
+        ws.data_validation(
+            1,
+            consumer_type_col,
+            len(df) + 1,
+            consumer_type_col,
+            {"validate": "list", "source": CONSUMER_TYPE_LIST},
+        )
+        for row_idx, consumer_type in enumerate(df["consumer_type"], start=1):
+            allowed = validation_sheet_map.get(consumer_type)
+            ws.data_validation(
+                row_idx,
+                consumer_detail_col,
+                row_idx,
+                consumer_detail_col,
+                {
+                    "validate": "list",
+                    "source": allowed,
+                },
+            )
+
+    output.seek(0)
+    return output
 
 
 def check_imported_demand_data(df, project_dict):

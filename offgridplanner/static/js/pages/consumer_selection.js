@@ -43,6 +43,7 @@ function autosave_consumers() {
         option_consumer += '<option value="' + consumer_code + '"' + selected + '>' + consumer_list[consumer_code] + '</option>';
     }
     document.getElementById('consumer').innerHTML = option_consumer;
+    document.getElementById('consumer_id').innerHTML = "";
 
     // Add event listener to the dropdown menu
     document.getElementById('consumer').addEventListener('change', function() {
@@ -146,6 +147,7 @@ function markerOnClick(e) {
                     .on('click', markerOnClick).addTo(map);
                 document.getElementById('longitude').value = marker.longitude;
                 document.getElementById('latitude').value = marker.latitude;
+                document.getElementById('consumer_id').innerHTML = marker.index ?? marker.label ?? '';
                 if (marker.node_type === 'power-house') {
                     document.getElementById('consumer').value = '';
                     document.getElementById('consumer').disabled = true;
@@ -165,8 +167,7 @@ function markerOnClick(e) {
                 } else if (marker.consumer_type === 'enterprise') {
                     dropDownMenu(enterprise_list);
                     document.getElementById('consumer').value = 'E';
-                    let key = getKeyByValue(enterprise_list, marker.consumer_detail);
-                    document.getElementById('enterprise').value = key;
+                    document.getElementById('enterprise').value = marker.consumer_detail;
                     document.getElementById('shs_options').disabled = false;
                     document.getElementById('consumer').disabled = false;
                     activate_large_loads();
@@ -184,8 +185,7 @@ function markerOnClick(e) {
                     document.getElementById('shs_options').disabled = false;
                     document.getElementById('consumer').value = 'P';
                     document.getElementById('consumer').disabled = false;
-                    let key2 = getKeyByValue(public_service_list, marker.consumer_detail);
-                    document.getElementById('enterprise').value = key2;
+                    document.getElementById('enterprise').value = marker.consumer_detail;
                     deactivate_large_loads()
                 }
                 if (marker.node_type !== 'power-house') {
