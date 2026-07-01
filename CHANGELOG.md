@@ -2,11 +2,12 @@
 
 ## [Unreleased]
 ### Added
-- Allow download and import of projects in .json format ([#35](https://github.com/Aiguasol-coop/django-offgridplanner/pull/35))
+- Allow download and import of projects in .json format ([#36](https://github.com/Aiguasol-coop/django-offgridplanner/pull/36))
 - Autosave form data for all steps ([#37](https://github.com/Aiguasol-coop/django-offgridplanner/pull/37))
 
 ### Fixed
 - Fix server error when accessing potential map for new users ([#35](https://github.com/Aiguasol-coop/django-offgridplanner/pull/35))
+- Fix calibration option units and dynamic plot updates ([#39](https://github.com/Aiguasol-coop/django-offgridplanner/pull/39))
 
 ## [v1.1.6-moz.3.3] – 2026-06-17
 ### Fixed
