@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.4.0] – 2026-07-01
 ### Added
 - Allow download and import of projects in .json format ([#36](https://github.com/Aiguasol-coop/django-offgridplanner/pull/36))
 - Autosave form data for all steps ([#37](https://github.com/Aiguasol-coop/django-offgridplanner/pull/37))
