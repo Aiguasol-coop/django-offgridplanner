@@ -311,7 +311,7 @@ def consumer_data_to_formatted_excel(df):
         consumer_detail_col = df.columns.get_loc("consumer_detail")
         workbook = writer.book
         ws = writer.sheets["Sheet1"]
-        options_ws = workbook.add_worksheet(str(_("Consumer Options")))
+        options_ws = workbook.add_worksheet(str(_("Options")))
         validation_options = {
             "household": ["default"],
             "enterprise": [_(enterprise) for enterprise in ENTERPRISE_LIST],
@@ -343,7 +343,7 @@ def consumer_data_to_formatted_excel(df):
             for row_idx, val in enumerate(values, start=1):
                 options_ws.write(row_idx, col_idx, str(val), cell_fmt)
             col_letter = chr(ord("A") + col_idx)
-            sheet_name = _("Consumer Options")
+            sheet_name = _("Options")
             workbook.define_name(
                 name, f"='{sheet_name}'!${col_letter}$2:${col_letter}${len(values) + 1}"
             )
