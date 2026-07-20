@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Add consumer label in consumer selection (set from excel file) ([#41](https://github.com/Aiguasol-coop/django-offgridplanner/pull/41))
+- Add dependent dropdown on consumer excel sheet ([#41](https://github.com/Aiguasol-coop/django-offgridplanner/pull/41))
+
+### Fixed
+- Avoid overwriting poles when switching from results to consumer selection and back ([#41](https://github.com/Aiguasol-coop/django-offgridplanner/pull/41))
 
 ## [v1.1.6-moz.4.0] – 2026-07-01
 ### Added
