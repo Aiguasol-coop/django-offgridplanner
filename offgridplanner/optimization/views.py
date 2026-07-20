@@ -337,7 +337,6 @@ def consumer_to_db(request, proj_id):
 
     # Keep only relevant columns
     required_columns = [
-        "consumer_name",
         "latitude",
         "longitude",
         "how_added",
@@ -356,6 +355,7 @@ def consumer_to_db(request, proj_id):
     df["is_connected"] = True
     df["node_type"] = df["node_type"].astype(str)
     df["is_fixed"] = False
+    df["consumer_name"] = None
 
     # Assign default consumer_name to consumer rows that are missing one
     df["consumer_name"] = df["consumer_name"].fillna("").astype(str).str.strip()
@@ -798,6 +798,10 @@ def update_pole_positions(request, proj_id):
         nodes_df = nodes.df
         links = Links.objects.get(project__id=proj_id)
         links_df = links.df
+        # Add is_fixed column if it doesn't yet exist in the nodes dataframe
+        if "is_fixed" not in nodes_df:
+            nodes_df["is_fixed"] = False
+
         for pole in data:
             # Change the coordinates in the nodes data
             pid = pole.get("id")
@@ -805,10 +809,6 @@ def update_pole_positions(request, proj_id):
             lng = pole.get("longitude")
             nodes_df.loc[pid, "latitude"] = lat
             nodes_df.loc[pid, "longitude"] = lng
-            # Add is_fixed column if it doesn't yet exist in the nodes dataframe
-            if "is_fixed" not in nodes_df:
-                nodes_df["is_fixed"] = False
-
             try:
                 nodes_df.loc[pid, "is_fixed"] = True
             except TypeError:
