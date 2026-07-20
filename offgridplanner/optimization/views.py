@@ -46,6 +46,7 @@ from offgridplanner.optimization.tasks import revoke_task
 from offgridplanner.projects.helpers import format_results_into_kpi_dict
 from offgridplanner.projects.helpers import sanitize_output_kpis
 from offgridplanner.projects.models import Project
+from offgridplanner.steps.decorators import user_owns_project
 from offgridplanner.steps.models import CustomDemand
 
 logger = logging.getLogger(__name__)
@@ -287,6 +288,8 @@ def db_nodes_to_js(request, proj_id=None, *, markers_only=False):
             ):
                 is_load_center = False
 
+            # Make sure is_connected attribute is boolean (will be used to check in put_markers_on_map)
+            df.is_connected = df.is_connected.astype(bool)
         nodes_list = df.reset_index().to_dict("records")
         return JsonResponse(
             {"is_load_center": is_load_center, "map_elements": nodes_list},
@@ -306,102 +309,104 @@ def db_roads_to_js(request, proj_id=None):
         return JsonResponse({"road_elements": []})
 
 
+@user_owns_project
 @require_http_methods(["POST"])
-def consumer_to_db(request, proj_id=None):
-    if proj_id is not None:
-        project = get_object_or_404(Project, id=proj_id)
-        if project.user != request.user:
-            raise PermissionDenied
+def consumer_to_db(request, proj_id):
+    project = get_object_or_404(Project, id=proj_id)
 
-        data = json.loads(request.body)
-        map_elements = data.get("map_elements", [])
-        file_type = data.get("file_type", "")
+    data = json.loads(request.body)
+    map_elements = data.get("map_elements", [])
+    file_type = data.get("file_type", "")
 
-        if not map_elements:
-            Nodes.objects.filter(project=project).delete()
-            return JsonResponse({"message": "No data provided"}, status=200)
+    if not map_elements:
+        Nodes.objects.filter(project=project).delete()
+        return JsonResponse({"message": "No data provided"}, status=200)
 
-        # Create DataFrame and clean data
-        df = pd.DataFrame.from_records(map_elements)
+    # Create DataFrame and clean data
+    df = pd.DataFrame.from_records(map_elements)
 
-        if df.empty:
-            Nodes.objects.filter(project=project).delete()
-            return JsonResponse({"message": "No valid data"}, status=200)
+    if df.empty:
+        Nodes.objects.filter(project=project).delete()
+        return JsonResponse({"message": "No valid data"}, status=200)
 
-        df = df.drop_duplicates(subset=["latitude", "longitude"])
-        df = df[df["node_type"].isin(["power-house", "consumer"])]
+    df = df.drop_duplicates(subset=["latitude", "longitude"])
+    df = df[df["node_type"].isin(["power-house", "consumer"])]
 
-        # Ensure only one power-house node remains
-        df = df.drop(df[df["node_type"] == "power-house"].index[1:], errors="ignore")
+    # Ensure only one power-house node remains
+    df = df.drop(df[df["node_type"] == "power-house"].index[1:], errors="ignore")
 
-        # Keep only relevant columns
-        required_columns = [
-            "consumer_name",
-            "latitude",
-            "longitude",
-            "how_added",
-            "node_type",
-            "consumer_type",
-            "custom_specification",
-            "shs_options",
-            "consumer_detail",
-        ]
-        df = df.reindex(columns=required_columns)
+    # Keep only relevant columns
+    required_columns = [
+        "consumer_name",
+        "latitude",
+        "longitude",
+        "how_added",
+        "node_type",
+        "consumer_type",
+        "custom_specification",
+        "shs_options",
+        "consumer_detail",
+    ]
+    df = df.reindex(columns=required_columns)
 
-        # Fill missing values
-        df["consumer_type"] = df["consumer_type"].fillna("household")
-        df["custom_specification"] = df["custom_specification"].fillna("")
-        df["shs_options"] = df["shs_options"].fillna(0)
-        df["is_connected"] = True
-        df["node_type"] = df["node_type"].astype(str)
-        df["is_fixed"] = False
+    # Fill missing values
+    df["consumer_type"] = df["consumer_type"].fillna("household")
+    df["custom_specification"] = df["custom_specification"].fillna("")
+    df["shs_options"] = df["shs_options"].fillna(0)
+    df["is_connected"] = True
+    df["node_type"] = df["node_type"].astype(str)
+    df["is_fixed"] = False
 
-        # Assign default consumer_name to consumer rows that are missing one
-        df["consumer_name"] = df["consumer_name"].fillna("").astype(str).str.strip()
-        consumer_mask = df["node_type"] == "consumer"
-        missing_name = consumer_mask & (df["consumer_name"] == "")
-        existing_nums = (
-            df.loc[consumer_mask, "consumer_name"]
-            .str.extract(r"^consumer-(\d+)$")[0]
-            .dropna()
-            .astype(int)
+    # Assign default consumer_name to consumer rows that are missing one
+    df["consumer_name"] = df["consumer_name"].fillna("").astype(str).str.strip()
+    consumer_mask = df["node_type"] == "consumer"
+    missing_name = consumer_mask & (df["consumer_name"] == "")
+    existing_nums = (
+        df.loc[consumer_mask, "consumer_name"]
+        .str.extract(r"^consumer-(\d+)$")[0]
+        .dropna()
+        .astype(int)
+    )
+    next_n = int(existing_nums.max()) + 1 if not existing_nums.empty else 1
+    for idx in df[missing_name].index:
+        df.loc[idx, "consumer_name"] = f"consumer-{next_n}"
+        next_n += 1
+
+    # Format latitude and longitude
+    df["latitude"] = df["latitude"].map(lambda x: f"{x:.6f}")
+    df["longitude"] = df["longitude"].map(lambda x: f"{x:.6f}")
+
+    # Handle optional 'parent' column
+    if "parent" in df.columns:
+        df["parent"] = df["parent"].replace("unknown", None)
+
+    if file_type == "db":
+        nodes, _ = Nodes.objects.get_or_create(project=project)
+        if nodes.df is None or nodes.df.empty:
+            updated_nodes = df
+        else:
+            # Keep pole data if exists (to avoid deleting poles on results display)
+            non_consumer_nodes = nodes.df[nodes.df.node_type != "consumer"][
+                required_columns
+            ]
+            updated_nodes = pd.concat([df, non_consumer_nodes])
+        nodes.data = updated_nodes.to_json(orient="records")  # Keep format structured
+        nodes.save()
+        return JsonResponse({"message": "Success"}, status=200)
+
+    # Handle file downloads
+    io_file = consumer_data_to_file(df, file_type)
+    response = StreamingHttpResponse(io_file)
+
+    if file_type == "xlsx":
+        response.headers["Content-Disposition"] = (
+            "attachment; filename=offgridplanner_consumers.xlsx"
         )
-        next_n = int(existing_nums.max()) + 1 if not existing_nums.empty else 1
-        for idx in df[missing_name].index:
-            df.loc[idx, "consumer_name"] = f"consumer-{next_n}"
-            next_n += 1
-
-        # Format latitude and longitude
-        df["latitude"] = df["latitude"].map(lambda x: f"{x:.6f}")
-        df["longitude"] = df["longitude"].map(lambda x: f"{x:.6f}")
-
-        # Handle optional 'parent' column
-        if "parent" in df.columns:
-            df["parent"] = df["parent"].replace("unknown", None)
-
-        if file_type == "db":
-            nodes, _ = Nodes.objects.get_or_create(project=project)
-            nodes.data = df.to_json(orient="records")  # Keep format structured
-            nodes.save()
-            return JsonResponse({"message": "Success"}, status=200)
-
-        # Handle file downloads
-        io_file = consumer_data_to_file(df, file_type)
-        response = StreamingHttpResponse(io_file)
-
-        if file_type == "xlsx":
-            response.headers["Content-Disposition"] = (
-                "attachment; filename=offgridplanner_consumers.xlsx"
-            )
-        elif file_type == "csv":
-            response.headers["Content-Disposition"] = (
-                "attachment; filename=offgridplanner_consumers.csv"
-            )
-        return response
-    else:
-        # TODO add implementation when proj_id is not given
-        msg = "Missing project ID"
-        raise ValueError(msg)
+    elif file_type == "csv":
+        response.headers["Content-Disposition"] = (
+            "attachment; filename=offgridplanner_consumers.csv"
+        )
+    return response
 
 
 @require_http_methods(["POST"])
