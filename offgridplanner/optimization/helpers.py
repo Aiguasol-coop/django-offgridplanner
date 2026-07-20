@@ -311,27 +311,76 @@ def consumer_data_to_formatted_excel(df):
         consumer_detail_col = df.columns.get_loc("consumer_detail")
         workbook = writer.book
         ws = writer.sheets["Sheet1"]
-        # hidden list sheet
-        list_ws = workbook.add_worksheet("_lists")
-        list_ws.hide()
+        options_ws = workbook.add_worksheet(str(_("Consumer Options")))
         validation_options = {
             "household": ["default"],
             "enterprise": [_(enterprise) for enterprise in ENTERPRISE_LIST],
             "public_service": [_(service) for service in PUBLIC_SERVICE_LIST],
         }
 
-        for col_idx, (name, values) in enumerate(validation_options.items()):
-            for row_idx, val in enumerate(values):
-                list_ws.write(row_idx, col_idx, str(val))
-            col_letter = chr(ord("A") + col_idx)
-            workbook.define_name(
-                name, f"=_lists!${col_letter}$1:${col_letter}${len(values)}"
-            )
-        validation_sheet_map = {
-            "household": "=household",
-            "enterprise": "=enterprise",
-            "public_service": "=public_service",
+        # Formats
+        header_fmt = workbook.add_format(
+            {"bold": True, "bg_color": "#D9E1F2", "border": 1}
+        )
+        cell_fmt = workbook.add_format({"border": 1})
+        title_fmt = workbook.add_format({"bold": True, "font_size": 12})
+        wrap_fmt = workbook.add_format(
+            {"text_wrap": True, "valign": "top", "border": 1, "bg_color": "#FFF2CC"}
+        )
+
+        # Column headers (row 0 = Excel row 1)
+        col_labels = {
+            "household": _("Household"),
+            "enterprise": _("Enterprise"),
+            "public_service": _("Public Service"),
         }
+        for col_idx, (_name, label) in enumerate(col_labels.items()):
+            options_ws.write(0, col_idx, str(label), header_fmt)
+            options_ws.set_column(col_idx, col_idx, 28)
+
+        # Values start at row 1 (Excel row 2)
+        for col_idx, (name, values) in enumerate(validation_options.items()):
+            for row_idx, val in enumerate(values, start=1):
+                options_ws.write(row_idx, col_idx, str(val), cell_fmt)
+            col_letter = chr(ord("A") + col_idx)
+            sheet_name = _("Consumer Options")
+            workbook.define_name(
+                name, f"='{sheet_name}'!${col_letter}$2:${col_letter}${len(values) + 1}"
+            )
+
+        # Explanation text box (column E)
+        warn_fmt = workbook.add_format(
+            {
+                "bold": True,
+                "font_color": "#CC0000",
+                "font_size": 11,
+                "text_wrap": True,
+                "valign": "top",
+                "border": 2,
+                "border_color": "#CC0000",
+            }
+        )
+        options_ws.write(0, 4, str(_("How to use this file")), title_fmt)
+        explanation = str(
+            _(
+                "This sheet lists the valid options for each consumer type.\n\n"
+                "Consumer Type column: select from the dropdown "
+                "'household', 'enterprise', or 'public_service'.\n\n"
+                "Consumer Detail column: the available options update automatically "
+                "when you change the Consumer Type. Use the dropdown to see valid choices."
+            )
+        )
+        options_ws.write(1, 4, explanation, wrap_fmt)
+        options_ws.set_row(1, 110)
+        warning = str(
+            _(
+                "WARNING: Do not edit or delete this sheet - the dropdowns in the data sheet depend on it."
+            )
+        )
+        options_ws.write(2, 4, warning, warn_fmt)
+        options_ws.set_row(2, 40)
+        options_ws.set_column(4, 4, 48)
+
         # Dynamic consumer_detail updates when consumer_type changes
         type_col_letter = xlsxwriter.utility.xl_col_to_name(consumer_type_col)
         ws.data_validation(
