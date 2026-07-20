@@ -5,6 +5,7 @@ import os
 import numpy as np
 import pandas as pd
 import pycountry
+import xlsxwriter.utility
 from country_bounding_boxes import country_subunits_by_iso_code
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
@@ -260,19 +261,21 @@ def check_imported_consumer_data(df, proj_id):
     convert_column_types(df, column_types)
     # Check geographic bounds
     check_geographic_bounds(df, proj_id)
-    df = df[
-        [
-            "latitude",
-            "longitude",
-            "how_added",
-            "node_type",
-            "consumer_type",
-            "custom_specification",
-            "shs_options",
-            "consumer_detail",
-            "is_connected",
-        ]
+    base_columns = [
+        "latitude",
+        "longitude",
+        "how_added",
+        "node_type",
+        "consumer_type",
+        "custom_specification",
+        "shs_options",
+        "consumer_detail",
+        "is_connected",
     ]
+    if "consumer_name" in df.columns:
+        df = df[["consumer_name", *base_columns]]
+    else:
+        df = df[base_columns]
 
     return df, ""
 
@@ -281,6 +284,7 @@ def consumer_data_to_file(df, file_type):
     if df.empty:
         df = pd.DataFrame(
             columns=[
+                "consumer_name",
                 "latitude",
                 "longitude",
                 "consumer_type",
@@ -291,7 +295,6 @@ def consumer_data_to_file(df, file_type):
         )
     else:
         df = df.drop(columns=["is_connected", "is_fixed", "how_added", "node_type"])
-        df = df.reset_index(names=["id"])
 
     if file_type == "xlsx":
         return consumer_data_to_formatted_excel(df)
@@ -308,27 +311,78 @@ def consumer_data_to_formatted_excel(df):
         consumer_detail_col = df.columns.get_loc("consumer_detail")
         workbook = writer.book
         ws = writer.sheets["Sheet1"]
-        # hidden list sheet
-        list_ws = workbook.add_worksheet("_lists")
-        list_ws.hide()
+        options_ws = workbook.add_worksheet(str(_("Options")))
         validation_options = {
             "household": ["default"],
             "enterprise": [_(enterprise) for enterprise in ENTERPRISE_LIST],
             "public_service": [_(service) for service in PUBLIC_SERVICE_LIST],
         }
 
-        for col_idx, (name, values) in enumerate(validation_options.items()):
-            for row_idx, val in enumerate(values):
-                list_ws.write(row_idx, col_idx, str(val))
-            col_letter = chr(ord("A") + col_idx)
-            workbook.define_name(
-                name, f"=_lists!${col_letter}$1:${col_letter}${len(values)}"
-            )
-        validation_sheet_map = {
-            "household": "=household",
-            "enterprise": "=enterprise",
-            "public_service": "=public_service",
+        # Formats
+        header_fmt = workbook.add_format(
+            {"bold": True, "bg_color": "#D9E1F2", "border": 1}
+        )
+        cell_fmt = workbook.add_format({"border": 1})
+        title_fmt = workbook.add_format({"bold": True, "font_size": 12})
+        wrap_fmt = workbook.add_format(
+            {"text_wrap": True, "valign": "top", "border": 1, "bg_color": "#FFF2CC"}
+        )
+
+        # Column headers (row 0 = Excel row 1)
+        col_labels = {
+            "household": _("Household"),
+            "enterprise": _("Enterprise"),
+            "public_service": _("Public Service"),
         }
+        for col_idx, (_name, label) in enumerate(col_labels.items()):
+            options_ws.write(0, col_idx, str(label), header_fmt)
+            options_ws.set_column(col_idx, col_idx, 28)
+
+        # Values start at row 1 (Excel row 2)
+        for col_idx, (name, values) in enumerate(validation_options.items()):
+            for row_idx, val in enumerate(values, start=1):
+                options_ws.write(row_idx, col_idx, str(val), cell_fmt)
+            col_letter = chr(ord("A") + col_idx)
+            sheet_name = _("Options")
+            workbook.define_name(
+                name, f"='{sheet_name}'!${col_letter}$2:${col_letter}${len(values) + 1}"
+            )
+
+        # Explanation text box (column E)
+        warn_fmt = workbook.add_format(
+            {
+                "bold": True,
+                "font_color": "#CC0000",
+                "font_size": 11,
+                "text_wrap": True,
+                "valign": "top",
+                "border": 2,
+                "border_color": "#CC0000",
+            }
+        )
+        options_ws.write(0, 4, str(_("How to use this file")), title_fmt)
+        explanation = str(
+            _(
+                "This sheet lists the valid options for each consumer type.\n\n"
+                "Consumer Type column: select from the dropdown "
+                "'household', 'enterprise', or 'public_service'.\n\n"
+                "Consumer Detail column: the available options update automatically "
+                "when you change the Consumer Type. Use the dropdown to see valid choices."
+            )
+        )
+        options_ws.write(1, 4, explanation, wrap_fmt)
+        options_ws.set_row(1, 110)
+        warning = str(
+            _(
+                "WARNING: Do not edit or delete this sheet - the dropdowns in the data sheet depend on it."
+            )
+        )
+        options_ws.write(2, 4, warning, warn_fmt)
+        options_ws.set_row(2, 40)
+        options_ws.set_column(4, 4, 48)
+
+        # Dynamic consumer_detail updates when consumer_type changes
+        type_col_letter = xlsxwriter.utility.xl_col_to_name(consumer_type_col)
         ws.data_validation(
             1,
             consumer_type_col,
@@ -336,18 +390,13 @@ def consumer_data_to_formatted_excel(df):
             consumer_type_col,
             {"validate": "list", "source": CONSUMER_TYPE_LIST},
         )
-        for row_idx, consumer_type in enumerate(df["consumer_type"], start=1):
-            allowed = validation_sheet_map.get(consumer_type)
-            ws.data_validation(
-                row_idx,
-                consumer_detail_col,
-                row_idx,
-                consumer_detail_col,
-                {
-                    "validate": "list",
-                    "source": allowed,
-                },
-            )
+        ws.data_validation(
+            1,
+            consumer_detail_col,
+            len(df) + 1,
+            consumer_detail_col,
+            {"validate": "list", "source": f"=INDIRECT({type_col_letter}2)"},
+        )
 
     output.seek(0)
     return output
