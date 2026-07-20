@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.5.1] – 2026-07-20
 ### Fixed
 - Fix error for missing consumer labels for existing projects ([#42](https://github.com/Aiguasol-coop/django-offgridplanner/pull/42))
 
