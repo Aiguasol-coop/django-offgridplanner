@@ -336,6 +336,7 @@ def consumer_to_db(request, proj_id=None):
 
         # Keep only relevant columns
         required_columns = [
+            "consumer_name",
             "latitude",
             "longitude",
             "how_added",
@@ -345,7 +346,7 @@ def consumer_to_db(request, proj_id=None):
             "shs_options",
             "consumer_detail",
         ]
-        df = df[required_columns]
+        df = df.reindex(columns=required_columns)
 
         # Fill missing values
         df["consumer_type"] = df["consumer_type"].fillna("household")
@@ -354,6 +355,21 @@ def consumer_to_db(request, proj_id=None):
         df["is_connected"] = True
         df["node_type"] = df["node_type"].astype(str)
         df["is_fixed"] = False
+
+        # Assign default consumer_name to consumer rows that are missing one
+        df["consumer_name"] = df["consumer_name"].fillna("").astype(str).str.strip()
+        consumer_mask = df["node_type"] == "consumer"
+        missing_name = consumer_mask & (df["consumer_name"] == "")
+        existing_nums = (
+            df.loc[consumer_mask, "consumer_name"]
+            .str.extract(r"^consumer-(\d+)$")[0]
+            .dropna()
+            .astype(int)
+        )
+        next_n = int(existing_nums.max()) + 1 if not existing_nums.empty else 1
+        for idx in df[missing_name].index:
+            df.loc[idx, "consumer_name"] = f"consumer-{next_n}"
+            next_n += 1
 
         # Format latitude and longitude
         df["latitude"] = df["latitude"].map(lambda x: f"{x:.6f}")

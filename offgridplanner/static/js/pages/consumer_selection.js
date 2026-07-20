@@ -147,7 +147,7 @@ function markerOnClick(e) {
                     .on('click', markerOnClick).addTo(map);
                 document.getElementById('longitude').value = marker.longitude;
                 document.getElementById('latitude').value = marker.latitude;
-                document.getElementById('consumer_id').innerHTML = marker.index ?? marker.label ?? '';
+                document.getElementById('consumer_id').innerHTML = marker.consumer_name ?? '';
                 if (marker.node_type === 'power-house') {
                     document.getElementById('consumer').value = '';
                     document.getElementById('consumer').disabled = true;

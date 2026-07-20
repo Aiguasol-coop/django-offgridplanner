@@ -260,19 +260,21 @@ def check_imported_consumer_data(df, proj_id):
     convert_column_types(df, column_types)
     # Check geographic bounds
     check_geographic_bounds(df, proj_id)
-    df = df[
-        [
-            "latitude",
-            "longitude",
-            "how_added",
-            "node_type",
-            "consumer_type",
-            "custom_specification",
-            "shs_options",
-            "consumer_detail",
-            "is_connected",
-        ]
+    base_columns = [
+        "latitude",
+        "longitude",
+        "how_added",
+        "node_type",
+        "consumer_type",
+        "custom_specification",
+        "shs_options",
+        "consumer_detail",
+        "is_connected",
     ]
+    if "consumer_name" in df.columns:
+        df = df["consumer_name", *base_columns]
+    else:
+        df = df[base_columns]
 
     return df, ""
 
@@ -281,6 +283,7 @@ def consumer_data_to_file(df, file_type):
     if df.empty:
         df = pd.DataFrame(
             columns=[
+                "consumer_name",
                 "latitude",
                 "longitude",
                 "consumer_type",
@@ -291,7 +294,6 @@ def consumer_data_to_file(df, file_type):
         )
     else:
         df = df.drop(columns=["is_connected", "is_fixed", "how_added", "node_type"])
-        df = df.reset_index(names=["id"])
 
     if file_type == "xlsx":
         return consumer_data_to_formatted_excel(df)
