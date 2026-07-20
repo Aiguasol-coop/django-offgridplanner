@@ -1469,3 +1469,26 @@ msgstr "Erro: O ficheiro importado deve ser um projeto previamente exportado no 
 
 msgid "Import Project"
 msgstr "Importar Projeto"
+
+msgid "Consumer Label"
+msgstr "Identificação do consumidor"
+
+msgid "Options"
+msgstr "Opções"
+
+msgid "This sheet lists the valid options for each consumer type.\n\n"
+                "Consumer Type column: select from the dropdown "
+                "'household', 'enterprise', or 'public_service'.\n\n"
+                "Consumer Detail column: the available options update automatically "
+                "when you change the Consumer Type. Use the dropdown to see valid choices."
+msgstr "Esta folha apresenta as opções válidas para cada tipo de consumidor.\n\n"
+                "Coluna Tipo de Consumidor: selecione na lista suspensa "
+                "'familiar', 'empresarial' ou 'serviço público'.\n\n"
+                "Coluna Detalhes do Consumidor: as opções disponíveis atualizam-se automaticamente "
+                "quando altera o Tipo de Consumidor. Utilize a lista suspensa para ver as opções válidas."
+
+msgid "WARNING: Do not edit or delete this sheet - the dropdowns in the data sheet depend on it."
+msgstr "AVISO: Não edite nem elimine esta folha - os menus suspensos da folha de dados dependem dela."
+
+msgid "How to use this file"
+msgstr "Como utilizar este ficheiro"
