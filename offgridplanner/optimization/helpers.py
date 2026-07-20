@@ -272,7 +272,7 @@ def check_imported_consumer_data(df, proj_id):
         "is_connected",
     ]
     if "consumer_name" in df.columns:
-        df = df["consumer_name", *base_columns]
+        df = df[["consumer_name", *base_columns]]
     else:
         df = df[base_columns]
 
