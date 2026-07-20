@@ -5,6 +5,7 @@ import os
 import numpy as np
 import pandas as pd
 import pycountry
+import xlsxwriter.utility
 from country_bounding_boxes import country_subunits_by_iso_code
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
@@ -331,6 +332,8 @@ def consumer_data_to_formatted_excel(df):
             "enterprise": "=enterprise",
             "public_service": "=public_service",
         }
+        # Dynamic consumer_detail updates when consumer_type changes
+        type_col_letter = xlsxwriter.utility.xl_col_to_name(consumer_type_col)
         ws.data_validation(
             1,
             consumer_type_col,
@@ -338,18 +341,13 @@ def consumer_data_to_formatted_excel(df):
             consumer_type_col,
             {"validate": "list", "source": CONSUMER_TYPE_LIST},
         )
-        for row_idx, consumer_type in enumerate(df["consumer_type"], start=1):
-            allowed = validation_sheet_map.get(consumer_type)
-            ws.data_validation(
-                row_idx,
-                consumer_detail_col,
-                row_idx,
-                consumer_detail_col,
-                {
-                    "validate": "list",
-                    "source": allowed,
-                },
-            )
+        ws.data_validation(
+            1,
+            consumer_detail_col,
+            len(df) + 1,
+            consumer_detail_col,
+            {"validate": "list", "source": f"=INDIRECT({type_col_letter}2)"},
+        )
 
     output.seek(0)
     return output
