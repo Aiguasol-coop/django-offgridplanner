@@ -155,6 +155,43 @@ def validate_column_inputs(input_values, column):
         raise ValidationError(error)
 
 
+def validate_consumer_type_consistency(df):
+    """Check that consumer_detail/custom_specification match the row's consumer_type.
+
+    validate_column_inputs only checks each column against the union of all
+    allowed values, so e.g. an enterprise detail value on a household row
+    would otherwise pass unnoticed.
+    """
+    allowed_detail_by_type = {
+        "household": {"", "default"},
+        "enterprise": set(ENTERPRISE_LIST),
+        "public_service": set(PUBLIC_SERVICE_LIST),
+    }
+    mismatched_detail = df[
+        ~df.apply(
+            lambda row: row["consumer_detail"]
+            in allowed_detail_by_type.get(row["consumer_type"], set()),
+            axis=1,
+        )
+    ]
+    if not mismatched_detail.empty:
+        error = (
+            "consumer_detail does not match the selected consumer_type for "
+            f"the following rows: {mismatched_detail[['consumer_type', 'consumer_detail']].to_dict('records')}"
+        )
+        raise ValidationError(error)
+
+    invalid_custom_spec = df[
+        (df["custom_specification"] != "") & (df["consumer_type"] != "enterprise")
+    ]
+    if not invalid_custom_spec.empty:
+        error = (
+            "custom_specification is only allowed for enterprise consumers: "
+            f"{invalid_custom_spec[['consumer_type', 'custom_specification']].to_dict('records')}"
+        )
+        raise ValidationError(error)
+
+
 def convert_column_types(df, column_types):
     for col, dtype in column_types.items():
         try:
@@ -269,6 +306,7 @@ def check_imported_consumer_data(df, proj_id):
             validate_column_inputs(processed_loads, col)
         else:
             validate_column_inputs(set(df[col]), col)
+    validate_consumer_type_consistency(df)
 
     # Convert column types
     column_types = {
