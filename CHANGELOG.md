@@ -1,6 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Add input field for consumer labels on consumer selection ([#43](https://github.com/Aiguasol-coop/django-offgridplanner/pull/43))
+
+### Fixed
+- Fix markers not saving before clicking away ([#43](https://github.com/Aiguasol-coop/django-offgridplanner/pull/43))
+- Add translated strings for consumer type in excel export ([#43](https://github.com/Aiguasol-coop/django-offgridplanner/pull/43))
 
 ## [v1.1.6-moz.5.1] – 2026-07-20
 ### Fixed
