@@ -18,7 +18,6 @@ from config.settings.base import LANGUAGES
 from offgridplanner.optimization.models import Results
 from offgridplanner.optimization.processing import GridProcessor
 from offgridplanner.optimization.processing import SupplyProcessor
-from offgridplanner.optimization.supply.demand_estimation import CONSUMER_TYPE_LIST
 from offgridplanner.optimization.supply.demand_estimation import ENTERPRISE_LIST
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_KW_MAPPING
 from offgridplanner.optimization.supply.demand_estimation import LARGE_LOAD_LIST
@@ -39,6 +38,25 @@ def _build_consumer_detail_reverse_map():
 
 
 CONSUMER_DETAIL_REVERSE_MAP = _build_consumer_detail_reverse_map()
+
+CONSUMER_TYPE_LABEL_KEYS = {
+    "household": "Household",
+    "enterprise": "Enterprise",
+    "public_service": "Public Service",
+}
+
+
+def _build_consumer_type_reverse_map():
+    reverse = {key: key for key in CONSUMER_TYPE_LABEL_KEYS}
+    reverse.update({label: key for key, label in CONSUMER_TYPE_LABEL_KEYS.items()})
+    for lang, _verbose in LANGUAGES:
+        with translation.override(lang):
+            for key, label in CONSUMER_TYPE_LABEL_KEYS.items():
+                reverse[str(_(label))] = key
+    return reverse
+
+
+CONSUMER_TYPE_REVERSE_MAP = _build_consumer_type_reverse_map()
 
 
 def df_to_file(df, file_type):
@@ -137,6 +155,43 @@ def validate_column_inputs(input_values, column):
         raise ValidationError(error)
 
 
+def validate_consumer_type_consistency(df):
+    """Check that consumer_detail/custom_specification match the row's consumer_type.
+
+    validate_column_inputs only checks each column against the union of all
+    allowed values, so e.g. an enterprise detail value on a household row
+    would otherwise pass unnoticed.
+    """
+    allowed_detail_by_type = {
+        "household": {"", "default"},
+        "enterprise": set(ENTERPRISE_LIST),
+        "public_service": set(PUBLIC_SERVICE_LIST),
+    }
+    mismatched_detail = df[
+        ~df.apply(
+            lambda row: row["consumer_detail"]
+            in allowed_detail_by_type.get(row["consumer_type"], set()),
+            axis=1,
+        )
+    ]
+    if not mismatched_detail.empty:
+        error = (
+            "consumer_detail does not match the selected consumer_type for "
+            f"the following rows: {mismatched_detail[['consumer_type', 'consumer_detail']].to_dict('records')}"
+        )
+        raise ValidationError(error)
+
+    invalid_custom_spec = df[
+        (df["custom_specification"] != "") & (df["consumer_type"] != "enterprise")
+    ]
+    if not invalid_custom_spec.empty:
+        error = (
+            "custom_specification is only allowed for enterprise consumers: "
+            f"{invalid_custom_spec[['consumer_type', 'custom_specification']].to_dict('records')}"
+        )
+        raise ValidationError(error)
+
+
 def convert_column_types(df, column_types):
     for col, dtype in column_types.items():
         try:
@@ -217,9 +272,12 @@ def check_imported_consumer_data(df, proj_id):
     }
     df = set_default_values(df, defaults)
     df["is_connected"], df["how_added"], df["node_type"] = True, "automatic", "consumer"
-    # Normalize translated consumer_detail values back to English keys
+    # Normalize translated values back to English keys
     df["consumer_detail"] = df["consumer_detail"].map(
         lambda x: CONSUMER_DETAIL_REVERSE_MAP.get(x, x)
+    )
+    df["consumer_type"] = df["consumer_type"].map(
+        lambda x: CONSUMER_TYPE_REVERSE_MAP.get(x, x)
     )
     # Validate column inputs
     for col in [
@@ -248,6 +306,7 @@ def check_imported_consumer_data(df, proj_id):
             validate_column_inputs(processed_loads, col)
         else:
             validate_column_inputs(set(df[col]), col)
+    validate_consumer_type_consistency(df)
 
     # Convert column types
     column_types = {
@@ -305,6 +364,18 @@ def consumer_data_to_formatted_excel(df):
     output = io.BytesIO()
     # Translate the existing consumer detail data to have export in portuguese
     df["consumer_detail"] = df["consumer_detail"].map(lambda x: _(x))
+
+    # Column headers (translated); reused below for the data column itself,
+    # the dropdown source and the named ranges the dependent dropdown needs.
+    consumer_type_labels = {
+        key: str(_(label)) for key, label in CONSUMER_TYPE_LABEL_KEYS.items()
+    }
+    # Translate the consumer_type data column too, so the value shown/selected
+    # in the dropdown matches the translated options below. Imports map it
+    # back to the canonical English key via CONSUMER_TYPE_REVERSE_MAP.
+    df["consumer_type"] = df["consumer_type"].map(
+        lambda x: consumer_type_labels.get(x, x)
+    )
     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
         df.to_excel(writer, index=False)
         consumer_type_col = df.columns.get_loc("consumer_type")
@@ -329,12 +400,7 @@ def consumer_data_to_formatted_excel(df):
         )
 
         # Column headers (row 0 = Excel row 1)
-        col_labels = {
-            "household": _("Household"),
-            "enterprise": _("Enterprise"),
-            "public_service": _("Public Service"),
-        }
-        for col_idx, (_name, label) in enumerate(col_labels.items()):
+        for col_idx, (_name, label) in enumerate(consumer_type_labels.items()):
             options_ws.write(0, col_idx, str(label), header_fmt)
             options_ws.set_column(col_idx, col_idx, 28)
 
@@ -344,8 +410,14 @@ def consumer_data_to_formatted_excel(df):
                 options_ws.write(row_idx, col_idx, str(val), cell_fmt)
             col_letter = chr(ord("A") + col_idx)
             sheet_name = _("Options")
+            # The named range must be keyed by the *translated* consumer_type
+            # label (spaces stripped, since Excel names can't contain them) -
+            # that's the literal text INDIRECT() below resolves against, since
+            # it's what actually ends up in the consumer_type cell.
+            range_name = consumer_type_labels[name].replace(" ", "_")
             workbook.define_name(
-                name, f"='{sheet_name}'!${col_letter}$2:${col_letter}${len(values) + 1}"
+                range_name,
+                f"='{sheet_name}'!${col_letter}$2:${col_letter}${len(values) + 1}",
             )
 
         # Explanation text box (column E)
@@ -388,14 +460,19 @@ def consumer_data_to_formatted_excel(df):
             consumer_type_col,
             len(df) + 1,
             consumer_type_col,
-            {"validate": "list", "source": CONSUMER_TYPE_LIST},
+            {"validate": "list", "source": list(consumer_type_labels.values())},
         )
         ws.data_validation(
             1,
             consumer_detail_col,
             len(df) + 1,
             consumer_detail_col,
-            {"validate": "list", "source": f"=INDIRECT({type_col_letter}2)"},
+            {
+                "validate": "list",
+                # Strip spaces to match the named ranges defined above, since
+                # the cell holds the translated consumer_type label rather than the raw English key
+                "source": f'=INDIRECT(SUBSTITUTE({type_col_letter}2," ","_"))',
+            },
         )
 
     output.seek(0)

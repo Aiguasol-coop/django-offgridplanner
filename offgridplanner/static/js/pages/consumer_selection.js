@@ -43,7 +43,8 @@ function autosave_consumers() {
         option_consumer += '<option value="' + consumer_code + '"' + selected + '>' + consumer_list[consumer_code] + '</option>';
     }
     document.getElementById('consumer').innerHTML = option_consumer;
-    document.getElementById('consumer_id').innerHTML = "";
+    document.getElementById('consumer_id').value = "";
+    document.getElementById('consumer_id').disabled = true;
 
     // Add event listener to the dropdown menu
     document.getElementById('consumer').addEventListener('change', function() {
@@ -93,7 +94,19 @@ document.getElementById('consumer').addEventListener('change', function () {
         dropDownMenu(public_service_list);
         deactivate_large_loads();
     }
+    commit_marker_edit();
 });
+
+// Commit whatever is currently in the form into the selected marker right
+// away, rather than only on the next marker click
+function commit_marker_edit() {
+    if (marker) {
+        update_map_elements();
+    }
+}
+document.getElementById('enterprise').addEventListener('change', commit_marker_edit);
+document.getElementById('shs_options').addEventListener('change', commit_marker_edit);
+document.getElementById('consumer_id').addEventListener('change', commit_marker_edit);
 document.getElementById('enterprise').disabled = true;
 document.getElementById('consumer').disabled = true;
 document.getElementById('enterprise').value = '';
@@ -129,7 +142,7 @@ function markerOnClick(e) {
     expandAccordionItem2();
     const index = map_elements.findIndex(obj => obj.latitude === e.latlng.lat && obj.longitude === e.latlng.lng);
     if (index >= 0) {
-        marker = map_elements.splice(index, 1)[0];
+        marker = map_elements[index];
         old_marker = JSON.parse(JSON.stringify(marker));
     }
     map.eachLayer(function (layer) {
@@ -147,7 +160,8 @@ function markerOnClick(e) {
                     .on('click', markerOnClick).addTo(map);
                 document.getElementById('longitude').value = marker.longitude;
                 document.getElementById('latitude').value = marker.latitude;
-                document.getElementById('consumer_id').innerHTML = marker.consumer_name ?? '';
+                document.getElementById('consumer_id').value = marker.consumer_name ?? '';
+                document.getElementById('consumer_id').disabled = marker.node_type === 'power-house';
                 if (marker.node_type === 'power-house') {
                     document.getElementById('consumer').value = '';
                     document.getElementById('consumer').disabled = true;
@@ -229,6 +243,7 @@ function update_map_elements() {
         marker.latitude = parseFloat(latitude);
         marker.shs_options = parseInt(shs_value);
         marker.custom_specification = large_load_string;
+        marker.consumer_name = document.getElementById('consumer_id').value.trim();
 
 
         let consumerValue = document.getElementById('consumer').value;
@@ -253,6 +268,7 @@ function update_map_elements() {
                 marker.node_type = 'power-house';
                 marker.consumer_type = '';
                 marker.consumer_detail = '';
+                marker.consumer_name = '';
                 selected_icon = markerPowerHouse;
                 break;
             default:
@@ -262,7 +278,6 @@ function update_map_elements() {
         if (marker.shs_options == 2) {
             selected_icon = markerShs;
         }
-        map_elements.push(marker);
 
         map.eachLayer(function (layer) {
             if (layer instanceof L.Marker) {
