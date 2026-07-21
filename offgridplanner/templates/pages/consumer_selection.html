@@ -50,8 +50,13 @@
                     data-bs-parent="#accordionExample"
                     id="collapseTwo">
                 <span class="accordion-body" style="border-bottom: none;">
-                  <div style="padding: 5px 5px 8px 5px; color: var(--ccb);">
-                    <strong>{% translate 'Consumer Label:' %}</strong>&nbsp;<a id="consumer_id"></a>
+                  <div style="padding: 5px 5px 8px 5px; color: var(--ccb); display: flex; align-items: center; gap: 6px;">
+                    <strong>{% translate 'Consumer Label:' %}</strong>
+                    <input class="form-control"
+                           disabled="true"
+                           id="consumer_id"
+                           style="max-width: 200px; display: inline-block;"
+                           type="text" />
                   </div>
                   <table style="border-top: none; color: var(--ccb); border-spacing: 0;">
                     <tr>
