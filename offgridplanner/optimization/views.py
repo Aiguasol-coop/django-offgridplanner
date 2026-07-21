@@ -10,6 +10,7 @@ import numpy as np
 # from jsonview.decorators import json_view
 import pandas as pd
 from django.core.exceptions import PermissionDenied
+from django.core.exceptions import ValidationError
 from django.forms import model_to_dict
 from django.http import HttpResponseBadRequest
 from django.http import JsonResponse
@@ -346,16 +347,17 @@ def consumer_to_db(request, proj_id):
         "shs_options",
         "consumer_detail",
     ]
+    consumer_name = df["consumer_name"] if "consumer_name" in df.columns else None
     df = df.reindex(columns=required_columns)
 
     # Fill missing values
+    df["consumer_name"] = consumer_name
     df["consumer_type"] = df["consumer_type"].fillna("household")
     df["custom_specification"] = df["custom_specification"].fillna("")
     df["shs_options"] = df["shs_options"].fillna(0)
     df["is_connected"] = True
     df["node_type"] = df["node_type"].astype(str)
     df["is_fixed"] = False
-    df["consumer_name"] = None
 
     # Assign default consumer_name to consumer rows that are missing one
     df["consumer_name"] = df["consumer_name"].fillna("").astype(str).str.strip()
@@ -386,7 +388,7 @@ def consumer_to_db(request, proj_id):
             updated_nodes = df
         else:
             # Keep pole data if exists (to avoid deleting poles on results display)
-            non_consumer_nodes = nodes.df[nodes.df.node_type != "consumer"][
+            non_consumer_nodes = nodes.df[~nodes.df.node_type.isin(["consumer", "power-house"])][
                 required_columns
             ]
             updated_nodes = pd.concat([df, non_consumer_nodes])
@@ -447,13 +449,13 @@ def roads_to_db(request, proj_id=None):
 @require_http_methods(["POST"])
 def file_nodes_to_js(request, proj_id):
     if "file" not in request.FILES:
-        return JsonResponse({"responseMsg": "No file uploaded."}, status=400)
+        return JsonResponse({"responseMsg": "No file uploaded."}, status=200)
 
     file = request.FILES["file"]
     is_valid, result = validate_file_extension(file.name)
 
     if not is_valid:
-        return JsonResponse({"responseMsg": result}, status=400)
+        return JsonResponse({"responseMsg": result}, status=200)
 
     file_extension = result
     df = convert_file_to_df(file, file_extension)
@@ -461,10 +463,10 @@ def file_nodes_to_js(request, proj_id):
     try:
         df, msg = check_imported_consumer_data(df, proj_id)
         if df is None and msg:
-            return JsonResponse({"responseMsg": msg}, status=400)
-    except ValueError as e:
+            return JsonResponse({"responseMsg": msg}, status=200)
+    except ValidationError as e:
         return JsonResponse(
-            {"responseMsg": f"Failed to validate data: {e!s}"}, status=400
+            {"responseMsg": f"Failed to validate data: {e!s}"}, status=200
         )
 
     return JsonResponse(
