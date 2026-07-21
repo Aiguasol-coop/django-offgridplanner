@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.6.0] – 2026-07-21
 ### Added
 - Add input field for consumer labels on consumer selection ([#43](https://github.com/Aiguasol-coop/django-offgridplanner/pull/43))
 
