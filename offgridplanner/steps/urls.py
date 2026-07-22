@@ -9,6 +9,11 @@ urlpatterns = [
     path("project_setup", project_setup, name="project_setup"),
     path("project_setup/<int:proj_id>", project_setup, name="project_setup"),
     path(
+        "autosave_project_setup",
+        autosave_project_setup,
+        name="autosave_project_setup",
+    ),
+    path(
         "autosave_project_setup/<int:proj_id>",
         autosave_project_setup,
         name="autosave_project_setup",
