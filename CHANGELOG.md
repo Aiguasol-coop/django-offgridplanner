@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [v1.1.6-moz.6.1] – 2026-07-22
 ### Fixed
 - Fix autosave server error for new projects ([#44](https://github.com/Aiguasol-coop/django-offgridplanner/pull/44))
 - Fix consumer import/export issues with column labels and power house selection ([#44](https://github.com/Aiguasol-coop/django-offgridplanner/pull/44))
