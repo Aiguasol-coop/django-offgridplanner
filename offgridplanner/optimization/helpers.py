@@ -269,6 +269,7 @@ def check_imported_consumer_data(df, proj_id):
         "consumer_type": "household",
         "custom_specification": "",
         "shs_options": 0,
+        "consumer_name": "",
     }
     df = set_default_values(df, defaults)
     df["is_connected"], df["how_added"], df["node_type"] = True, "automatic", "consumer"
