@@ -219,8 +219,6 @@ function drawMarker(latitude, longitude, type) {
 
 async function put_markers_on_map(array, markers_only) {
     const n = array.length;
-    let counter;
-    let selected_icon;
 
     // Initialize the counters
     let num_consumers = 0;
@@ -256,11 +254,11 @@ async function put_markers_on_map(array, markers_only) {
           else if (node.consumer_type === "enterprise") selectedIcon = markerEnterprise;
           else if (node.consumer_type === "public_service") selectedIcon = markerPublicservice;
         }
-      } else {
-        if (!markers_only) {
+      } else if (node.node_type === "power-house") {
+            selectedIcon = markerPowerHouse;
+      } else if (!markers_only) {
           selectedIcon = icons[node.node_type] || null;
         }
-      }
 
   // Only add if we actually chose an icon for this node
   if (selectedIcon) {
@@ -287,7 +285,6 @@ async function put_markers_on_map(array, markers_only) {
     }
     if (document.getElementById("n_enterprises")) {
         document.getElementById("n_enterprises").innerText = num_enterprises;
-    }
     if (document.getElementById("n_public_services")) {
         document.getElementById("n_public_services").innerText = num_public_services;
     }
