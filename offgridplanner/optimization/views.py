@@ -396,8 +396,7 @@ def consumer_to_db(request, proj_id):
         nodes.save()
         return JsonResponse({"message": "Success"}, status=200)
 
-    # Handle file downloads
-    io_file = consumer_data_to_file(df, file_type)
+    io_file = consumer_data_to_file(df[df["node_type"] == "consumer"], file_type)
     response = StreamingHttpResponse(io_file)
 
     if file_type == "xlsx":
@@ -446,8 +445,11 @@ def roads_to_db(request, proj_id=None):
     return JsonResponse({"error": "Project ID missing"}, status=400)
 
 
+@user_owns_project
 @require_http_methods(["POST"])
 def file_nodes_to_js(request, proj_id):
+    project = get_object_or_404(Project, id=proj_id)
+
     if "file" not in request.FILES:
         return JsonResponse({"responseMsg": "No file uploaded."}, status=200)
 
@@ -469,8 +471,18 @@ def file_nodes_to_js(request, proj_id):
             {"responseMsg": f"Failed to validate data: {e!s}"}, status=200
         )
 
+    nodes_qs = Nodes.objects.filter(project=project)
+    existing_df = nodes_qs.get().df if nodes_qs.exists() else pd.DataFrame()
+    is_load_center = True
+    if not existing_df.empty:
+        power_house = existing_df[existing_df["node_type"] == "power-house"]
+        if len(power_house.index) > 0 and power_house["how_added"].iloc[0] == "manual":
+            is_load_center = False
+            power_house = power_house.reindex(columns=df.columns)
+            df = pd.concat([df, power_house], ignore_index=True)
+
     return JsonResponse(
-        data={"is_load_center": False, "map_elements": df.to_dict("records")},
+        data={"is_load_center": is_load_center, "map_elements": df.to_dict("records")},
         status=200,
     )
 
