@@ -285,6 +285,7 @@ async function put_markers_on_map(array, markers_only) {
     }
     if (document.getElementById("n_enterprises")) {
         document.getElementById("n_enterprises").innerText = num_enterprises;
+    }
     if (document.getElementById("n_public_services")) {
         document.getElementById("n_public_services").innerText = num_public_services;
     }
