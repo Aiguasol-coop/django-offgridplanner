@@ -497,9 +497,15 @@ def _autosave(request, form_class, instance, **form_kwargs):
 
 
 def _save_project_setup(user, proj_id, form_data):
-    project = get_object_or_404(Project, id=proj_id) if proj_id else None
-    form = ProjectForm(form_data, instance=project)
-    opts_form = OptionForm(form_data, instance=project.options if project else None)
+    project = (
+        get_object_or_404(Project, id=proj_id) if proj_id is not None else None
+    )
+    if project is not None:
+        form = ProjectForm(form_data, instance=project)
+        opts_form = OptionForm(form_data, instance=project.options)
+    else:
+        form = ProjectForm(form_data, initial=get_param_from_metadata("default", "Project"))
+        opts_form = OptionForm(form_data)
     success = True
     if form.is_valid() and opts_form.is_valid():
         try:
